@@ -1,0 +1,41 @@
+<?xml version='1.0' encoding='UTF-8'?><!-- Published by JAX-WS RI at http://jax-ws.dev.java.net. RI's version is JAX-WS RI 2.2-hudson-740-. --><xs:schema xmlns:tns="http://externo.develcom.com/" xmlns:xs="http://www.w3.org/2001/XMLSchema" version="1.0" targetNamespace="http://externo.develcom.com/">
+
+<xs:element name="buscarDatosExternos" type="tns:buscarDatosExternos" />
+
+<xs:element name="buscarDatosExternosResponse" type="tns:buscarDatosExternosResponse" />
+
+<xs:complexType name="buscarDatosExternos">
+<xs:sequence>
+<xs:element name="cedula" type="xs:string" minOccurs="0" />
+<xs:element name="idCategoria" type="xs:int" />
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="buscarDatosExternosResponse">
+<xs:sequence>
+<xs:element name="return" type="tns:indice" minOccurs="0" maxOccurs="unbounded" />
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="indice">
+<xs:complexContent>
+<xs:extension base="tns:indices">
+<xs:sequence>
+<xs:element name="updateIndices" type="xs:boolean" />
+<xs:element name="valor" type="xs:anyType" minOccurs="0" />
+</xs:sequence>
+</xs:extension>
+</xs:complexContent>
+</xs:complexType>
+
+<xs:complexType name="indices">
+<xs:sequence>
+<xs:element name="clave" type="xs:string" minOccurs="0" />
+<xs:element name="codigo" type="xs:int" />
+<xs:element name="idCategoria" type="xs:int" />
+<xs:element name="idIndice" type="xs:int" />
+<xs:element name="indice" type="xs:string" minOccurs="0" />
+<xs:element name="tipo" type="xs:string" minOccurs="0" />
+</xs:sequence>
+</xs:complexType>
+</xs:schema>

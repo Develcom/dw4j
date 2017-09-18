@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="UTF-8"?><!--
+        *** GENERATED FROM jax-ws.xml - DO NOT EDIT !                             ***
+        *** TO MODIFY wsimport options USE Web Service node -> Edit WS Attributes ***
+        *** TO CHANGE TARGETS GENERATED TO jaxws-build.xml COPY THOSE             ***
+        *** TARGETS TO ../build.xml AND MODIFY THAT FILE INSTEAD                  ***
+
+        --><project xmlns:xalan="http://xml.apache.org/xslt" xmlns:j2seproject3="http://www.netbeans.org/ns/j2se-project/3" xmlns:jaxws="http://www.netbeans.org/ns/jax-ws/1">
+    <!--
+                ===================
+                JAX-WS WSIMPORT SECTION
+                ===================
+            -->
+    <target name="wsimport-init" depends="init">
+        <mkdir dir="${build.generated.sources.dir}/jax-ws"/>
+        <taskdef name="wsimport" classname="com.sun.tools.ws.ant.WsImport">
+            <classpath path="${libs.jaxws21.classpath}"/>
+        </taskdef>
+    </target>
+    <target name="wsimport-client-Foliatura" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/Foliatura"/>
+        <property name="wsdl-Foliatura" location="xml-resources/web-service-references/Foliatura/wsdl/localhost_8080/DW4JServicios/Foliatura.wsdl"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/Foliatura" destdir="${build.generated.dir}/jax-wsCache/Foliatura" wsdl="${wsdl-Foliatura}" catalog="catalog.xml" encoding="${source.encoding}" extension="true" verbose="true" fork="false" wsdlLocation="http://localhost:8080/DW4JServicios/Foliatura?wsdl" xnocompile="true" xendorsed="true">
+            <depends file="${wsdl-Foliatura}"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/Foliatura"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/Foliatura">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
+    </target>
+    <target name="wsimport-client-clean-Foliatura" depends="-init-project">
+        <delete dir="${build.generated.dir}/jax-wsCache/Foliatura"/>
+        <delete dir="${build.generated.sources.dir}/jax-ws/com/develcom/foliatura"/>
+    </target>
+    <target name="wsimport-client-AdministracionAgregar" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/AdministracionAgregar"/>
+        <property name="wsdl-AdministracionAgregar" location="xml-resources/web-service-references/AdministracionAgregar/wsdl/localhost_8080/DW4JServicios/AdministracionAgregar.wsdl"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/AdministracionAgregar" destdir="${build.generated.dir}/jax-wsCache/AdministracionAgregar" wsdl="${wsdl-AdministracionAgregar}" catalog="catalog.xml" encoding="${source.encoding}" extension="true" verbose="true" fork="false" wsdlLocation="http://localhost:8080/DW4JServicios/AdministracionAgregar?wsdl" xnocompile="true" xendorsed="true">
+            <depends file="${wsdl-AdministracionAgregar}"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/AdministracionAgregar"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/AdministracionAgregar">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
+    </target>
+    <target name="wsimport-client-clean-AdministracionAgregar" depends="-init-project">
+        <delete dir="${build.generated.dir}/jax-wsCache/AdministracionAgregar"/>
+        <delete dir="${build.generated.sources.dir}/jax-ws/com/develcom/administracion"/>
+    </target>
+    <target name="wsimport-client-AdministracionModifica" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/AdministracionModifica"/>
+        <property name="wsdl-AdministracionModifica" location="xml-resources/web-service-references/AdministracionModifica/wsdl/localhost_8080/DW4JServicios/AdministracionModifica.wsdl"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/AdministracionModifica" destdir="${build.generated.dir}/jax-wsCache/AdministracionModifica" wsdl="${wsdl-AdministracionModifica}" catalog="catalog.xml" encoding="${source.encoding}" extension="true" verbose="true" fork="false" wsdlLocation="http://localhost:8080/DW4JServicios/AdministracionModifica?wsdl" xnocompile="true" xendorsed="true">
+            <depends file="${wsdl-AdministracionModifica}"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/AdministracionModifica"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/AdministracionModifica">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
+    </target>
+    <target name="wsimport-client-clean-AdministracionModifica" depends="-init-project">
+        <delete dir="${build.generated.dir}/jax-wsCache/AdministracionModifica"/>
+        <delete dir="${build.generated.sources.dir}/jax-ws/com/develcom/administracion"/>
+    </target>
+    <target name="wsimport-client-Autentica" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/Autentica"/>
+        <property name="wsdl-Autentica" location="xml-resources/web-service-references/Autentica/wsdl/localhost_8080/DW4JServicios/Autentica.wsdl"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/Autentica" destdir="${build.generated.dir}/jax-wsCache/Autentica" wsdl="${wsdl-Autentica}" catalog="catalog.xml" encoding="${source.encoding}" extension="true" verbose="true" fork="false" wsdlLocation="http://localhost:8080/DW4JServicios/Autentica?wsdl" xnocompile="true" xendorsed="true">
+            <depends file="${wsdl-Autentica}"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/Autentica"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/Autentica">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
+    </target>
+    <target name="wsimport-client-clean-Autentica" depends="-init-project">
+        <delete dir="${build.generated.dir}/jax-wsCache/Autentica"/>
+        <delete dir="${build.generated.sources.dir}/jax-ws/com/develcom/autentica"/>
+    </target>
+    <target name="wsimport-client-IndicesExpediente" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/IndicesExpediente"/>
+        <property name="wsdl-IndicesExpediente" location="xml-resources/web-service-references/IndicesExpediente/wsdl/localhost_8080/DW4JServicios/IndicesExpediente.wsdl"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/IndicesExpediente" destdir="${build.generated.dir}/jax-wsCache/IndicesExpediente" wsdl="${wsdl-IndicesExpediente}" catalog="catalog.xml" encoding="${source.encoding}" extension="true" verbose="true" fork="false" wsdlLocation="http://localhost:8080/DW4JServicios/IndicesExpediente?wsdl" xnocompile="true" xendorsed="true">
+            <depends file="${wsdl-IndicesExpediente}"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/IndicesExpediente"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/IndicesExpediente">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
+    </target>
+    <target name="wsimport-client-clean-IndicesExpediente" depends="-init-project">
+        <delete dir="${build.generated.dir}/jax-wsCache/IndicesExpediente"/>
+        <delete dir="${build.generated.sources.dir}/jax-ws/com/develcom/expediente"/>
+    </target>
+    <target name="wsimport-client-AdministracionBusquedas" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/AdministracionBusquedas"/>
+        <property name="wsdl-AdministracionBusquedas" location="xml-resources/web-service-references/AdministracionBusquedas/wsdl/localhost_8080/DW4JServicios/AdministracionBusquedas.wsdl"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/AdministracionBusquedas" destdir="${build.generated.dir}/jax-wsCache/AdministracionBusquedas" wsdl="${wsdl-AdministracionBusquedas}" catalog="catalog.xml" encoding="${source.encoding}" extension="true" verbose="true" fork="false" wsdlLocation="http://localhost:8080/DW4JServicios/AdministracionBusquedas?wsdl" xnocompile="true" xendorsed="true">
+            <depends file="${wsdl-AdministracionBusquedas}"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/AdministracionBusquedas"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/AdministracionBusquedas">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
+    </target>
+    <target name="wsimport-client-clean-AdministracionBusquedas" depends="-init-project">
+        <delete dir="${build.generated.dir}/jax-wsCache/AdministracionBusquedas"/>
+        <delete dir="${build.generated.sources.dir}/jax-ws/com/develcom/administracion"/>
+    </target>
+    <target name="wsimport-client-BusquedaExpediente" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/BusquedaExpediente"/>
+        <property name="wsdl-BusquedaExpediente" location="xml-resources/web-service-references/BusquedaExpediente/wsdl/localhost_8080/DW4JServicios/BusquedaExpediente.wsdl"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/BusquedaExpediente" destdir="${build.generated.dir}/jax-wsCache/BusquedaExpediente" wsdl="${wsdl-BusquedaExpediente}" catalog="catalog.xml" encoding="${source.encoding}" extension="true" verbose="true" fork="false" wsdlLocation="http://localhost:8080/DW4JServicios/BusquedaExpediente?wsdl" xnocompile="true" xendorsed="true">
+            <depends file="${wsdl-BusquedaExpediente}"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/BusquedaExpediente"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/BusquedaExpediente">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
+    </target>
+    <target name="wsimport-client-clean-BusquedaExpediente" depends="-init-project">
+        <delete dir="${build.generated.dir}/jax-wsCache/BusquedaExpediente"/>
+        <delete dir="${build.generated.sources.dir}/jax-ws/com/develcom/expediente"/>
+    </target>
+    <target name="wsimport-client-Archivo" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/Archivo"/>
+        <property name="wsdl-Archivo" location="xml-resources/web-service-references/Archivo/wsdl/localhost_8080/DW4JServicios/Archivo.wsdl"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/Archivo" destdir="${build.generated.dir}/jax-wsCache/Archivo" wsdl="${wsdl-Archivo}" catalog="catalog.xml" encoding="${source.encoding}" extension="true" verbose="true" fork="false" wsdlLocation="http://localhost:8080/DW4JServicios/Archivo?wsdl" xnocompile="true" xendorsed="true">
+            <depends file="${wsdl-Archivo}"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/Archivo"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/Archivo">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
+    </target>
+    <target name="wsimport-client-clean-Archivo" depends="-init-project">
+        <delete dir="${build.generated.dir}/jax-wsCache/Archivo"/>
+        <delete dir="${build.generated.sources.dir}/jax-ws/com/develcom/documento"/>
+    </target>
+    <target name="wsimport-client-Documento" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/Documento"/>
+        <property name="wsdl-Documento" location="xml-resources/web-service-references/Documento/wsdl/localhost_8080/DW4JServicios/Documento.wsdl"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/Documento" destdir="${build.generated.dir}/jax-wsCache/Documento" wsdl="${wsdl-Documento}" catalog="catalog.xml" encoding="${source.encoding}" extension="true" verbose="true" fork="false" wsdlLocation="http://localhost:8080/DW4JServicios/Documento?wsdl" xnocompile="true" xendorsed="true">
+            <depends file="${wsdl-Documento}"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/Documento"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/Documento">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
+    </target>
+    <target name="wsimport-client-clean-Documento" depends="-init-project">
+        <delete dir="${build.generated.dir}/jax-wsCache/Documento"/>
+        <delete dir="${build.generated.sources.dir}/jax-ws/com/develcom/documento"/>
+    </target>
+    <target name="wsimport-client-CalidadDocumento" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/CalidadDocumento"/>
+        <property name="wsdl-CalidadDocumento" location="xml-resources/web-service-references/CalidadDocumento/wsdl/localhost_8080/DW4JServicios/CalidadDocumento.wsdl"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/CalidadDocumento" destdir="${build.generated.dir}/jax-wsCache/CalidadDocumento" wsdl="${wsdl-CalidadDocumento}" catalog="catalog.xml" encoding="${source.encoding}" extension="true" verbose="true" fork="false" wsdlLocation="http://localhost:8080/DW4JServicios/CalidadDocumento?wsdl" xnocompile="true" xendorsed="true">
+            <depends file="${wsdl-CalidadDocumento}"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/CalidadDocumento"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/CalidadDocumento">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
+    </target>
+    <target name="wsimport-client-clean-CalidadDocumento" depends="-init-project">
+        <delete dir="${build.generated.dir}/jax-wsCache/CalidadDocumento"/>
+        <delete dir="${build.generated.sources.dir}/jax-ws/com/develcom/calidad"/>
+    </target>
+    <target name="wsimport-client-Expediente" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/Expediente"/>
+        <property name="wsdl-Expediente" location="xml-resources/web-service-references/Expediente/wsdl/localhost_8080/DW4JServicios/Expediente.wsdl"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/Expediente" destdir="${build.generated.dir}/jax-wsCache/Expediente" wsdl="${wsdl-Expediente}" catalog="catalog.xml" encoding="${source.encoding}" extension="true" verbose="true" fork="false" wsdlLocation="http://localhost:8080/DW4JServicios/Expediente?wsdl" xnocompile="true" xendorsed="true">
+            <depends file="${wsdl-Expediente}"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/Expediente"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/Expediente">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
+    </target>
+    <target name="wsimport-client-clean-Expediente" depends="-init-project">
+        <delete dir="${build.generated.dir}/jax-wsCache/Expediente"/>
+        <delete dir="${build.generated.sources.dir}/jax-ws/com/develcom/expediente"/>
+    </target>
+    <target name="wsimport-client-EliminaDocumento" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/EliminaDocumento"/>
+        <property name="wsdl-EliminaDocumento" location="xml-resources/web-service-references/EliminaDocumento/wsdl/localhost_8080/DW4JServicios/EliminaDocumento.wsdl"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/EliminaDocumento" destdir="${build.generated.dir}/jax-wsCache/EliminaDocumento" wsdl="${wsdl-EliminaDocumento}" catalog="catalog.xml" encoding="${source.encoding}" extension="true" verbose="true" fork="false" wsdlLocation="http://localhost:8080/DW4JServicios/EliminaDocumento?wsdl" xnocompile="true" xendorsed="true">
+            <depends file="${wsdl-EliminaDocumento}"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/EliminaDocumento"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/EliminaDocumento">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
+    </target>
+    <target name="wsimport-client-clean-EliminaDocumento" depends="-init-project">
+        <delete dir="${build.generated.dir}/jax-wsCache/EliminaDocumento"/>
+        <delete dir="${build.generated.sources.dir}/jax-ws/com/develcom/elimina"/>
+    </target>
+    <target name="wsimport-client-Mantenimientos" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/Mantenimientos"/>
+        <property name="wsdl-Mantenimientos" location="xml-resources/web-service-references/Mantenimientos/wsdl/localhost_8080/DW4JServicios/Mantenimientos.wsdl"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/Mantenimientos" destdir="${build.generated.dir}/jax-wsCache/Mantenimientos" wsdl="${wsdl-Mantenimientos}" catalog="catalog.xml" encoding="${source.encoding}" extension="true" verbose="true" fork="false" wsdlLocation="http://localhost:8080/DW4JServicios/Mantenimientos?wsdl" xnocompile="true" xendorsed="true">
+            <depends file="${wsdl-Mantenimientos}"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/Mantenimientos"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/Mantenimientos">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
+    </target>
+    <target name="wsimport-client-clean-Mantenimientos" depends="-init-project">
+        <delete dir="${build.generated.dir}/jax-wsCache/Mantenimientos"/>
+        <delete dir="${build.generated.sources.dir}/jax-ws/com/develcom/mantenimiento"/>
+    </target>
+    <target name="wsimport-client-DatosExternos" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/DatosExternos"/>
+        <property name="wsdl-DatosExternos" location="xml-resources/web-service-references/DatosExternos/wsdl/localhost_8080/DW4JServicios/DatosExternos.wsdl"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/DatosExternos" destdir="${build.generated.dir}/jax-wsCache/DatosExternos" wsdl="${wsdl-DatosExternos}" catalog="catalog.xml" encoding="${source.encoding}" extension="true" verbose="true" fork="false" wsdlLocation="http://localhost:8080/DW4JServicios/DatosExternos?wsdl" xnocompile="true" xendorsed="true">
+            <depends file="${wsdl-DatosExternos}"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/DatosExternos"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/DatosExternos">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
+    </target>
+    <target name="wsimport-client-clean-DatosExternos" depends="-init-project">
+        <delete dir="${build.generated.dir}/jax-wsCache/DatosExternos"/>
+        <delete dir="${build.generated.sources.dir}/jax-ws/com/develcom/externo"/>
+    </target>
+    <target name="wsimport-client-generate" depends="wsimport-client-Foliatura, wsimport-client-AdministracionAgregar, wsimport-client-AdministracionModifica, wsimport-client-Autentica, wsimport-client-IndicesExpediente, wsimport-client-AdministracionBusquedas, wsimport-client-BusquedaExpediente, wsimport-client-Archivo, wsimport-client-Documento, wsimport-client-CalidadDocumento, wsimport-client-Expediente, wsimport-client-EliminaDocumento, wsimport-client-Mantenimientos, wsimport-client-DatosExternos"/>
+</project>

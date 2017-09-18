@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="CantDocIndexados" pageWidth="612" pageHeight="792" whenNoDataType="AllSectionsNoDetail" columnWidth="572" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="d1a5bd42-8097-4b58-ba7c-2280cc50e193">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="idLib" class="java.lang.Integer"/>
+	<parameter name="idCat" class="java.lang.Integer"/>
+	<parameter name="mesAnio" class="java.lang.String"/>
+	<parameter name="mesAnioTitulo" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[select
+     to_number(to_char((sum(i.paginas)*100)/tt.total::float, '999.99'), '999.99') as porcentaje,
+     sum(i.paginas) as cantidad,
+     d.usuario_digitalizo as usuario,
+     l.libreria,
+     c.categoria
+from
+     (select sum(paginas) as total 
+          from infodocumento i
+          inner join datos_infodocumento di on di.id_infodocumento=i.id_infodocumento
+          inner join tipodocumento d on i.id_documento=d.id_documento
+          inner join categoria c on d.id_categoria=c.id_categoria
+          inner join libreria l on c.id_libreria=l.id_libreria
+          where l.id_libreria=$P{idLib} and
+		c.id_categoria=$P{idCat} and
+		to_char(di.fecha_digitalizacion, 'yyyymm') = $P{mesAnio}) tt,
+     tipodocumento t
+     inner join infodocumento i on t.id_documento = i.id_documento
+     inner join datos_infodocumento d on d.id_infodocumento=i.id_infodocumento
+     inner join categoria c on t.id_categoria = c.id_categoria
+     inner join libreria l on c.id_libreria = l.id_libreria
+where
+     l.id_libreria=$P{idLib} and
+     c.id_categoria=$P{idCat} and
+     to_char(d.fecha_digitalizacion, 'yyyymm') = $P{mesAnio}
+
+group by total, d.usuario_digitalizo, l.libreria, c.categoria
+order by
+     d.usuario_digitalizo asc]]>
+	</queryString>
+	<field name="porcentaje" class="java.math.BigDecimal"/>
+	<field name="cantidad" class="java.lang.Long"/>
+	<field name="usuario" class="java.lang.String"/>
+	<field name="libreria" class="java.lang.String"/>
+	<field name="categoria" class="java.lang.String"/>
+	<variable name="total_suma" class="java.lang.Long" calculation="Sum">
+		<variableExpression><![CDATA[$F{cantidad}]]></variableExpression>
+	</variable>
+	<variable name="porcentaje" class="java.lang.Float" incrementType="Column" calculation="Average">
+		<variableExpression><![CDATA[$F{cantidad}]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="28" splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="115" splitType="Stretch">
+			<staticText>
+				<reportElement x="133" y="0" width="272" height="53" uuid="9d9cb176-a641-407f-94ff-440871d6389b"/>
+				<textElement>
+					<font size="20" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Cantidad de Documentos Indexados por Indexador]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="75" width="72" height="20" uuid="90d1fa3d-59f3-4225-9ca4-2119431b524c"/>
+				<textElement textAlignment="Left">
+					<font size="13"/>
+				</textElement>
+				<text><![CDATA[Libreria:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="95" width="72" height="20" uuid="9fe7fb24-856e-47ae-a11b-a3180b56866e"/>
+				<textElement textAlignment="Left">
+					<font size="13"/>
+				</textElement>
+				<text><![CDATA[Categoria:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="72" y="75" width="338" height="20" uuid="93170961-4812-473d-9402-1a7d9517792c"/>
+				<textElement>
+					<font size="13"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{libreria}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="72" y="95" width="338" height="20" uuid="1e0b849f-b514-460e-9313-fc027cdfb1d7"/>
+				<textElement>
+					<font size="13"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{categoria}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="435" y="0" width="80" height="20" uuid="c1f8c931-86d4-41b4-a8eb-4b26fb4f4608"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="515" y="0" width="40" height="20" uuid="75574d87-597f-493d-a6c8-47198aab71de"/>
+				<textFieldExpression><![CDATA[" / " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="455" y="75" width="100" height="20" uuid="7cdf1cb5-c269-4e2e-bf44-faf6c70d0b78"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Mes / Año]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="455" y="95" width="100" height="20" uuid="aee5f32f-e504-4802-bb97-e5ff17816c1d"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{mesAnioTitulo}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<summary>
+		<band height="366" splitType="Stretch">
+			<pieChart>
+				<chart isShowLegend="true">
+					<reportElement x="0" y="0" width="572" height="366" uuid="8da509b9-6cce-4064-985c-1da1032e1b5a"/>
+					<chartTitle/>
+					<chartSubtitle/>
+					<chartLegend position="Bottom"/>
+				</chart>
+				<pieDataset>
+					<keyExpression><![CDATA[$F{usuario}+"-"+$F{cantidad}]]></keyExpression>
+					<valueExpression><![CDATA[$F{cantidad}]]></valueExpression>
+					<labelExpression><![CDATA[$F{porcentaje}+"%"]]></labelExpression>
+				</pieDataset>
+				<piePlot isShowLabels="true" isCircular="true">
+					<plot/>
+					<itemLabel/>
+				</piePlot>
+			</pieChart>
+		</band>
+	</summary>
+</jasperReport>

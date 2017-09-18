@@ -1,0 +1,353 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="792" pageHeight="612" orientation="Landscape" whenNoDataType="AllSectionsNoDetail" columnWidth="722" leftMargin="50" rightMargin="20" topMargin="20" bottomMargin="20" uuid="b29c5c2d-6ca0-497f-b655-a468c6493fe9">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="usuarios" class="java.lang.String">
+		<parameterDescription><![CDATA[]]></parameterDescription>
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="fechaDesde" class="java.util.Date">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="fechaHasta" class="java.util.Date">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select
+      to_char(current_date,'dd/mm/yyyy') as fecha,
+      di.usuario_digitalizo,
+      i.id_expediente,
+      l.libreria,
+      c.categoria,
+      s.subcategoria,
+      d.tipo_documento,
+      sum(i.paginas) as total_paginas,
+      total_general
+from
+     infodocumento i
+     inner join datos_infodocumento di on di.id_infodocumento=i.id_infodocumento
+     inner join usuario u on u.id_usuario = di.usuario_digitalizo
+     inner join tipodocumento d on d.id_documento = i.id_documento
+     inner join subcategoria s on s.id_subcategoria=d.id_subcategoria
+     inner join categoria c on d.id_categoria = c.id_categoria
+     inner join libreria l on c.id_libreria = l.id_libreria
+
+     ,(select sum(i.paginas) as total_general from
+            infodocumento i
+            inner join datos_infodocumento di on di.id_infodocumento=i.id_infodocumento
+            inner join usuario u on u.id_usuario = di.usuario_digitalizo
+            inner join tipodocumento d on d.id_documento = i.id_documento
+            inner join subcategoria s on s.id_subcategoria=d.id_subcategoria
+            inner join categoria c on d.id_categoria = c.id_categoria
+            inner join libreria l on c.id_libreria = l.id_libreria      
+        where di.usuario_digitalizo in ($P!{usuarios})
+           and di.fecha_digitalizacion between $P{fechaDesde} and $P{fechaHasta}) total_general
+
+where di.usuario_digitalizo in ($P!{usuarios})
+      and di.fecha_digitalizacion between $P{fechaDesde} and $P{fechaHasta}
+group by di.usuario_digitalizo,
+         i.id_expediente,
+         libreria,
+         categoria,
+         subcategoria,
+         d.tipo_documento,
+         total_general
+order by di.usuario_digitalizo,
+         i.id_expediente,
+         c.categoria,
+         s.subcategoria,
+         d.tipo_documento asc]]>
+	</queryString>
+	<field name="fecha" class="java.lang.String"/>
+	<field name="usuario_digitalizo" class="java.lang.String"/>
+	<field name="id_expediente" class="java.lang.String"/>
+	<field name="libreria" class="java.lang.String"/>
+	<field name="categoria" class="java.lang.String"/>
+	<field name="subcategoria" class="java.lang.String"/>
+	<field name="tipo_documento" class="java.lang.String"/>
+	<field name="total_paginas" class="java.lang.Long"/>
+	<field name="total_general" class="java.lang.Long"/>
+	<variable name="sumaTotal" class="java.lang.Long" incrementType="Group" incrementGroup="suma_total" calculation="Sum">
+		<variableExpression><![CDATA[$V{sumaTotal}]]></variableExpression>
+	</variable>
+	<variable name="total_paginas_1" class="java.lang.Long" resetType="Group" resetGroup="expedientes" calculation="Sum">
+		<variableExpression><![CDATA[$F{total_paginas}]]></variableExpression>
+	</variable>
+	<variable name="total_paginas_2" class="java.lang.Long" resetType="Group" resetGroup="usuario" calculation="Sum">
+		<variableExpression><![CDATA[$F{total_paginas}]]></variableExpression>
+	</variable>
+	<variable name="total_paginas_3" class="java.lang.Long" resetType="Column" calculation="Sum">
+		<variableExpression><![CDATA[$F{total_paginas}]]></variableExpression>
+	</variable>
+	<variable name="total_paginas_4" class="java.lang.Long" resetType="Page" calculation="Sum">
+		<variableExpression><![CDATA[$F{total_paginas}]]></variableExpression>
+	</variable>
+	<group name="usuario">
+		<groupExpression><![CDATA[$F{usuario_digitalizo}]]></groupExpression>
+		<groupHeader>
+			<band height="24">
+				<rectangle>
+					<reportElement x="0" y="0" width="722" height="20" backcolor="#33CCFF" uuid="7c5dbc2f-ec47-4837-bf78-7417bfa915ed"/>
+				</rectangle>
+				<textField>
+					<reportElement x="2" y="0" width="100" height="20" uuid="93b5612e-b7ec-4807-8d34-bd7401fdc7af"/>
+					<textElement textAlignment="Center">
+						<font size="11" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{usuario_digitalizo}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="24">
+				<textField>
+					<reportElement x="622" y="1" width="100" height="20" uuid="6fcea56b-84ef-4a40-b1cd-bad4c3e8b134"/>
+					<textElement textAlignment="Center">
+						<font size="11" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{total_paginas_2}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="522" y="1" width="100" height="20" uuid="059cacf5-ec45-4b60-83d1-702adfbc46ee"/>
+					<textElement>
+						<font size="11" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{usuario_digitalizo}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="358" y="1" width="164" height="20" uuid="59510d4e-1330-4992-873a-113d4a0d86c4"/>
+					<textElement>
+						<font size="11" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Total paginas del Indexador]]></text>
+				</staticText>
+				<line>
+					<reportElement x="358" y="0" width="364" height="1" uuid="b7af3716-a133-43f2-8cc1-475406c89b79"/>
+					<graphicElement>
+						<pen lineWidth="2.0"/>
+					</graphicElement>
+				</line>
+			</band>
+		</groupFooter>
+	</group>
+	<group name="expedientes">
+		<groupExpression><![CDATA[$F{id_expediente}]]></groupExpression>
+		<groupHeader>
+			<band height="20">
+				<rectangle>
+					<reportElement x="71" y="0" width="651" height="20" backcolor="#00CCCC" uuid="4503e098-7d71-497b-82c0-7bc61f6ff3aa"/>
+				</rectangle>
+				<textField>
+					<reportElement x="71" y="0" width="100" height="20" uuid="eec4dc1c-dc60-4252-bacb-d07407e675c3"/>
+					<textElement textAlignment="Center">
+						<font isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{id_expediente}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="29">
+				<textField>
+					<reportElement x="622" y="1" width="100" height="20" uuid="8d343d0e-e095-4f7a-aa8f-8685df29bbc0"/>
+					<textElement textAlignment="Center">
+						<font size="11" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{total_paginas_1}]]></textFieldExpression>
+				</textField>
+				<line>
+					<reportElement x="348" y="0" width="374" height="1" uuid="2b59ace2-984f-4e46-8fde-04305e048d33"/>
+					<graphicElement>
+						<pen lineWidth="2.0"/>
+					</graphicElement>
+				</line>
+				<staticText>
+					<reportElement x="348" y="0" width="174" height="20" uuid="6e4f5c99-3f6e-44df-aff0-7edc31514b6a"/>
+					<textElement>
+						<font size="11" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Total paginas del Expediente]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="522" y="0" width="100" height="20" uuid="54611867-eec2-4f00-8551-a9528e8bef3d"/>
+					<textElement>
+						<font size="11" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{id_expediente}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupFooter>
+	</group>
+	<group name="suma_total">
+		<groupExpression><![CDATA[$F{total_paginas}]]></groupExpression>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="115">
+			<staticText>
+				<reportElement x="251" y="31" width="271" height="52" uuid="db586155-f501-431d-986d-dc1a417fefc2"/>
+				<textElement textAlignment="Center">
+					<font size="20" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Detalle de Documentos Indexados por Indexador]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="622" y="0" width="100" height="20" uuid="b9ed1b6f-0bb2-4309-83bd-5a5dbca2eefd"/>
+				<textElement>
+					<font size="13" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{fecha}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="552" y="52" width="55" height="20" uuid="7593e567-cc80-4127-922a-e1c7e2831fcb"/>
+				<textElement>
+					<font size="13" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Desde]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="607" y="52" width="115" height="20" uuid="daeeb4d5-b668-464c-9093-b101e6c77781"/>
+				<textElement>
+					<font size="13" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{fechaDesde}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="552" y="72" width="55" height="20" uuid="3be7d939-bfc8-498f-8e76-e014190bbd62"/>
+				<textElement>
+					<font size="13" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Hasta]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="607" y="72" width="115" height="20" uuid="6a276456-3de7-40fa-b460-697b1d073421"/>
+				<textElement>
+					<font size="13" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{fechaHasta}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="488" y="0" width="134" height="20" uuid="09c5945f-f1d9-44b9-890d-1553fd9f58d3"/>
+				<textElement>
+					<font size="13" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Fecha del Reporte:]]></text>
+			</staticText>
+			<textField evaluationTime="Report">
+				<reportElement x="51" y="0" width="40" height="20" uuid="d91ce5e4-c618-4774-9267-2c7b2fb691fd"/>
+				<textFieldExpression><![CDATA[" / " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="1" y="0" width="50" height="20" uuid="e6821d32-7f3d-44b0-b54b-f1d85adf1c04"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="2" y="52" width="69" height="20" uuid="c344caa1-6271-480a-a536-c78b6e39bd59"/>
+				<textElement>
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Libreria]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="2" y="72" width="69" height="20" uuid="f80dbde9-6c56-4ea4-acb7-6841578e5041"/>
+				<textElement>
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Categoria]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="71" y="52" width="180" height="20" uuid="6d31b746-30e7-485a-ba23-ed7e70d8b0b4"/>
+				<textElement textAlignment="Center">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{libreria}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="71" y="72" width="180" height="20" uuid="0f2f5d2c-eb29-47f6-8021-1d97493417de"/>
+				<textElement textAlignment="Center">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{categoria}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="26" splitType="Stretch">
+			<rectangle>
+				<reportElement x="0" y="0" width="722" height="20" forecolor="#000000" backcolor="#CCCCCC" uuid="013c6003-1206-4b2a-9b23-5e6c3e47d9b4"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="2" y="0" width="69" height="20" uuid="c7a90ef8-0951-470a-8f4b-96b240a0ceb1"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[INDEXADOR]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="71" y="0" width="100" height="20" uuid="2a32b1f1-5daa-4db6-abe7-5258faa7eb1b"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[EXPEDIENTE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="171" y="0" width="207" height="20" uuid="709eacf7-3d81-4774-b9e5-88ce3f12af11"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[SUBCATEGORIA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="378" y="0" width="244" height="20" uuid="3847bf4e-f758-4ae6-b599-cbc347c58b45"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[DOCUMENTO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="622" y="0" width="100" height="20" uuid="efbca27c-c87e-4b86-9dc2-76cb429901d2"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[PAGINAS]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="21" splitType="Stretch">
+			<textField>
+				<reportElement x="378" y="1" width="244" height="20" uuid="4c72810f-f435-4fc7-93c8-9dee24333557"/>
+				<textElement textAlignment="Left"/>
+				<textFieldExpression><![CDATA[$F{tipo_documento}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="622" y="0" width="100" height="20" uuid="c48ff45c-3e9d-438d-b3ca-6d27da82c33a"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{total_paginas}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="171" y="0" width="207" height="20" uuid="197e91d7-4932-413c-b611-8ceffbea16f9"/>
+				<textElement textAlignment="Left"/>
+				<textFieldExpression><![CDATA[$F{subcategoria}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<summary>
+		<band height="21">
+			<staticText>
+				<reportElement x="457" y="1" width="165" height="20" uuid="b872c7fa-4c83-4e49-a588-99c96d8ff3f2"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total General de Paginas]]></text>
+			</staticText>
+			<line>
+				<reportElement x="457" y="0" width="265" height="1" uuid="b9eb8e31-2539-4725-aaaf-abc90a06b1a2"/>
+				<graphicElement>
+					<pen lineWidth="2.0" lineStyle="Double"/>
+				</graphicElement>
+			</line>
+			<textField>
+				<reportElement x="622" y="1" width="100" height="20" uuid="472d6bb6-3fe0-4a6b-b576-a23534d12b98"/>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{total_general}]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>

@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="612" pageHeight="792" whenNoDataType="AllSectionsNoDetail" columnWidth="572" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="cd4efb93-54b6-4ebb-b7bb-2285d0ddd489">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="9"/>
+	<parameter name="mesAnioDesde" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="mesAnioHasta" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="mesAnioDesdeTitulo" class="java.lang.String"/>
+	<parameter name="mesAnioHastaTitulo" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[select count(t.tipo_documento) as cantidad,  
+       date_part('month', d.fecha_aprobacion) AS mes_numero,
+       REPLACE(REPLACE(REPLACE(
+       REPLACE(REPLACE(REPLACE(
+       REPLACE(REPLACE(REPLACE(
+       REPLACE(REPLACE(
+       REPLACE(to_char(d.fecha_aprobacion, 'Month'),
+		'January', 'Enero'),
+		'February', 'Febrero'),
+		'March', 'Marzo'),
+		'April', 'Abril'),
+		'May', 'Mayo'),
+		'June', 'Junio'),
+		'July', 'Julio'),
+		'August', 'Agosto'),
+		'September', 'Septiembre'),
+		'October', 'Octubre'),
+		'November', 'Noviembre'),
+		'December', 'Diciembre') AS mes_texto,
+       date_part('year', d.fecha_aprobacion) AS anio
+
+  from infodocumento i
+   inner join datos_infodocumento d on d.id_infodocumento=i.id_infodocumento
+   inner join tipodocumento t on i.id_documento=t.id_documento
+
+  where i.estatus_documento=1 and
+        to_char(d.fecha_aprobacion, 'yyyymm') >= $P{mesAnioDesde} and
+        to_char(d.fecha_aprobacion, 'yyyymm') <= $P{mesAnioHasta}
+  group by mes_numero, mes_texto, anio
+  order by mes_numero]]>
+	</queryString>
+	<field name="cantidad" class="java.lang.Long"/>
+	<field name="mes_numero" class="java.lang.Double"/>
+	<field name="mes_texto" class="java.lang.String"/>
+	<field name="anio" class="java.lang.Double"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="25" splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="115" splitType="Stretch">
+			<textField evaluationTime="Report">
+				<reportElement x="514" y="0" width="40" height="20" uuid="decf9732-bc29-44ff-b237-de43c7794c89"/>
+				<textFieldExpression><![CDATA[" / " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="464" y="0" width="50" height="20" uuid="fe8b5b7d-0432-45cd-be66-ffa114ed13c2"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="136" y="0" width="280" height="52" uuid="ff24740b-3a34-4ce5-9fd7-da55a16d40d6"/>
+				<textElement textAlignment="Center">
+					<font size="20" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Crecimiento Intermensual de Documentos]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="306" y="69" width="110" height="26" uuid="e34f727a-ad13-4480-85c6-ec20dd79e9a5"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Mes / Año
+Desde]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="444" y="69" width="111" height="26" uuid="7a69e9c5-f95b-435f-ab5a-890177dd2c76"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Mes / Año
+Hasta]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="306" y="95" width="110" height="20" uuid="7d195170-700e-4a5c-82c9-b96f8d627822"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{mesAnioDesdeTitulo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="444" y="95" width="110" height="20" uuid="66a19031-7c19-436d-ac16-fe85ff076ca0"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{mesAnioHastaTitulo}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<summary>
+		<band height="366" splitType="Stretch">
+			<lineChart>
+				<chart isShowLegend="true">
+					<reportElement mode="Transparent" x="0" y="0" width="572" height="366" uuid="6703288a-f190-43b3-b8cf-8e34d93b947c"/>
+					<chartTitle position="Top"/>
+					<chartSubtitle/>
+					<chartLegend/>
+				</chart>
+				<categoryDataset>
+					<categorySeries>
+						<seriesExpression><![CDATA["Crecimiento Intermensual"]]></seriesExpression>
+						<categoryExpression><![CDATA[$F{mes_texto}.trim()+" - "+$F{anio}]]></categoryExpression>
+						<valueExpression><![CDATA[$F{cantidad}]]></valueExpression>
+						<labelExpression><![CDATA[$F{mes_texto}.trim()+"-"+$F{mes_numero}]]></labelExpression>
+					</categorySeries>
+				</categoryDataset>
+				<linePlot>
+					<plot>
+						<seriesColor seriesOrder="0" color="#006600"/>
+					</plot>
+					<categoryAxisFormat>
+						<axisFormat/>
+					</categoryAxisFormat>
+					<valueAxisLabelExpression><![CDATA["Cantidad de Documentos"]]></valueAxisLabelExpression>
+					<valueAxisFormat>
+						<axisFormat/>
+					</valueAxisFormat>
+				</linePlot>
+			</lineChart>
+		</band>
+	</summary>
+</jasperReport>

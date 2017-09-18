@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="612" pageHeight="792" whenNoDataType="AllSectionsNoDetail" columnWidth="572" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="9d99b0d4-baeb-4e45-9008-9154a60adf91">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="11"/>
+	<parameter name="idLib" class="java.lang.Integer"/>
+	<parameter name="idCat" class="java.lang.Integer"/>
+	<parameter name="mesAnio" class="java.lang.String"/>
+	<parameter name="mesAnioTitulo" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[select estatus, cantidad, total,
+      to_number(to_char((cantidad*100)/total::float, '999.99'), '999.99') as porcentaje ,
+      l.libreria, c.categoria
+
+  from libreria l full join categoria c using(id_libreria),
+
+(select sum(total) as total, cantidad, estatus from
+
+  (select
+
+  nullif(count(d.tipo_documento), 0) as cantidad, e.estatus_documento as estatus
+
+  from infodocumento i
+   full join datos_infodocumento di on di.id_infodocumento=i.id_infodocumento
+   full join estatus_documento e on i.estatus_documento=e.id_estatus_documento
+   full join tipodocumento d on i.id_documento=d.id_documento
+   full join categoria c on c.id_categoria=d.id_categoria
+   full join libreria l on l.id_libreria=c.id_libreria
+  where 
+        to_char(di.fecha_digitalizacion, 'yyyymm') = $P{mesAnio} and
+        l.id_libreria = $P{idLib} and c.id_categoria = $P{idCat}
+  group by e.estatus_documento)  cantidades,
+
+  (select
+
+  count(d.tipo_documento) as total, e.estatus_documento
+
+  from infodocumento i
+   full join datos_infodocumento di on di.id_infodocumento=i.id_infodocumento
+   full join estatus_documento e on i.estatus_documento=e.id_estatus_documento
+   full join tipodocumento d on i.id_documento=d.id_documento
+   full join categoria c on c.id_categoria=d.id_categoria
+   full join libreria l on l.id_libreria=c.id_libreria
+  where (i.estatus_documento=0 or
+        i.estatus_documento=1 or
+        i.estatus_documento=2) and
+        to_char(di.fecha_digitalizacion, 'yyyymm') = $P{mesAnio} and
+        l.id_libreria = $P{idLib} and c.id_categoria = $P{idCat}
+  group by e.estatus_documento)  totales
+
+  group by cantidad, estatus) todo
+
+ where id_libreria = $P{idLib} and c.id_categoria = $P{idCat}]]>
+	</queryString>
+	<field name="estatus" class="java.lang.String"/>
+	<field name="cantidad" class="java.lang.Long"/>
+	<field name="total" class="java.math.BigDecimal"/>
+	<field name="porcentaje" class="java.math.BigDecimal"/>
+	<field name="libreria" class="java.lang.String"/>
+	<field name="categoria" class="java.lang.String"/>
+	<group name="total">
+		<groupExpression><![CDATA[$F{cantidad}]]></groupExpression>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="28" splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="115" splitType="Stretch">
+			<textField>
+				<reportElement x="465" y="0" width="50" height="20" uuid="3c24b0b6-fe2b-4857-a60d-155ee458f7e3"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="515" y="0" width="40" height="20" uuid="200dcc97-aa98-456f-9e23-7dfca556d5b5"/>
+				<textFieldExpression><![CDATA[" / " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="55" y="0" width="410" height="52" uuid="0c1c3261-99a8-47af-b9c8-416d36a98815"/>
+				<textElement textAlignment="Center">
+					<font size="20" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Documentos Digitalizados, Aprobados, Rechazados, Pendientes]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="75" width="72" height="20" uuid="cc584f82-2356-450d-893e-344c56b1d2f3"/>
+				<textElement textAlignment="Left">
+					<font size="13"/>
+				</textElement>
+				<text><![CDATA[Libreria:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="95" width="72" height="20" uuid="a61783d5-be40-4349-acf0-7a9e2d7b6051"/>
+				<textElement textAlignment="Left">
+					<font size="13"/>
+				</textElement>
+				<text><![CDATA[Categoria:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="72" y="75" width="345" height="20" uuid="eeae68ce-b0f5-45c3-b8e1-5decf7dba668"/>
+				<textElement>
+					<font size="13"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{libreria}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="72" y="95" width="345" height="20" uuid="7ccb8fc6-873e-4a13-b4dc-6ac7f1df50a9"/>
+				<textElement>
+					<font size="13"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{categoria}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="455" y="75" width="100" height="20" uuid="bc0b2246-2027-4455-a5fb-540206c556ae"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Mes / Año]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="455" y="95" width="100" height="20" uuid="4cc3369d-f793-42a7-9eb5-1eb0a620e4ee"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{mesAnioTitulo}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<summary>
+		<band height="366" splitType="Stretch">
+			<barChart>
+				<chart>
+					<reportElement x="0" y="0" width="572" height="366" uuid="45a51c97-2268-4548-b2e2-96d2adcf5979"/>
+					<chartTitle/>
+					<chartSubtitle/>
+					<chartLegend/>
+				</chart>
+				<categoryDataset>
+					<categorySeries>
+						<seriesExpression><![CDATA["Digitalizados"]]></seriesExpression>
+						<categoryExpression><![CDATA["Digitalizados"]]></categoryExpression>
+						<valueExpression><![CDATA[$F{total}]]></valueExpression>
+						<labelExpression><![CDATA["100% - "+$F{total}]]></labelExpression>
+					</categorySeries>
+					<categorySeries>
+						<seriesExpression><![CDATA[$F{estatus}.trim()+"s"]]></seriesExpression>
+						<categoryExpression><![CDATA[$F{estatus}.trim()+"s"]]></categoryExpression>
+						<valueExpression><![CDATA[$F{cantidad}]]></valueExpression>
+						<labelExpression><![CDATA[$F{porcentaje}+"% - "+$F{cantidad}]]></labelExpression>
+					</categorySeries>
+				</categoryDataset>
+				<barPlot isShowLabels="true">
+					<plot/>
+					<itemLabel/>
+					<categoryAxisFormat>
+						<axisFormat/>
+					</categoryAxisFormat>
+					<valueAxisLabelExpression><![CDATA["Cantidad de Documentos"]]></valueAxisLabelExpression>
+					<valueAxisFormat>
+						<axisFormat/>
+					</valueAxisFormat>
+				</barPlot>
+			</barChart>
+		</band>
+	</summary>
+</jasperReport>

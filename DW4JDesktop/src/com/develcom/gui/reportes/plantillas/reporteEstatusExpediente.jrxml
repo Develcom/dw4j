@@ -1,0 +1,308 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Estatus Expedeintes" pageWidth="612" pageHeight="792" whenNoDataType="AllSectionsNoDetail" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" whenResourceMissingType="Empty" uuid="3253e2e2-0b12-4126-b9b9-71dffc5b0544">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="fechaDesde" class="java.util.Date">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="fechaHasta" class="java.util.Date">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select to_char(current_date,'dd/mm/yyyy') as fecha, usuario, digitalizado, aprobado, pendiente, rechazado
+from
+
+(select distinct id_expediente  as digitalizado,
+        usuario_digitalizo as usuario
+
+    from infodocumento i
+    inner join datos_infodocumento d on d.id_infodocumento=i.id_infodocumento
+
+    where 
+          (d.fecha_digitalizacion >= $P{fechaDesde}
+          and d.fecha_digitalizacion <= $P{fechaHasta})
+          or (d.fecha_aprobacion  >= $P{fechaDesde}
+          and d.fecha_aprobacion  <= $P{fechaHasta})
+          or (d.fecha_rechazo >= $P{fechaDesde}
+          and d.fecha_rechazo <= $P{fechaHasta})
+
+    order by digitalizado asc) digitalizado 
+
+  full join
+    
+(select distinct case estatus_documento
+         when 1 then id_expediente
+    end aprobado
+
+    from infodocumento i
+    inner join datos_infodocumento d on d.id_infodocumento=i.id_infodocumento
+
+    where 
+          (d.fecha_digitalizacion >= $P{fechaDesde}
+          and d.fecha_digitalizacion <= $P{fechaHasta})
+          or (d.fecha_aprobacion  >= $P{fechaDesde}
+          and d.fecha_aprobacion  <= $P{fechaHasta})
+          or (d.fecha_rechazo >= $P{fechaDesde}
+          and d.fecha_rechazo <= $P{fechaHasta})
+
+    order by aprobado asc) aprobado
+
+    on digitalizado.digitalizado=aprobado.aprobado
+
+    full join 
+
+(select distinct case estatus_documento
+         when 0 then id_expediente
+    end pendiente
+
+    from infodocumento i
+    inner join datos_infodocumento d on d.id_infodocumento=i.id_infodocumento
+
+    where           
+          (d.fecha_digitalizacion >= $P{fechaDesde}
+          and d.fecha_digitalizacion <= $P{fechaHasta})
+          or (d.fecha_aprobacion  >= $P{fechaDesde}
+          and d.fecha_aprobacion  <= $P{fechaHasta})
+          or (d.fecha_rechazo >= $P{fechaDesde}
+          and d.fecha_rechazo <= $P{fechaHasta})
+
+    order by pendiente asc) pendiente
+
+    on digitalizado.digitalizado=pendiente.pendiente
+
+    full join 
+
+(select distinct case estatus_documento
+         when 2 then id_expediente
+    end rechazado 
+
+    from infodocumento i
+    inner join datos_infodocumento d on d.id_infodocumento=i.id_infodocumento
+
+    where i.re_digitalizado='0' and
+          (d.fecha_digitalizacion >= $P{fechaDesde}
+          and d.fecha_digitalizacion <= $P{fechaHasta})
+          or (d.fecha_aprobacion  >= $P{fechaDesde}
+          and d.fecha_aprobacion  <= $P{fechaHasta})
+          or (d.fecha_rechazo >= $P{fechaDesde}
+          and d.fecha_rechazo <= $P{fechaHasta})
+
+    order by rechazado asc) rechazado
+
+    on digitalizado.digitalizado=rechazado.rechazado
+
+where digitalizado.digitalizado is not null
+order by digitalizado.digitalizado asc]]>
+	</queryString>
+	<field name="fecha" class="java.lang.String"/>
+	<field name="usuario" class="java.lang.String"/>
+	<field name="digitalizado" class="java.lang.String"/>
+	<field name="aprobado" class="java.lang.String"/>
+	<field name="pendiente" class="java.lang.String"/>
+	<field name="rechazado" class="java.lang.String"/>
+	<variable name="TotalAprobado" class="java.lang.Integer" calculation="Count">
+		<variableExpression><![CDATA[$F{aprobado}]]></variableExpression>
+	</variable>
+	<variable name="TotalPendiente" class="java.lang.Integer" calculation="Count">
+		<variableExpression><![CDATA[$F{pendiente}]]></variableExpression>
+	</variable>
+	<variable name="TotalRechazado" class="java.lang.Integer" calculation="Count">
+		<variableExpression><![CDATA[$F{rechazado}]]></variableExpression>
+	</variable>
+	<variable name="TotalDigitalizado" class="java.lang.Integer" calculation="Count">
+		<variableExpression><![CDATA[$F{digitalizado}]]></variableExpression>
+	</variable>
+	<title>
+		<band height="79" splitType="Stretch">
+			<staticText>
+				<reportElement x="185" y="18" width="190" height="43" uuid="c2124319-8892-40a7-b6b1-b9ba2e68744b"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="16" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Listado de Expedientes por Estatus y Usuarios]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="402" y="39" width="55" height="20" uuid="33d6dca5-f2f5-4dc1-9ccf-5ac2d805cde9"/>
+				<textElement>
+					<font size="13" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Desde]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="402" y="59" width="55" height="20" uuid="66480e72-7532-43e6-9980-008f7a1e073d"/>
+				<textElement>
+					<font size="13" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Hasta]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="457" y="59" width="115" height="20" uuid="ca7327fa-6e9d-4517-9e54-2fe1db311294"/>
+				<textElement>
+					<font size="13" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{fechaHasta}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="457" y="39" width="115" height="20" uuid="bb4d1017-45fa-422e-ad42-8041de0064b4"/>
+				<textElement>
+					<font size="13" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{fechaDesde}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="375" y="0" width="96" height="20" uuid="65262ee3-bf1c-415b-a7aa-41a77d91b6d1"/>
+				<textElement>
+					<font size="11" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Fecha del Reporte:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="472" y="0" width="100" height="20" uuid="be0b012f-49d3-4f42-9de9-fb0e7222598b"/>
+				<textElement>
+					<font size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{fecha}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch">
+			<textField evaluationTime="Report">
+				<reportElement x="50" y="0" width="40" height="20" uuid="492323bc-3f03-41c4-9a2c-40f0ba45f70f"/>
+				<textFieldExpression><![CDATA[" / " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="0" width="50" height="20" uuid="42cd0a85-cec8-4655-9199-6bf2a9ec9c64"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="36" splitType="Stretch">
+			<staticText>
+				<reportElement x="123" y="0" width="100" height="20" uuid="04ef93cf-9e5f-4434-9320-e9827cb5284f"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[APROBADOS]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="252" y="0" width="100" height="20" uuid="002d5eb7-4153-4a83-a702-e0c7b6bfc79d"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[PENDIENTES]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="380" y="0" width="100" height="20" uuid="e943dc21-6f45-402f-a5dc-df51d3330c5e"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[RECHAZADOS]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="487" y="0" width="85" height="20" uuid="9afd1b65-5451-4926-9a13-a7ac4e3c6938"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[USUARIO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="0" width="100" height="20" uuid="9b07ddf6-47a4-4a08-9ada-d137c7277994"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[DIGITALIZADOS]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<rectangle>
+				<reportElement x="0" y="0" width="101" height="20" backcolor="#CCFFFF" uuid="64c6d92a-aac1-4e28-b890-914627644387"/>
+				<graphicElement>
+					<pen lineWidth="0.0"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement mode="Opaque" x="380" y="0" width="100" height="20" backcolor="#FBE5BC" uuid="9ab38959-855d-4997-9552-b4e44125cb49"/>
+				<graphicElement>
+					<pen lineWidth="0.0"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement x="252" y="0" width="100" height="20" backcolor="#F7F9A4" uuid="293d4b63-b1d5-40a0-be29-bf045df9b177"/>
+				<graphicElement>
+					<pen lineWidth="0.0"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement x="134" y="0" width="101" height="20" backcolor="#BDF6C3" uuid="85d64fda-6f5f-4ae4-871f-71db4f572aca"/>
+				<graphicElement>
+					<pen lineWidth="0.0"/>
+				</graphicElement>
+			</rectangle>
+			<textField isBlankWhenNull="true">
+				<reportElement x="135" y="0" width="100" height="20" uuid="7a983f48-ed25-4558-86da-5fb0127bbffc"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{aprobado}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="252" y="0" width="100" height="20" uuid="162d26ca-7472-48e0-b6e9-dde29cb3c72a"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{pendiente}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="380" y="0" width="100" height="20" uuid="57651bfe-a598-47c3-961f-25df6633cf53"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{rechazado}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="487" y="0" width="85" height="20" uuid="1bfa07a8-1118-453e-9d5b-43937485df97"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{usuario}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="0" width="100" height="20" uuid="03756818-04ef-419a-87ec-0afa3b4fc5bf"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{digitalizado}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<summary>
+		<band height="20">
+			<staticText>
+				<reportElement x="252" y="0" width="38" height="20" uuid="89ef25bc-276e-41e1-9723-00a6f68d580a"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Total]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="173" y="0" width="51" height="20" uuid="caf5470f-24dc-4e9d-ac9f-94774dd6cb2b"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$V{TotalAprobado}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="298" y="0" width="54" height="20" uuid="3f1e6874-6f9b-4c22-b335-896b67942fb8"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$V{TotalPendiente}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="426" y="0" width="54" height="20" uuid="308a3f05-a0b7-4988-90d3-37e6dfa5a8f9"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$V{TotalRechazado}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="135" y="0" width="38" height="20" uuid="c7a65243-ae2f-4fbb-ab26-d7a4e7f0caba"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Total]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="380" y="0" width="38" height="20" uuid="5780c814-a496-4c58-8de0-5ee6bf968f03"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Total]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="12" y="0" width="38" height="20" uuid="cde04b3e-e539-4372-b711-22e7656e738b"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Total]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="50" y="0" width="40" height="20" uuid="3ea86b7d-eb57-487a-b9ca-399aba9f286d"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$V{TotalDigitalizado}]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>

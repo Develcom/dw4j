@@ -1,0 +1,292 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="842" pageHeight="595" orientation="Landscape" whenNoDataType="AllSectionsNoDetail" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="f6c9ec47-34b8-4eb5-a30f-dd6bb4c0ed13">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="fechaDesde" class="java.util.Date"/>
+	<parameter name="fechaHasta" class="java.util.Date"/>
+	<parameter name="usuario" class="java.lang.String"/>
+	<parameter name="idLib" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="idCat" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select to_char(current_date,'dd/mm/yyyy') as fecha,
+  e.id_expediente,
+  d.tipo_documento, 
+  di.causa_elimino, 
+  di.motivo_elimino,
+  di.causa_rechazo,
+  di.motivo_rechazo,
+  e.usuario_elimino, 
+  l.libreria, 
+  c.categoria, 
+  e.fecha_eliminado
+from 
+  documento_eliminado e 
+  inner join datos_infodocumento di on di.id_doc_eliminado=e.id_doc_eliminado
+  inner join tipodocumento d on e.id_documento = d.id_documento 
+  inner join libreria l on e.id_libreria = l.id_libreria
+  inner join categoria c on e.id_categoria = c.id_categoria
+where e.usuario_elimino =  $P{usuario} 
+     and e.fecha_eliminado between $P{fechaDesde} and $P{fechaHasta}
+     and l.id_libreria = $P{idLib} and c.id_categoria = $P{idCat}
+order by e.id_documento asc]]>
+	</queryString>
+	<field name="fecha" class="java.lang.String"/>
+	<field name="id_expediente" class="java.lang.String"/>
+	<field name="tipo_documento" class="java.lang.String"/>
+	<field name="causa_elimino" class="java.lang.String"/>
+	<field name="motivo_elimino" class="java.lang.String"/>
+	<field name="causa_rechazo" class="java.lang.String"/>
+	<field name="motivo_rechazo" class="java.lang.String"/>
+	<field name="usuario_elimino" class="java.lang.String"/>
+	<field name="libreria" class="java.lang.String"/>
+	<field name="categoria" class="java.lang.String"/>
+	<field name="fecha_eliminado" class="java.sql.Date"/>
+	<variable name="ID_EXPEDIENTE" class="java.lang.Integer" calculation="Count">
+		<variableExpression><![CDATA[$F{id_expediente}]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="91" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="51" width="69" height="20" uuid="3f0aa44b-dd4a-4e4d-9a88-dd6f7a61d901"/>
+				<textElement>
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Libreria]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="632" y="51" width="55" height="20" uuid="a9a137a6-0646-4049-af73-513a025a072b"/>
+				<textElement>
+					<font size="13" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Desde]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="687" y="51" width="115" height="20" uuid="92e16dc1-3110-4b38-b3c7-ab266eba826e"/>
+				<textElement>
+					<font size="13" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{fechaDesde}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="566" y="0" width="134" height="20" uuid="87e093e7-5f34-4671-97ac-f2db070b2bdd"/>
+				<textElement>
+					<font size="13" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Fecha del Reporte:]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="687" y="71" width="115" height="20" uuid="2a5ab3d1-4c9b-4093-92a0-ad4ed3b0739e"/>
+				<textElement>
+					<font size="13" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{fechaHasta}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="632" y="71" width="55" height="20" uuid="e51dc5f0-faa6-4f5f-8e43-c21857239d13"/>
+				<textElement>
+					<font size="13" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Hasta]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="71" width="69" height="20" uuid="245c1aa8-59bb-4eb6-8b9d-e4e7ac08200b"/>
+				<textElement>
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Categoria]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="225" y="1" width="247" height="32" uuid="8cf37adb-3de8-40d7-8140-aea264880fdc"/>
+				<textElement textAlignment="Center">
+					<font size="20" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Documentos Eliminados]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="69" y="51" width="497" height="20" uuid="0b9ddef3-3ac7-4c66-8561-0b0d2af6270d"/>
+				<textElement>
+					<font size="11" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{libreria}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="69" y="71" width="497" height="20" uuid="ed874042-77e2-4452-8131-8d98083e1791"/>
+				<textElement>
+					<font size="11" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{categoria}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="702" y="0" width="100" height="20" uuid="f771aab1-8dde-40b4-a1ac-9c4393e32a52"/>
+				<textElement>
+					<font size="13" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{fecha}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="6" y="0" width="34" height="20" uuid="063787f9-c3fd-41d4-9168-0ff75cc27e1e"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}+"/"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="40" y="0" width="40" height="20" uuid="c2aa5b1f-db83-4d76-b9b2-0ef48c393651"/>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="32" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="69" height="32" uuid="e0a35a56-07df-42d5-8c62-c0a4b0c7d2a9"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Fecha de
+Eliminado]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="69" y="0" width="68" height="32" uuid="405e06c8-e5ec-4e53-a1b3-1c142cec26c5"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Expediente]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="192" y="0" width="89" height="32" uuid="e986ec94-dddb-4d78-b8b2-e7b505f4a1e0"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Tipo de Documento]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="328" y="0" width="69" height="32" uuid="4643d5b4-bb13-4442-8ed9-9bad87ce8a61"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Causa de
+Eliminación]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="440" y="0" width="66" height="32" uuid="dc70893c-36ef-4ea3-9aa9-584be6e173bc"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Motivo de
+Eliminación]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="732" y="0" width="67" height="32" uuid="cb09f523-c5ac-4429-82f4-bb7c1fde1cba"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Usuario
+Eliminador]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="532" y="2" width="63" height="30" uuid="a4526bf6-ac0d-4ac5-ae70-6e9a246deee7"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Causa de 
+Rechazo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="620" y="2" width="62" height="30" uuid="695e0958-9a8e-406e-9e42-b76ab2b6f4c7"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Motivo de 
+Rechazo]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="32" splitType="Stretch">
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="0" y="0" width="69" height="32" uuid="017619ca-a2b0-4307-acf3-7f70d2ec25b9"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{fecha_eliminado}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="69" y="0" width="68" height="32" uuid="0be0c9cf-d725-4ea3-9db9-863700fd38a7"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{id_expediente}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="144" y="0" width="171" height="32" uuid="7c97bdd0-cf7f-4c9c-b4a1-6d6c3a7bfa67"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{tipo_documento}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="328" y="0" width="69" height="32" uuid="591bfec2-60e8-42c2-bf80-f7613a664539"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{causa_elimino}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="402" y="0" width="128" height="32" uuid="fe327ea1-10dc-44d1-928d-75e317c66e23"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{motivo_elimino}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="723" y="0" width="79" height="32" uuid="0f88a1e4-c5dd-4366-91fa-c903777b6e71"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{usuario_elimino}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="532" y="0" width="63" height="32" uuid="fbe6ecd0-4d4e-42fd-b3da-e712f92a5fdb"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{causa_rechazo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="602" y="0" width="100" height="32" uuid="3733b2bb-c030-4542-a4b1-279db7bcd1e0"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{motivo_rechazo}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<summary>
+		<band height="32" splitType="Stretch">
+			<textField>
+				<reportElement x="754" y="12" width="47" height="20" uuid="0cac8a20-d5f1-4807-92b1-318ab54b9884"/>
+				<textElement>
+					<font size="11" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{ID_EXPEDIENTE}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="653" y="12" width="101" height="20" uuid="31a95ed1-6f18-4d69-9a87-3fcf76e690cd"/>
+				<textElement>
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total Documentos]]></text>
+			</staticText>
+		</band>
+	</summary>
+</jasperReport>

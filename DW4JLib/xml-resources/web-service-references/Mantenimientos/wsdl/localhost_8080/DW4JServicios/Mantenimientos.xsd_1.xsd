@@ -1,0 +1,52 @@
+<?xml version='1.0' encoding='UTF-8'?><!-- Published by JAX-WS RI at http://jax-ws.dev.java.net. RI's version is JAX-WS RI 2.2-hudson-740-. --><xs:schema xmlns:tns="http://mantenimiento.develcom.com/" xmlns:xs="http://www.w3.org/2001/XMLSchema" version="1.0" targetNamespace="http://mantenimiento.develcom.com/">
+
+<xs:element name="buscarMantenimiento" type="tns:buscarMantenimiento" />
+
+<xs:element name="buscarMantenimientoResponse" type="tns:buscarMantenimientoResponse" />
+
+<xs:element name="mantenerBaseDatos" type="tns:mantenerBaseDatos" />
+
+<xs:element name="mantenerBaseDatosResponse" type="tns:mantenerBaseDatosResponse" />
+
+<xs:complexType name="buscarMantenimiento">
+<xs:sequence />
+</xs:complexType>
+
+<xs:complexType name="buscarMantenimientoResponse">
+<xs:sequence>
+<xs:element name="return" type="tns:configuracion" minOccurs="0" />
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="configuracion">
+<xs:sequence>
+<xs:element name="calidadActivo" type="xs:boolean" />
+<xs:element name="databaseName" type="xs:string" minOccurs="0" />
+<xs:element name="elimina" type="xs:boolean" />
+<xs:element name="fabrica" type="xs:boolean" />
+<xs:element name="ficha" type="xs:boolean" />
+<xs:element name="fileCode" type="xs:string" minOccurs="0" />
+<xs:element name="fileTif" type="xs:string" minOccurs="0" />
+<xs:element name="foliatura" type="xs:boolean" />
+<xs:element name="ldap" type="xs:boolean" />
+<xs:element name="logProperties" type="xs:string" minOccurs="0" />
+<xs:element name="password" type="xs:string" minOccurs="0" />
+<xs:element name="pathTmp" type="xs:string" minOccurs="0" />
+<xs:element name="port" type="xs:int" />
+<xs:element name="serverName" type="xs:string" minOccurs="0" />
+<xs:element name="user" type="xs:string" minOccurs="0" />
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="mantenerBaseDatos">
+<xs:sequence>
+<xs:element name="configuracion" type="tns:configuracion" minOccurs="0" />
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="mantenerBaseDatosResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:boolean" />
+</xs:sequence>
+</xs:complexType>
+</xs:schema>

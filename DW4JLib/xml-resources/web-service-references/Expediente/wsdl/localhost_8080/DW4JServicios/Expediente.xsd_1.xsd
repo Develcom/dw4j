@@ -1,0 +1,94 @@
+<?xml version='1.0' encoding='UTF-8'?><!-- Published by JAX-WS RI at http://jax-ws.dev.java.net. RI's version is JAX-WS RI 2.2-hudson-740-. --><xs:schema xmlns:tns="http://expediente.develcom.com/" xmlns:xs="http://www.w3.org/2001/XMLSchema" version="1.0" targetNamespace="http://expediente.develcom.com/">
+
+<xs:element name="buscarExpediente" type="tns:buscarExpediente" />
+
+<xs:element name="buscarExpedienteResponse" type="tns:buscarExpedienteResponse" />
+
+<xs:element name="guardarExpediente" type="tns:guardarExpediente" />
+
+<xs:element name="guardarExpedienteResponse" type="tns:guardarExpedienteResponse" />
+
+<xs:complexType name="guardarExpediente">
+<xs:sequence>
+<xs:element name="expediente" type="tns:expedientes" minOccurs="0" />
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="expedientes">
+<xs:sequence>
+<xs:element name="existe" type="xs:boolean" />
+<xs:element name="expediente" type="xs:string" minOccurs="0" />
+<xs:element name="idCategoria" type="xs:int" />
+<xs:element name="idEspedientes" type="xs:int" />
+<xs:element name="idLibreria" type="xs:int" />
+<xs:element name="indices" type="tns:indice" nillable="true" minOccurs="0" maxOccurs="unbounded" />
+<xs:element name="listaIndices" type="tns:listaIndice" nillable="true" minOccurs="0" maxOccurs="unbounded" />
+<xs:element name="mensaje" type="xs:string" minOccurs="0" />
+<xs:element name="rrhh" type="tns:sistemaRRHH" minOccurs="0" />
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="indice">
+<xs:complexContent>
+<xs:extension base="tns:indices">
+<xs:sequence>
+<xs:element name="updateIndices" type="xs:boolean" />
+<xs:element name="valor" type="xs:anyType" minOccurs="0" />
+</xs:sequence>
+</xs:extension>
+</xs:complexContent>
+</xs:complexType>
+
+<xs:complexType name="indices">
+<xs:sequence>
+<xs:element name="clave" type="xs:string" minOccurs="0" />
+<xs:element name="codigo" type="xs:int" />
+<xs:element name="idCategoria" type="xs:int" />
+<xs:element name="idIndice" type="xs:int" />
+<xs:element name="indice" type="xs:string" minOccurs="0" />
+<xs:element name="tipo" type="xs:string" minOccurs="0" />
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="listaIndice">
+<xs:sequence>
+<xs:element name="indices" type="tns:indice" nillable="true" minOccurs="0" maxOccurs="unbounded" />
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="sistemaRRHH">
+<xs:sequence>
+<xs:element name="apellido" type="xs:string" minOccurs="0" />
+<xs:element name="cargo" type="xs:string" minOccurs="0" />
+<xs:element name="cedula" type="xs:string" minOccurs="0" />
+<xs:element name="encontrado" type="xs:boolean" />
+<xs:element name="fechaEgreso" type="xs:dateTime" minOccurs="0" />
+<xs:element name="fechaIngreso" type="xs:dateTime" minOccurs="0" />
+<xs:element name="nombre" type="xs:string" minOccurs="0" />
+<xs:element name="profesion" type="xs:string" minOccurs="0" />
+<xs:element name="tipoPersonal" type="xs:string" minOccurs="0" />
+<xs:element name="ubicacionAdministrativa" type="xs:string" minOccurs="0" />
+<xs:element name="ubicacionFisica" type="xs:string" minOccurs="0" />
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="guardarExpedienteResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:boolean" />
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="buscarExpediente">
+<xs:sequence>
+<xs:element name="idExpediente" type="xs:string" minOccurs="0" />
+<xs:element name="idCategoria" type="xs:int" />
+<xs:element name="idLibreria" type="xs:int" />
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="buscarExpedienteResponse">
+<xs:sequence>
+<xs:element name="return" type="tns:expedientes" minOccurs="0" />
+</xs:sequence>
+</xs:complexType>
+</xs:schema>

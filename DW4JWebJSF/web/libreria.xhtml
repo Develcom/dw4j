@@ -1,0 +1,118 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <h:body>
+        <ui:composition template="./plantilla.xhtml">
+            <ui:define name="contenido">
+                <h:form>
+                    <table align="center">
+                        <tr>
+                            <td>
+                                <p:messages globalOnly="true"/>
+                            </td>
+                        </tr>
+                    </table>
+                    <table align="center" width="550" class="TablaCentral">
+                        <tr>
+                            <td>
+                                <table>
+                                    <tr>
+                                        <td>
+                                            <h:graphicImage library="images" name="#{imagen.logo}"/>
+                                        </td>
+                                        <td>
+                                            <h:outputText value=""/>
+                                        </td>
+                                        <td>
+                                            <p:panel header="#{libreria.login}">
+                                                <h:outputText value=""/>
+                                            </p:panel>
+                                        </td>
+                                        <td>
+                                            <p:ajaxStatus>  
+                                                <f:facet name="start">
+                                                    <table>
+                                                        <tr>
+                                                            <td>
+                                                                <h:graphicImage name="carga.gif" library="images" />
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>
+                                                                <h:outputText value="Espere por favor...!!!" />
+                                                            </td>
+                                                        </tr>
+                                                    </table> 
+                                                </f:facet>  
+                                                <f:facet name="complete">  
+                                                    <h:outputText value="" />  
+                                                </f:facet> 
+                                            </p:ajaxStatus>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="center">
+                                <p:panel header="Seleccione la Librería y la Categoría">
+                                    <table>
+                                        <tr>
+                                            <td>
+                                                <h:outputText value="Librería"/>
+                                            </td>
+                                            <td>
+                                                <h:selectOneMenu id="lib" value="#{libreria.libreria}">
+                                                    <f:selectItem itemValue="" itemLabel="Seleccione"/>
+                                                    <f:selectItems value="#{libreria.librerias}"/>                                                    
+                                                    <f:ajax render="cate"/>
+                                                    <!--p:ajax update="cate" immediate="true"/-->
+                                                </h:selectOneMenu>
+                                            </td>
+                                            <td>
+                                                <p:message for="lib"/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <h:outputText value="Categoría"/>
+                                            </td>
+                                            <td>
+                                                <h:selectOneMenu id="cate" value="#{libreria.categoria}" disabled="#{libreria.enable}">
+                                                    <f:selectItem itemValue="" itemLabel="Seleccione"/>
+                                                    <f:selectItems value="#{libreria.categorias}"/>
+                                                </h:selectOneMenu>
+                                            </td>
+                                            <td>
+                                                <p:message for="cate"/>
+                                            </td>                                            
+                                        </tr>
+                                        <tr>                                            
+                                            <td colspan="3" align="center">
+                                                <table>
+                                                    <tr>
+                                                        <td>
+                                                            <h:commandButton value="Salir" action="#{libreria.salir()}"/>
+                                                        </td>
+                                                        <td>
+                                                            <h:commandButton value="Aceptar" action="#{libreria.aceptar()}"/>
+                                                        </td>
+                                                    </tr>
+                                                </table>                                                
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </p:panel>
+                            </td>
+                        </tr>
+                    </table>
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
+

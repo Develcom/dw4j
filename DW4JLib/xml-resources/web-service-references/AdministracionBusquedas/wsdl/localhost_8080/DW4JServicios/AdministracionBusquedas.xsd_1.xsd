@@ -1,0 +1,319 @@
+<?xml version='1.0' encoding='UTF-8'?><!-- Published by JAX-WS RI at http://jax-ws.dev.java.net. RI's version is JAX-WS RI 2.2-hudson-740-. --><xs:schema xmlns:tns="http://administracion.develcom.com/" xmlns:xs="http://www.w3.org/2001/XMLSchema" version="1.0" targetNamespace="http://administracion.develcom.com/">
+
+<xs:element name="buscarCategorias" type="tns:buscarCategorias" />
+
+<xs:element name="buscarCategoriasResponse" type="tns:buscarCategoriasResponse" />
+
+<xs:element name="buscarDatosCombo" type="tns:buscarDatosCombo" />
+
+<xs:element name="buscarDatosComboResponse" type="tns:buscarDatosComboResponse" />
+
+<xs:element name="buscarIndiceDatoAdicional" type="tns:buscarIndiceDatoAdicional" />
+
+<xs:element name="buscarIndiceDatoAdicionalResponse" type="tns:buscarIndiceDatoAdicionalResponse" />
+
+<xs:element name="buscarIndices" type="tns:buscarIndices" />
+
+<xs:element name="buscarIndicesResponse" type="tns:buscarIndicesResponse" />
+
+<xs:element name="buscarLibrerias" type="tns:buscarLibrerias" />
+
+<xs:element name="buscarLibreriasCategorias" type="tns:buscarLibreriasCategorias" />
+
+<xs:element name="buscarLibreriasCategoriasResponse" type="tns:buscarLibreriasCategoriasResponse" />
+
+<xs:element name="buscarLibreriasResponse" type="tns:buscarLibreriasResponse" />
+
+<xs:element name="buscarPerfil" type="tns:buscarPerfil" />
+
+<xs:element name="buscarPerfilResponse" type="tns:buscarPerfilResponse" />
+
+<xs:element name="buscarSubCategorias" type="tns:buscarSubCategorias" />
+
+<xs:element name="buscarSubCategoriasResponse" type="tns:buscarSubCategoriasResponse" />
+
+<xs:element name="buscarTiposDocumentos" type="tns:buscarTiposDocumentos" />
+
+<xs:element name="buscarTiposDocumentosResponse" type="tns:buscarTiposDocumentosResponse" />
+
+<xs:element name="comprobarUsuario" type="tns:comprobarUsuario" />
+
+<xs:element name="comprobarUsuarioResponse" type="tns:comprobarUsuarioResponse" />
+
+<xs:complexType name="buscarDatosCombo">
+<xs:sequence>
+<xs:element name="idArgumento" type="xs:int" />
+<xs:element name="bandera" type="xs:boolean" />
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="buscarDatosComboResponse">
+<xs:sequence>
+<xs:element name="return" type="tns:combo" minOccurs="0" maxOccurs="unbounded" />
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="combo">
+<xs:sequence>
+<xs:element name="codigoIndice" type="xs:int" />
+<xs:element name="datoCombo" type="xs:string" minOccurs="0" />
+<xs:element name="idCombo" type="xs:int" />
+<xs:element name="indice" type="xs:string" minOccurs="0" />
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="comprobarUsuario">
+<xs:sequence>
+<xs:element name="login" type="xs:string" minOccurs="0" />
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="comprobarUsuarioResponse">
+<xs:sequence>
+<xs:element name="return" type="tns:sesion" minOccurs="0" />
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="sesion">
+<xs:sequence>
+<xs:element name="categoria" type="tns:categoria" minOccurs="0" />
+<xs:element name="configuracion" type="tns:configuracion" minOccurs="0" />
+<xs:element name="estatusUsuario" type="xs:string" minOccurs="0" />
+<xs:element name="fabrica" type="tns:fabrica" minOccurs="0" />
+<xs:element name="fechaHora" type="xs:string" minOccurs="0" />
+<xs:element name="IP" type="xs:string" minOccurs="0" />
+<xs:element name="idSession" type="xs:string" minOccurs="0" />
+<xs:element name="idUsuario" type="xs:string" minOccurs="0" />
+<xs:element name="libreria" type="tns:libreria" minOccurs="0" />
+<xs:element name="respuesta" type="xs:string" minOccurs="0" />
+<xs:element name="rolUsuario" type="tns:rol" minOccurs="0" />
+<xs:element name="verificar" type="xs:string" minOccurs="0" />
+<xs:element name="web" type="xs:int" />
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="categoria">
+<xs:sequence>
+<xs:element name="categoria" type="xs:string" minOccurs="0" />
+<xs:element name="estatus" type="xs:string" minOccurs="0" />
+<xs:element name="idCategoria" type="xs:int" />
+<xs:element name="lstIndices" type="tns:indice" nillable="true" minOccurs="0" maxOccurs="unbounded" />
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="indice">
+<xs:complexContent>
+<xs:extension base="tns:indices">
+<xs:sequence>
+<xs:element name="updateIndices" type="xs:boolean" />
+<xs:element name="valor" type="xs:anyType" minOccurs="0" />
+</xs:sequence>
+</xs:extension>
+</xs:complexContent>
+</xs:complexType>
+
+<xs:complexType name="indices">
+<xs:sequence>
+<xs:element name="clave" type="xs:string" minOccurs="0" />
+<xs:element name="codigo" type="xs:int" />
+<xs:element name="idCategoria" type="xs:int" />
+<xs:element name="idIndice" type="xs:int" />
+<xs:element name="indice" type="xs:string" minOccurs="0" />
+<xs:element name="tipo" type="xs:string" minOccurs="0" />
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="configuracion">
+<xs:sequence>
+<xs:element name="calidadActivo" type="xs:boolean" />
+<xs:element name="databaseName" type="xs:string" minOccurs="0" />
+<xs:element name="elimina" type="xs:boolean" />
+<xs:element name="fabrica" type="xs:boolean" />
+<xs:element name="ficha" type="xs:boolean" />
+<xs:element name="fileCode" type="xs:string" minOccurs="0" />
+<xs:element name="fileTif" type="xs:string" minOccurs="0" />
+<xs:element name="foliatura" type="xs:boolean" />
+<xs:element name="ldap" type="xs:boolean" />
+<xs:element name="logProperties" type="xs:string" minOccurs="0" />
+<xs:element name="password" type="xs:string" minOccurs="0" />
+<xs:element name="pathTmp" type="xs:string" minOccurs="0" />
+<xs:element name="port" type="xs:int" />
+<xs:element name="serverName" type="xs:string" minOccurs="0" />
+<xs:element name="user" type="xs:string" minOccurs="0" />
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="fabrica">
+<xs:sequence>
+<xs:element name="pertenece" type="xs:boolean" />
+<xs:element name="usuario" type="xs:string" minOccurs="0" />
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="libreria">
+<xs:sequence>
+<xs:element name="descripcion" type="xs:string" minOccurs="0" />
+<xs:element name="estatus" type="xs:string" minOccurs="0" />
+<xs:element name="idLibreria" type="xs:int" />
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="rol">
+<xs:sequence>
+<xs:element name="idRol" type="xs:int" />
+<xs:element name="rol" type="xs:string" minOccurs="0" />
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="buscarIndices">
+<xs:sequence>
+<xs:element name="idCategoria" type="xs:int" />
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="buscarIndicesResponse">
+<xs:sequence>
+<xs:element name="return" type="tns:indice" minOccurs="0" maxOccurs="unbounded" />
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="buscarTiposDocumentos">
+<xs:sequence>
+<xs:element name="tipoDocumento" type="xs:string" minOccurs="0" />
+<xs:element name="idCategoria" type="xs:int" />
+<xs:element name="idSubCategoria" type="xs:int" />
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="buscarTiposDocumentosResponse">
+<xs:sequence>
+<xs:element name="return" type="tns:tipoDocumento" minOccurs="0" maxOccurs="unbounded" />
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="tipoDocumento">
+<xs:sequence>
+<xs:element name="datoAdicional" type="xs:string" minOccurs="0" />
+<xs:element name="estatus" type="xs:string" minOccurs="0" />
+<xs:element name="ficha" type="xs:string" minOccurs="0" />
+<xs:element name="idCategoria" type="xs:int" />
+<xs:element name="idSubCategoria" type="xs:int" />
+<xs:element name="idTipoDocumento" type="xs:int" />
+<xs:element name="tipoDocumento" type="xs:string" minOccurs="0" />
+<xs:element name="vencimiento" type="xs:string" minOccurs="0" />
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="buscarLibrerias">
+<xs:sequence>
+<xs:element name="libreria" type="xs:string" minOccurs="0" />
+<xs:element name="idLibreria" type="xs:int" />
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="buscarLibreriasResponse">
+<xs:sequence>
+<xs:element name="return" type="tns:libreria" minOccurs="0" maxOccurs="unbounded" />
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="buscarLibreriasCategorias">
+<xs:sequence />
+</xs:complexType>
+
+<xs:complexType name="buscarLibreriasCategoriasResponse">
+<xs:sequence>
+<xs:element name="return" type="tns:perfil" minOccurs="0" maxOccurs="unbounded" />
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="perfil">
+<xs:sequence>
+<xs:element name="categoria" type="tns:categoria" minOccurs="0" />
+<xs:element name="estatus" type="xs:int" />
+<xs:element name="fabrica" type="tns:fabrica" minOccurs="0" />
+<xs:element name="indice" type="tns:indice" minOccurs="0" />
+<xs:element name="libreria" type="tns:libreria" minOccurs="0" />
+<xs:element name="rol" type="tns:rol" minOccurs="0" />
+<xs:element name="subCategoria" type="tns:subCategoria" minOccurs="0" />
+<xs:element name="tipoDocumento" type="tns:tipoDocumento" minOccurs="0" />
+<xs:element name="usuario" type="xs:string" minOccurs="0" />
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="subCategoria">
+<xs:sequence>
+<xs:element name="estatus" type="xs:string" minOccurs="0" />
+<xs:element name="idCategoria" type="xs:int" />
+<xs:element name="idSubCategoria" type="xs:int" />
+<xs:element name="listaTipoDocumentos" type="tns:tipoDocumento" nillable="true" minOccurs="0" maxOccurs="unbounded" />
+<xs:element name="subCategoria" type="xs:string" minOccurs="0" />
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="buscarPerfil">
+<xs:sequence>
+<xs:element name="user" type="xs:string" minOccurs="0" />
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="buscarPerfilResponse">
+<xs:sequence>
+<xs:element name="return" type="tns:sesion" minOccurs="0" maxOccurs="unbounded" />
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="buscarSubCategorias">
+<xs:sequence>
+<xs:element name="subCategoria" type="xs:string" minOccurs="0" />
+<xs:element name="idCategoria" type="xs:int" />
+<xs:element name="idSubCategoria" type="xs:int" />
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="buscarSubCategoriasResponse">
+<xs:sequence>
+<xs:element name="return" type="tns:subCategoria" minOccurs="0" maxOccurs="unbounded" />
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="buscarIndiceDatoAdicional">
+<xs:sequence>
+<xs:element name="idTipoDocumento" type="xs:int" />
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="buscarIndiceDatoAdicionalResponse">
+<xs:sequence>
+<xs:element name="return" type="tns:datoAdicional" minOccurs="0" maxOccurs="unbounded" />
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="datoAdicional">
+<xs:sequence>
+<xs:element name="codigo" type="xs:int" />
+<xs:element name="idDatoAdicional" type="xs:int" />
+<xs:element name="idTipoDocumento" type="xs:int" />
+<xs:element name="idValor" type="xs:int" />
+<xs:element name="indiceDatoAdicional" type="xs:string" minOccurs="0" />
+<xs:element name="numeroDocumento" type="xs:int" />
+<xs:element name="tipo" type="xs:string" minOccurs="0" />
+<xs:element name="valor" type="xs:anyType" minOccurs="0" />
+<xs:element name="version" type="xs:int" />
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="buscarCategorias">
+<xs:sequence>
+<xs:element name="categoria" type="xs:string" minOccurs="0" />
+<xs:element name="idLibreria" type="xs:int" />
+<xs:element name="idCategoria" type="xs:int" />
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="buscarCategoriasResponse">
+<xs:sequence>
+<xs:element name="return" type="tns:categoria" minOccurs="0" maxOccurs="unbounded" />
+</xs:sequence>
+</xs:complexType>
+</xs:schema>

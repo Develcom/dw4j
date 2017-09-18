@@ -1,0 +1,108 @@
+<?xml version='1.0' encoding='UTF-8'?><!-- Published by JAX-WS RI at http://jax-ws.dev.java.net. RI's version is JAX-WS RI 2.2-hudson-740-. --><xs:schema xmlns:tns="http://documento.develcom.com/" xmlns:xs="http://www.w3.org/2001/XMLSchema" version="1.0" targetNamespace="http://documento.develcom.com/">
+
+<xs:element name="buscarInformacionDocumento" type="tns:buscarInformacionDocumento" />
+
+<xs:element name="buscarInformacionDocumentoResponse" type="tns:buscarInformacionDocumentoResponse" />
+
+<xs:element name="buscarUltimaVersionDoc" type="tns:buscarUltimaVersionDoc" />
+
+<xs:element name="buscarUltimaVersionDocResponse" type="tns:buscarUltimaVersionDocResponse" />
+
+<xs:element name="buscarValorDatoAdicional" type="tns:buscarValorDatoAdicional" />
+
+<xs:element name="buscarValorDatoAdicionalResponse" type="tns:buscarValorDatoAdicionalResponse" />
+
+<xs:complexType name="buscarInformacionDocumento">
+<xs:sequence>
+<xs:element name="idDocumento" type="xs:int" minOccurs="0" maxOccurs="unbounded" />
+<xs:element name="idExpediente" type="xs:string" minOccurs="0" />
+<xs:element name="idCategoria" type="xs:int" />
+<xs:element name="idSubCategoria" type="xs:int" />
+<xs:element name="estatusDocumento" type="xs:int" />
+<xs:element name="estatusAprobado" type="xs:int" />
+<xs:element name="reDigitalizar" type="xs:boolean" />
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="buscarInformacionDocumentoResponse">
+<xs:sequence>
+<xs:element name="return" type="tns:infoDocumento" minOccurs="0" maxOccurs="unbounded" />
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="infoDocumento">
+<xs:sequence>
+<xs:element name="cantPaginas" type="xs:int" />
+<xs:element name="causaRechazo" type="xs:string" minOccurs="0" />
+<xs:element name="datoAdicional" type="xs:string" minOccurs="0" />
+<xs:element name="estatus" type="xs:int" />
+<xs:element name="estatusDocumento" type="xs:string" minOccurs="0" />
+<xs:element name="fechaActual" type="xs:dateTime" minOccurs="0" />
+<xs:element name="fechaAprobacion" type="xs:dateTime" minOccurs="0" />
+<xs:element name="fechaDigitalizacion" type="xs:dateTime" minOccurs="0" />
+<xs:element name="fechaRechazo" type="xs:dateTime" minOccurs="0" />
+<xs:element name="fechaVencimiento" type="xs:dateTime" minOccurs="0" />
+<xs:element name="folio" type="xs:int" />
+<xs:element name="formato" type="xs:string" minOccurs="0" />
+<xs:element name="idDocumento" type="xs:int" />
+<xs:element name="idExpediente" type="xs:string" minOccurs="0" />
+<xs:element name="idInfoDocumento" type="xs:int" />
+<xs:element name="lsDatosAdicionales" type="tns:datoAdicional" nillable="true" minOccurs="0" maxOccurs="unbounded" />
+<xs:element name="motivoRechazo" type="xs:string" minOccurs="0" />
+<xs:element name="nombreArchivo" type="xs:string" minOccurs="0" />
+<xs:element name="nuevo" type="xs:boolean" />
+<xs:element name="numeroDocumento" type="xs:int" />
+<xs:element name="reDigitalizo" type="xs:boolean" />
+<xs:element name="rutaArchivo" type="xs:string" minOccurs="0" />
+<xs:element name="tipoDocDatoAdicional" type="xs:boolean" />
+<xs:element name="tipoDocumento" type="xs:string" minOccurs="0" />
+<xs:element name="usuarioAprobacion" type="xs:string" minOccurs="0" />
+<xs:element name="usuarioDigitalizo" type="xs:string" minOccurs="0" />
+<xs:element name="usuarioRechazo" type="xs:string" minOccurs="0" />
+<xs:element name="version" type="xs:int" />
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="datoAdicional">
+<xs:sequence>
+<xs:element name="codigo" type="xs:int" />
+<xs:element name="idDatoAdicional" type="xs:int" />
+<xs:element name="idTipoDocumento" type="xs:int" />
+<xs:element name="idValor" type="xs:int" />
+<xs:element name="indiceDatoAdicional" type="xs:string" minOccurs="0" />
+<xs:element name="numeroDocumento" type="xs:int" />
+<xs:element name="tipo" type="xs:string" minOccurs="0" />
+<xs:element name="valor" type="xs:anyType" minOccurs="0" />
+<xs:element name="version" type="xs:int" />
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="buscarValorDatoAdicional">
+<xs:sequence>
+<xs:element name="idTipoDocumento" type="xs:int" />
+<xs:element name="idExpediente" type="xs:string" minOccurs="0" />
+<xs:element name="numeroDocumento" type="xs:int" />
+<xs:element name="version" type="xs:int" />
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="buscarValorDatoAdicionalResponse">
+<xs:sequence>
+<xs:element name="return" type="tns:datoAdicional" minOccurs="0" maxOccurs="unbounded" />
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="buscarUltimaVersionDoc">
+<xs:sequence>
+<xs:element name="idDocumento" type="xs:int" />
+<xs:element name="idExpediente" type="xs:string" minOccurs="0" />
+<xs:element name="numeroDocumento" type="xs:int" />
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="buscarUltimaVersionDocResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:int" />
+</xs:sequence>
+</xs:complexType>
+</xs:schema>

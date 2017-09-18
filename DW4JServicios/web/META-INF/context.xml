@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Context path="/DW4JServicios">
+  <!--Context antiJARLocking="true" path="/DW4JServicios">    
+    <Resource name="jdbc/dw4j" auth="Container" type="javax.sql.DataSource"
+          maxActive="50" maxIdle="30" 
+          username="oradw4j" password="Develcom01" 
+          driverClassName="oracle.jdbc.OracleDriver"
+          url="jdbc:oracle:thin:@192.168.0.157:1521:dw4j"/-->
+  <!--Context antiJARLocking="true" path="/DW4JServicios">    
+    <Resource name="jdbc/dw4j" auth="Container" type="javax.sql.DataSource"
+          maxActive="50" maxIdle="30" maxWait="10000"
+          username="oradw4j" password="Develcom01" 
+          driverClassName="oracle.jdbc.driver.OracleDriver"
+          url="jdbc:oracle:thin:@192.168.0.157:1521/dw4j"/-->
+</Context>

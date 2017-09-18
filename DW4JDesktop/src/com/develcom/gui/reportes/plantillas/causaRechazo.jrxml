@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="causaRechazo" pageWidth="612" pageHeight="792" whenNoDataType="AllSectionsNoDetail" columnWidth="572" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="fc027aa4-f1ad-4bbc-9297-7846554d23fe">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="idLib" class="java.lang.Integer"/>
+	<parameter name="idCat" class="java.lang.Integer"/>
+	<parameter name="fechaDesde" class="java.util.Date"/>
+	<parameter name="fechaHasta" class="java.util.Date"/>
+	<queryString>
+		<![CDATA[select
+     to_number(to_char((count(d.causa_rechazo)*100/tt.total::float), '999.99'), '999.99') as porcentaje,
+     count(d.causa_rechazo) as cantidad,
+     d.causa_rechazo,
+     c.categoria,
+     l.libreria
+from
+  (select count(di.causa_rechazo)::float as total
+          from infodocumento i
+     inner join datos_infodocumento di on di.id_infodocumento=i.id_infodocumento
+          inner join tipodocumento d on i.id_documento=d.id_documento
+          inner join categoria c on d.id_categoria=c.id_categoria
+          inner join libreria l on c.id_libreria=l.id_libreria
+          where i.estatus_documento = 2 and
+                l.id_libreria = $P{idLib} and
+                c.id_categoria = $P{idCat} and
+                di.fecha_rechazo between $P{fechaDesde} and $P{fechaHasta}
+                --and i.re_digitalizado='1'
+            ) tt,
+     tipodocumento t 
+     inner join infodocumento i on t.id_documento = i.id_documento
+     inner join datos_infodocumento d on d.id_infodocumento=i.id_infodocumento
+     inner join categoria c on t.id_categoria = c.id_categoria
+     inner join libreria l on c.id_libreria = l.id_libreria
+where
+     i.estatus_documento = 2 and
+     c.id_categoria = $P{idCat} and
+     l.id_libreria = $P{idLib} and
+     d.fecha_rechazo between $P{fechaDesde} and $P{fechaHasta}
+     --and i.re_digitalizado='0'
+group by
+     causa_rechazo,
+     categoria,
+     libreria,
+     total
+order by
+     d.causa_rechazo asc]]>
+	</queryString>
+	<field name="porcentaje" class="java.math.BigDecimal"/>
+	<field name="cantidad" class="java.lang.Long"/>
+	<field name="causa_rechazo" class="java.lang.String"/>
+	<field name="categoria" class="java.lang.String"/>
+	<field name="libreria" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="28" splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="115" splitType="Stretch">
+			<staticText>
+				<reportElement x="177" y="0" width="200" height="28" uuid="0158b068-cb32-4e29-82bb-4b0d4136ff72"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font size="20" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Causa de Rechazo]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="435" y="0" width="80" height="20" uuid="48f8a836-f44e-40c3-b819-174f4462fd59"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="515" y="0" width="40" height="20" uuid="f026d2f4-35a6-451a-bad7-f9125c98fdfb"/>
+				<textFieldExpression><![CDATA[" / " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="95" width="72" height="20" uuid="68d0ba56-b616-410f-a642-a68843c10654"/>
+				<textElement textAlignment="Left">
+					<font size="13"/>
+				</textElement>
+				<text><![CDATA[Categoria:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="75" width="72" height="20" uuid="29fbd2fc-19a6-44d9-a5ba-13664a59137a"/>
+				<textElement textAlignment="Left">
+					<font size="13"/>
+				</textElement>
+				<text><![CDATA[Libreria:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="72" y="95" width="338" height="20" uuid="026d875b-2d93-4805-a436-6075bfa352b2"/>
+				<textElement>
+					<font size="13"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{categoria}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="72" y="75" width="338" height="20" uuid="9f2b211c-956d-451d-88d1-90af5ec5f2ae"/>
+				<textElement>
+					<font size="13"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{libreria}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="413" y="28" width="42" height="20" uuid="59712126-1a70-4339-8b15-d4b72740f29c"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Desde]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="455" y="28" width="100" height="20" uuid="514b1814-3025-440c-b522-35b71b38f940"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{fechaDesde}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="455" y="48" width="100" height="20" uuid="d7038057-889b-49b7-b172-83709ff98572"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{fechaHasta}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="413" y="48" width="42" height="20" uuid="1bd57cfe-4e34-4df0-a4e1-a3df0fab91b2"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Hasta]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<summary>
+		<band height="366" splitType="Stretch">
+			<pieChart>
+				<chart>
+					<reportElement x="0" y="0" width="572" height="366" uuid="788fdcc4-db70-42ee-a333-5ea5de76c385"/>
+					<chartTitle/>
+					<chartSubtitle/>
+					<chartLegend/>
+				</chart>
+				<pieDataset>
+					<keyExpression><![CDATA[$F{causa_rechazo}]]></keyExpression>
+					<valueExpression><![CDATA[$F{cantidad}]]></valueExpression>
+					<labelExpression><![CDATA[$F{porcentaje}+"%"]]></labelExpression>
+				</pieDataset>
+				<piePlot>
+					<plot/>
+					<itemLabel/>
+				</piePlot>
+			</pieChart>
+		</band>
+	</summary>
+</jasperReport>

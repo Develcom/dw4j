@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?link rel="shortcut icon" type="image/x-icon" href="/img/favicon.ico"?>
+<?init class="org.zkoss.zk.ui.util.Composition" arg0="/plantilla.zul"?>
+
+<zk xmlns="http://www.zkoss.org/2005/zul">
+    <window title="Inicio de Sesión" self="@{define(content)}" border="normal" apply="ve.net.develcom.paginas.Login">
+        <grid sclass="tablaSeniat">
+            <columns>
+                <column label=""/>
+                <column label=""/>
+            </columns>
+            <rows>
+                <row>
+                    <cell align="right">
+                        <label id="" value="Usuario"/>
+                    </cell>
+                    <combobox id="usuario" buttonVisible="false" autodrop="false" autocomplete="true" />
+                </row>
+                <row>
+                    <cell align="right">
+                        <label id="" value="Contraseña"/>
+                    </cell>
+                    <textbox id="pass" type="password"/>
+                </row>
+                <row>
+                    <cell colspan="2" align="center" valign="bottom">
+                        <button id="sesion" label="Iniciar Sesion"/>
+                    </cell>
+                </row>
+            </rows>
+        </grid>
+    </window>
+</zk>

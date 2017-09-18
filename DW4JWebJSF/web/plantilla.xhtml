@@ -1,0 +1,32 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Sistema de Gestión Documental</title>
+        <!--link rel="shortcut icon" href="resources/images/favicon.ico"/-->
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <h:outputStylesheet library="css" name="develcom.css"/>
+        <!--link rel="stylesheet" href="./resources/css/procela.css" type="text/css"/-->
+
+        <script type="text/javascript">
+            function disableBackButton() {
+                window.history.forward();
+            }
+            setTimeout("disableBackButton()", 0);
+        </script>
+    </h:head>
+    <h:body>
+        <table id="cuerpo" align="center" >
+            <tr>
+                <td align="center" colspan="2">
+                    <ui:insert name="contenido"/>
+                </td>
+            </tr>
+        </table>
+    </h:body>
+</html>
+

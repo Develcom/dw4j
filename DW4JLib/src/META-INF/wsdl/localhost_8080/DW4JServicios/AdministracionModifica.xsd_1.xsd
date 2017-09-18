@@ -1,0 +1,189 @@
+<?xml version='1.0' encoding='UTF-8'?><!-- Published by JAX-WS RI at http://jax-ws.dev.java.net. RI's version is JAX-WS RI 2.2-hudson-740-. --><xs:schema xmlns:tns="http://administracion.develcom.com/" xmlns:xs="http://www.w3.org/2001/XMLSchema" version="1.0" targetNamespace="http://administracion.develcom.com/">
+
+<xs:element name="modificarCategoria" type="tns:modificarCategoria" />
+
+<xs:element name="modificarCategoriaResponse" type="tns:modificarCategoriaResponse" />
+
+<xs:element name="modificarDatosCombo" type="tns:modificarDatosCombo" />
+
+<xs:element name="modificarDatosComboResponse" type="tns:modificarDatosComboResponse" />
+
+<xs:element name="modificarLibreria" type="tns:modificarLibreria" />
+
+<xs:element name="modificarLibreriaResponse" type="tns:modificarLibreriaResponse" />
+
+<xs:element name="modificarPerfil" type="tns:modificarPerfil" />
+
+<xs:element name="modificarPerfilResponse" type="tns:modificarPerfilResponse" />
+
+<xs:element name="modificarSubCategoria" type="tns:modificarSubCategoria" />
+
+<xs:element name="modificarSubCategoriaResponse" type="tns:modificarSubCategoriaResponse" />
+
+<xs:element name="modificarTipoDocumento" type="tns:modificarTipoDocumento" />
+
+<xs:element name="modificarTipoDocumentoFoto" type="tns:modificarTipoDocumentoFoto" />
+
+<xs:element name="modificarTipoDocumentoFotoResponse" type="tns:modificarTipoDocumentoFotoResponse" />
+
+<xs:element name="modificarTipoDocumentoResponse" type="tns:modificarTipoDocumentoResponse" />
+
+<xs:complexType name="modificarDatosCombo">
+<xs:sequence>
+<xs:element name="combos" type="tns:combo" minOccurs="0" maxOccurs="unbounded" />
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="combo">
+<xs:sequence>
+<xs:element name="codigoIndice" type="xs:int" />
+<xs:element name="datoCombo" type="xs:string" minOccurs="0" />
+<xs:element name="idCombo" type="xs:int" />
+<xs:element name="indice" type="xs:string" minOccurs="0" />
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="modificarDatosComboResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:boolean" />
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="modificarCategoria">
+<xs:sequence>
+<xs:element name="categorias" type="tns:categoria" minOccurs="0" maxOccurs="unbounded" />
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="categoria">
+<xs:sequence>
+<xs:element name="categoria" type="xs:string" minOccurs="0" />
+<xs:element name="estatus" type="xs:string" minOccurs="0" />
+<xs:element name="idCategoria" type="xs:int" />
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="modificarCategoriaResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:boolean" />
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="modificarLibreria">
+<xs:sequence>
+<xs:element name="librerias" type="tns:libreria" minOccurs="0" maxOccurs="unbounded" />
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="libreria">
+<xs:sequence>
+<xs:element name="descripcion" type="xs:string" minOccurs="0" />
+<xs:element name="estatus" type="xs:string" minOccurs="0" />
+<xs:element name="idLibreria" type="xs:int" />
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="modificarLibreriaResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:boolean" />
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="modificarTipoDocumento">
+<xs:sequence>
+<xs:element name="tipodocumentos" type="tns:tipoDocumento" minOccurs="0" maxOccurs="unbounded" />
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="tipoDocumento">
+<xs:sequence>
+<xs:element name="datoAdicional" type="xs:string" minOccurs="0" />
+<xs:element name="estatus" type="xs:string" minOccurs="0" />
+<xs:element name="ficha" type="xs:string" minOccurs="0" />
+<xs:element name="idCategoria" type="xs:int" />
+<xs:element name="idSubCategoria" type="xs:int" />
+<xs:element name="idTipoDocumento" type="xs:int" />
+<xs:element name="tipoDocumento" type="xs:string" minOccurs="0" />
+<xs:element name="vencimiento" type="xs:string" minOccurs="0" />
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="modificarTipoDocumentoResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:boolean" />
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="modificarTipoDocumentoFoto">
+<xs:sequence>
+<xs:element name="idTipoDocumento" type="xs:int" />
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="modificarTipoDocumentoFotoResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:boolean" />
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="modificarPerfil">
+<xs:sequence>
+<xs:element name="perfil" type="tns:perfil" minOccurs="0" maxOccurs="unbounded" />
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="perfil">
+<xs:sequence>
+<xs:element name="categoria" type="tns:categoria" minOccurs="0" />
+<xs:element name="estatus" type="xs:int" />
+<xs:element name="fabrica" type="tns:fabrica" minOccurs="0" />
+<xs:element name="libreria" type="tns:libreria" minOccurs="0" />
+<xs:element name="rol" type="tns:rol" minOccurs="0" />
+<xs:element name="subCategoria" type="tns:subCategoria" minOccurs="0" />
+<xs:element name="tipoDocumento" type="tns:tipoDocumento" minOccurs="0" />
+<xs:element name="usuario" type="xs:string" minOccurs="0" />
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="fabrica">
+<xs:sequence>
+<xs:element name="pertenece" type="xs:boolean" />
+<xs:element name="usuario" type="xs:string" minOccurs="0" />
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="rol">
+<xs:sequence>
+<xs:element name="idRol" type="xs:int" />
+<xs:element name="rol" type="xs:string" minOccurs="0" />
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="subCategoria">
+<xs:sequence>
+<xs:element name="estatus" type="xs:string" minOccurs="0" />
+<xs:element name="idCategoria" type="xs:int" />
+<xs:element name="idSubCategoria" type="xs:int" />
+<xs:element name="listaTipoDocumentos" type="tns:tipoDocumento" nillable="true" minOccurs="0" maxOccurs="unbounded" />
+<xs:element name="subCategoria" type="xs:string" minOccurs="0" />
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="modificarPerfilResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:boolean" />
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="modificarSubCategoria">
+<xs:sequence>
+<xs:element name="subCategorias" type="tns:subCategoria" minOccurs="0" maxOccurs="unbounded" />
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="modificarSubCategoriaResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:boolean" />
+</xs:sequence>
+</xs:complexType>
+</xs:schema>

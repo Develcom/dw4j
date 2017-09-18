@@ -1,0 +1,32 @@
+<?xml version='1.0' encoding='UTF-8'?><!-- Published by JAX-WS RI at http://jax-ws.dev.java.net. RI's version is JAX-WS RI 2.2-hudson-740-. --><xs:schema xmlns:tns="http://expediente.develcom.com/" xmlns:xs="http://www.w3.org/2001/XMLSchema" version="1.0" targetNamespace="http://expediente.develcom.com/">
+
+<xs:element name="buscarInformacion" type="tns:buscarInformacion" />
+
+<xs:element name="buscarInformacionResponse" type="tns:buscarInformacionResponse" />
+
+<xs:element name="buscarTipoEmpleado" type="tns:buscarTipoEmpleado" />
+
+<xs:element name="buscarTipoEmpleadoResponse" type="tns:buscarTipoEmpleadoResponse" />
+
+<xs:complexType name="buscarInformacion">
+<xs:sequence>
+<xs:element name="codigo" type="xs:int" />
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="buscarInformacionResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:string" minOccurs="0" maxOccurs="unbounded" />
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="buscarTipoEmpleado">
+<xs:sequence />
+</xs:complexType>
+
+<xs:complexType name="buscarTipoEmpleadoResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:string" minOccurs="0" maxOccurs="unbounded" />
+</xs:sequence>
+</xs:complexType>
+</xs:schema>

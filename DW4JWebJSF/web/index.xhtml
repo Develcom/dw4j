@@ -1,0 +1,67 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <body>
+        <ui:composition template="./plantilla.xhtml">
+            <ui:define name="contenido">
+                <h:form>
+                    <table align="center">
+                        <tr>
+                            <td>
+                                <p:growl globalOnly="true" />
+                            </td>
+                        </tr>
+                    </table>
+                    <table width="350" align="center" class="TablaCentral">
+                        <tr>
+                            <td>
+                                <h:graphicImage library="images" name="#{imagen.logo}"/>
+                            </td>
+                            <td align="center">
+                                <p:panel header="Inicio de Sesión">
+                                    <table>                                        
+                                        <tr>
+                                            <td>
+                                                <h:outputLabel for="user" value="Usiario: "/>
+                                            </td>
+                                            <td>
+                                                <p:autoComplete id="user" value="#{login.usuario}" completeMethod="#{login.autocompletarusuarios}"
+                                                                forceSelection="true" requiredMessage="Debe colocar un usuario valido"/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <h:outputLabel for="pass" value="Contraseña: "/>
+                                            </td>
+                                            <td>
+                                                <p:password id="pass" value="#{login.contrasenia}" required="true" label="Contraseña: "
+                                                            requiredMessage="Debe colocar una contraseña"/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="2" align="center">
+                                                <h:commandButton action="#{login.inicarSesion()}" value="Iniciar Sesión"/>  
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </p:panel>
+                            </td>
+                        </tr>
+                    </table>
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </body>
+    <p:ajaxStatus>
+        <f:facet name="start">
+            <h:graphicImage name="carga.gif" library="images" />
+        </f:facet>  
+        <f:facet name="complete">  
+            <h:outputText value="" />  
+        </f:facet> 
+    </p:ajaxStatus>
+</html>

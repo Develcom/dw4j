@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?link rel="shortcut icon" type="image/x-icon" href="/img/favicon.ico"?>
+<?init class="org.zkoss.zk.ui.util.Composition" arg0="/plantilla.zul"?>
+
+<zk xmlns="http://www.zkoss.org/2005/zul">
+    <window title="Seleccione la Librería y la Categoría" border="normal" self="@{define(content)}" 
+            apply="ve.net.develcom.paginas.Libreria" sclass="tablaSeniat" id="winLibreria">    
+        <grid>
+            <columns>
+                <column label=""/>
+                <column label=""/>
+            </columns>
+            <rows>
+                <row>
+                    <cell align="right">
+                        <label value="Libreria"/>
+                    </cell>
+                    <!--combobox id="libreria" autodrop="true" autocomplete="true" /-->
+                    <combobox id="libreria"/>
+                </row>
+                <row>
+                    <cell align="right">
+                        <label value="Categoria"/>
+                    </cell>
+                    <!--combobox id="categoria" autodrop="true" autocomplete="true" /-->
+                    <combobox id="categoria"/>
+                </row>
+                <row>
+                    <cell align="center">
+                        <button id="ok" label="Aceptar"/>
+                    </cell>
+                    <cell align="center">
+                        <button id="exit" label="Salir"/>
+                    </cell>
+                </row>
+            </rows>
+        </grid>
+    </window>
+</zk>

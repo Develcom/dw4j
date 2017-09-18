@@ -1,0 +1,154 @@
+<?xml version='1.0' encoding='UTF-8'?><!-- Published by JAX-WS RI at http://jax-ws.dev.java.net. RI's version is JAX-WS RI 2.2-hudson-740-. --><xs:schema xmlns:tns="http://elimina.develcom.com/" xmlns:xs="http://www.w3.org/2001/XMLSchema" version="1.0" targetNamespace="http://elimina.develcom.com/">
+
+<xs:element name="buscarImagenDocumento" type="tns:buscarImagenDocumento" />
+
+<xs:element name="buscarImagenDocumentoResponse" type="tns:buscarImagenDocumentoResponse" />
+
+<xs:element name="buscarInfoDocuEliminado" type="tns:buscarInfoDocuEliminado" />
+
+<xs:element name="buscarInfoDocuEliminadoResponse" type="tns:buscarInfoDocuEliminadoResponse" />
+
+<xs:element name="eliminarDocumento" type="tns:eliminarDocumento" />
+
+<xs:element name="eliminarDocumentoResponse" type="tns:eliminarDocumentoResponse" />
+
+<xs:complexType name="buscarInfoDocuEliminado">
+<xs:sequence>
+<xs:element name="idDocumento" type="xs:int" minOccurs="0" maxOccurs="unbounded" />
+<xs:element name="idExpediente" type="xs:string" minOccurs="0" />
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="buscarInfoDocuEliminadoResponse">
+<xs:sequence>
+<xs:element name="return" type="tns:infoDocumento" minOccurs="0" maxOccurs="unbounded" />
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="infoDocumento">
+<xs:sequence>
+<xs:element name="cantPaginas" type="xs:int" />
+<xs:element name="causaRechazo" type="xs:string" minOccurs="0" />
+<xs:element name="datoAdicional" type="xs:string" minOccurs="0" />
+<xs:element name="estatus" type="xs:int" />
+<xs:element name="estatusDocumento" type="xs:string" minOccurs="0" />
+<xs:element name="fechaActual" type="xs:dateTime" minOccurs="0" />
+<xs:element name="fechaAprobacion" type="xs:dateTime" minOccurs="0" />
+<xs:element name="fechaDigitalizacion" type="xs:dateTime" minOccurs="0" />
+<xs:element name="fechaRechazo" type="xs:dateTime" minOccurs="0" />
+<xs:element name="fechaVencimiento" type="xs:dateTime" minOccurs="0" />
+<xs:element name="folio" type="xs:int" />
+<xs:element name="formato" type="xs:string" minOccurs="0" />
+<xs:element name="idDocumento" type="xs:int" />
+<xs:element name="idExpediente" type="xs:string" minOccurs="0" />
+<xs:element name="idInfoDocumento" type="xs:int" />
+<xs:element name="lsDatosAdicionales" type="tns:datoAdicional" nillable="true" minOccurs="0" maxOccurs="unbounded" />
+<xs:element name="motivoRechazo" type="xs:string" minOccurs="0" />
+<xs:element name="nombreArchivo" type="xs:string" minOccurs="0" />
+<xs:element name="nuevo" type="xs:boolean" />
+<xs:element name="numeroDocumento" type="xs:int" />
+<xs:element name="reDigitalizo" type="xs:boolean" />
+<xs:element name="rutaArchivo" type="xs:string" minOccurs="0" />
+<xs:element name="tipoDocDatoAdicional" type="xs:boolean" />
+<xs:element name="tipoDocumento" type="xs:string" minOccurs="0" />
+<xs:element name="usuarioAprobacion" type="xs:string" minOccurs="0" />
+<xs:element name="usuarioDigitalizo" type="xs:string" minOccurs="0" />
+<xs:element name="usuarioRechazo" type="xs:string" minOccurs="0" />
+<xs:element name="version" type="xs:int" />
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="datoAdicional">
+<xs:sequence>
+<xs:element name="codigo" type="xs:int" />
+<xs:element name="idDatoAdicional" type="xs:int" />
+<xs:element name="idTipoDocumento" type="xs:int" />
+<xs:element name="idValor" type="xs:int" />
+<xs:element name="indiceDatoAdicional" type="xs:string" minOccurs="0" />
+<xs:element name="numeroDocumento" type="xs:int" />
+<xs:element name="tipo" type="xs:string" minOccurs="0" />
+<xs:element name="valor" type="xs:anyType" minOccurs="0" />
+<xs:element name="version" type="xs:int" />
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="buscarImagenDocumento">
+<xs:sequence>
+<xs:element name="idInfoDocumento" type="xs:int" />
+<xs:element name="idExpediente" type="xs:string" minOccurs="0" />
+<xs:element name="version" type="xs:int" />
+<xs:element name="numeroDocumento" type="xs:int" />
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="buscarImagenDocumentoResponse">
+<xs:sequence>
+<xs:element name="return" type="tns:infoDocumento" minOccurs="0" />
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="eliminarDocumento">
+<xs:sequence>
+<xs:element name="elimnaDocuento" type="tns:eliminaDocumento" minOccurs="0" />
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="eliminaDocumento">
+<xs:sequence>
+<xs:element name="categoria" type="tns:categoria" minOccurs="0" />
+<xs:element name="causaElimino" type="xs:string" minOccurs="0" />
+<xs:element name="fechaEliminado" type="xs:dateTime" minOccurs="0" />
+<xs:element name="idExpediente" type="xs:string" minOccurs="0" />
+<xs:element name="infoDocumento" type="tns:infoDocumento" minOccurs="0" />
+<xs:element name="libreria" type="tns:libreria" minOccurs="0" />
+<xs:element name="motivoElimino" type="xs:string" minOccurs="0" />
+<xs:element name="subCategoria" type="tns:subCategoria" minOccurs="0" />
+<xs:element name="usuarioElimino" type="xs:string" minOccurs="0" />
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="categoria">
+<xs:sequence>
+<xs:element name="categoria" type="xs:string" minOccurs="0" />
+<xs:element name="estatus" type="xs:string" minOccurs="0" />
+<xs:element name="idCategoria" type="xs:int" />
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="libreria">
+<xs:sequence>
+<xs:element name="descripcion" type="xs:string" minOccurs="0" />
+<xs:element name="estatus" type="xs:string" minOccurs="0" />
+<xs:element name="idLibreria" type="xs:int" />
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="subCategoria">
+<xs:sequence>
+<xs:element name="estatus" type="xs:string" minOccurs="0" />
+<xs:element name="idCategoria" type="xs:int" />
+<xs:element name="idSubCategoria" type="xs:int" />
+<xs:element name="listaTipoDocumentos" type="tns:tipoDocumento" nillable="true" minOccurs="0" maxOccurs="unbounded" />
+<xs:element name="subCategoria" type="xs:string" minOccurs="0" />
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="tipoDocumento">
+<xs:sequence>
+<xs:element name="datoAdicional" type="xs:string" minOccurs="0" />
+<xs:element name="estatus" type="xs:string" minOccurs="0" />
+<xs:element name="ficha" type="xs:string" minOccurs="0" />
+<xs:element name="idCategoria" type="xs:int" />
+<xs:element name="idSubCategoria" type="xs:int" />
+<xs:element name="idTipoDocumento" type="xs:int" />
+<xs:element name="tipoDocumento" type="xs:string" minOccurs="0" />
+<xs:element name="vencimiento" type="xs:string" minOccurs="0" />
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="eliminarDocumentoResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:boolean" />
+</xs:sequence>
+</xs:complexType>
+</xs:schema>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?link rel="shortcut icon" type="image/x-icon" href="/img/favicon.ico"?>
+<?init class="org.zkoss.zk.ui.util.Composition" arg0="/plantillaConsulta.zul"?>
+
+<zk xmlns="http://www.zkoss.org/2005/zul">
+    <window self="@{define(content)}" border="normal" apply="ve.net.develcom.paginas.Resultado"
+            id="winResultado" title="Resultado de la consulta">
+        <grid>
+            <columns>
+                <column label=""/>
+                <column label=""/>
+            </columns>
+            <rows>
+                <row>
+                    <cell colspan="2" align="center">
+                        <listbox id="resultado" mold="paging" pageSize="10"/>
+                    </cell>
+                </row>
+                <row>
+                    <cell align="center">
+                        <button id="regresa" label="Regresar" onClick=""/>
+                    </cell>
+                    <cell align="center">
+                        <button id="exit" label="Salir" onClick=""/>
+                    </cell>
+                </row>
+            </rows>
+        </grid>
+    </window>
+</zk>

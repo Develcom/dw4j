@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?link rel="shortcut icon" type="image/x-icon" href="/resources/images/favicon.ico"?>
+<?link rel="stylesheet" type="text/css" href="/resources/css/develcom.css"?>
+<?init class="org.zkoss.zk.ui.util.Composition" arg0="/plantilla.zul"?>
+
+<zk xmlns="http://www.zkoss.org/2005/zul">
+    <window id="winDatosAdicionales" apply="ve.net.develcom.paginas.DatosAdicionales" 
+            sclass="tablaSeniat" width="40%" border="normal" position="center" self="@{define(content)}">
+    <!--window id="winDatosAdicionales" apply="ve.net.develcom.paginas.DatosAdicionales" sclass="tablaSeniat" width="40%"
+            position="center" closable="true" action="show: slideDown;hide: slideUp" border="normal"-->
+        <grid id="panelDatosAdicionales">
+            <columns>
+                <column label=""/>
+                <column label=""/>
+                <column label=""/>
+                <column label=""/>
+            </columns>
+            <rows>
+                <row>
+                </row>
+                <row>
+                    <cell align="center">
+                        <button id="closeBtn" label="Cerrar"/>
+                    </cell>
+                </row>
+            </rows>
+        </grid>
+    </window>
+</zk>

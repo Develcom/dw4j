@@ -1,0 +1,102 @@
+<?xml version='1.0' encoding='UTF-8'?><!-- Published by JAX-WS RI at http://jax-ws.dev.java.net. RI's version is JAX-WS RI 2.2-hudson-740-. --><xs:schema xmlns:tns="http://calidad.develcom.com/" xmlns:xs="http://www.w3.org/2001/XMLSchema" version="1.0" targetNamespace="http://calidad.develcom.com/">
+
+<xs:element name="aprobarDocumento" type="tns:aprobarDocumento" />
+
+<xs:element name="aprobarDocumentoResponse" type="tns:aprobarDocumentoResponse" />
+
+<xs:element name="buscarCausasRechazo" type="tns:buscarCausasRechazo" />
+
+<xs:element name="buscarCausasRechazoResponse" type="tns:buscarCausasRechazoResponse" />
+
+<xs:element name="buscarExpedientesPendientes" type="tns:buscarExpedientesPendientes" />
+
+<xs:element name="buscarExpedientesPendientesResponse" type="tns:buscarExpedientesPendientesResponse" />
+
+<xs:element name="rechazarDocumento" type="tns:rechazarDocumento" />
+
+<xs:element name="rechazarDocumentoResponse" type="tns:rechazarDocumentoResponse" />
+
+<xs:complexType name="buscarCausasRechazo">
+<xs:sequence />
+</xs:complexType>
+
+<xs:complexType name="buscarCausasRechazoResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:string" minOccurs="0" maxOccurs="unbounded" />
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="buscarExpedientesPendientes">
+<xs:sequence>
+<xs:element name="usuario" type="xs:string" minOccurs="0" />
+<xs:element name="fechaDesde" type="xs:dateTime" minOccurs="0" />
+<xs:element name="fechaHasta" type="xs:dateTime" minOccurs="0" />
+<xs:element name="estatusDocumento" type="xs:int" />
+<xs:element name="idCategoria" type="xs:int" />
+<xs:element name="idExpediente" type="xs:string" minOccurs="0" />
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="buscarExpedientesPendientesResponse">
+<xs:sequence>
+<xs:element name="return" type="tns:consultaDinamica" minOccurs="0" maxOccurs="unbounded" />
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="consultaDinamica">
+<xs:sequence>
+<xs:element name="existe" type="xs:boolean" />
+<xs:element name="indices" type="tns:indice" nillable="true" minOccurs="0" maxOccurs="unbounded" />
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="indice">
+<xs:complexContent>
+<xs:extension base="tns:indices">
+<xs:sequence>
+<xs:element name="updateIndices" type="xs:boolean" />
+<xs:element name="valor" type="xs:anyType" minOccurs="0" />
+</xs:sequence>
+</xs:extension>
+</xs:complexContent>
+</xs:complexType>
+
+<xs:complexType name="indices">
+<xs:sequence>
+<xs:element name="clave" type="xs:string" minOccurs="0" />
+<xs:element name="codigo" type="xs:int" />
+<xs:element name="idCategoria" type="xs:int" />
+<xs:element name="idIndice" type="xs:int" />
+<xs:element name="indice" type="xs:string" minOccurs="0" />
+<xs:element name="tipo" type="xs:string" minOccurs="0" />
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="rechazarDocumento">
+<xs:sequence>
+<xs:element name="idInfoDocumento" type="xs:int" />
+<xs:element name="usuario" type="xs:string" minOccurs="0" />
+<xs:element name="causa" type="xs:string" minOccurs="0" />
+<xs:element name="motivo" type="xs:string" minOccurs="0" />
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="rechazarDocumentoResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:boolean" />
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="aprobarDocumento">
+<xs:sequence>
+<xs:element name="idInfoDocumento" type="xs:int" />
+<xs:element name="usuario" type="xs:string" minOccurs="0" />
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="aprobarDocumentoResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:boolean" />
+</xs:sequence>
+</xs:complexType>
+</xs:schema>

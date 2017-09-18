@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?link rel="shortcut icon" type="image/x-icon" href="/img/favicon.ico"?>
+<?init class="org.zkoss.zk.ui.util.Composition" arg0="/plantillaConsulta.zul"?>
+
+<zk xmlns="http://www.zkoss.org/2005/zul">
+    <window self="@{define(content)}" border="normal" apply="ve.net.develcom.paginas.MuestraDocumento"
+            id="winDoc" title="">
+        <grid>
+            <columns>
+                <column label=""/>
+                <column label=""/>
+                <column label=""/>
+            </columns>
+            <rows>
+                <row>
+                    <cell align="center" colspan="3">
+                        <grid>
+                            <columns>
+                                <column label=""/>
+                                <column label=""/>
+                            </columns>
+                            <rows>
+                                <row>
+                                    <cell align="center">
+                                        <label id="fechaVencimiento"/>
+                                    </cell>
+                                    <cell align="center">
+                                        <grid id="gridVersion">
+                                            <columns>
+                                                <column label=""/>
+                                                <column label=""/>
+                                            </columns>
+                                            <rows>
+                                                <row>
+                                                    <combobox id="cboVersion"/>
+                                                    <button id="btnAbrir" label="Ver" onClick=""/>
+                                                </row>
+                                            </rows>
+                                        </grid>                        
+                                    </cell>
+                                </row>
+                            </rows>
+                        </grid>
+                    </cell>
+                </row>
+                <row>
+                    <cell align="center" colspan="3">
+                        <label id="datosAdicionales"/>
+                    </cell>
+                </row>
+                <row>
+                    <cell align="center" colspan="3">
+                        <iframe id="documento" height="800px" width="600px" style="border: 1px solid gray"/>
+                    </cell>
+                </row>
+                <row>
+                    <cell align="center" colspan="3">
+                        <grid>
+                            <columns>
+                                <column label=""/>
+                                <column label=""/>
+                            </columns>
+                            <rows>
+                                <row>
+                                    <cell align="center">
+                                        <button id="regresa" label="Regresar" />
+                                    </cell>
+                                    <cell align="center">
+                                        <button id="exit" label="Salir" />
+                                    </cell>
+                                </row>
+                            </rows>
+                        </grid>
+                    </cell>
+                </row>
+            </rows>
+        </grid>
+    </window>
+</zk>

@@ -1,0 +1,864 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package com.develcom.gui.consulta;
+
+import com.develcom.expediente.Categoria;
+import com.develcom.administracion.Combo;
+import com.develcom.autentica.Perfil;
+import com.develcom.dao.Expediente;
+import com.develcom.dao.ManejoSesion;
+import com.develcom.administracion.Indice;
+import com.develcom.excepcion.DW4JDesktopExcepcion;
+import com.develcom.expediente.ConsultaDinamica;
+import com.develcom.expediente.SubCategoria;
+import com.develcom.expediente.TipoDocumento;
+import com.develcom.gui.Principal;
+import com.develcom.gui.tools.CentraVentanas;
+import com.develcom.gui.tools.MostrarProceso;
+import com.develcom.tools.Constantes;
+import com.develcom.tools.trazas.Traza;
+import com.toedter.calendar.JDateChooser;
+import java.awt.Component;
+import java.awt.FlowLayout;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.net.ConnectException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.GregorianCalendar;
+import java.util.HashMap;
+import java.util.List;
+import java.util.logging.Logger;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.DefaultListModel;
+import javax.swing.JComboBox;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
+import javax.xml.soap.SOAPException;
+import javax.xml.ws.soap.SOAPFaultException;
+import org.apache.log4j.Level;
+import ve.com.develcom.administracion.AdministracionBusqueda;
+import ve.com.develcom.busquedadinamica.BuscaExpedienteDinamico;
+import ve.com.develcom.expediente.BuscaIndice;
+import ve.com.develcom.expediente.LLenarListaDesplegable;
+import ve.com.develcom.sesion.IniciaSesion;
+
+/**
+ *
+ * @author familia
+ */
+public class ConsultaTodos extends javax.swing.JInternalFrame {
+
+    private static final long serialVersionUID = 1L;
+    /**
+     * Escribe trazas en el log
+     */
+    private Traza traza = new Traza(ConsultaTodos.class);
+    private List<Perfil> perfiles;
+    private String idCategorias = "";
+    private List<Indice> indices = new ArrayList<>();
+    private Expediente expe;
+
+    /**
+     * Creates new form ConsultaTodos
+     */
+    public ConsultaTodos() {
+        initComponents();
+        iniciar();
+    }
+
+    private void iniciar() {
+
+        this.expe = new Expediente();
+        ManejoSesion.setExpediente(expe);
+        llenarcboLibreria();
+        CentraVentanas.centrar(this, Principal.desktop);
+        setTitle("Busqueda de todos los Expediente");
+        this.setVisible(true);
+    }
+
+    /**
+     * Llena la lista desplegables con las Librerias
+     */
+    private void llenarcboLibreria() {
+
+        String lib = "";
+        DefaultComboBoxModel modelo = new DefaultComboBoxModel();
+
+        try {
+            traza.trace("llenando lista de libreria", Level.INFO);
+            modelo.addElement("");
+
+            traza.trace("buscando las libreria del usuario " + ManejoSesion.getLogin() + " con el perfil " + Constantes.ROL, Level.INFO);
+            perfiles = new IniciaSesion().buscarLibCatIndicePerfil(ManejoSesion.getLogin(), Constantes.ROL);
+
+            traza.trace("tamaño perfiles " + perfiles.size(), Level.INFO);
+
+            for (Perfil perfil : perfiles) {
+
+                String des = perfil.getLibreria().getDescripcion();
+
+                if (!lib.equalsIgnoreCase(des)) {
+                    lib = perfil.getLibreria().getDescripcion();
+                    if (perfil.getLibreria().getEstatus().equalsIgnoreCase(Constantes.ACTIVO)) {
+                        modelo.addElement(perfil.getLibreria().getDescripcion());
+                    }
+                }
+            }
+
+            cboLibreria.setModel(modelo);
+
+        } catch (SOAPException | SOAPFaultException | ConnectException e) {
+            traza.trace("error al llenar lista de libreria", Level.INFO, e);
+            JOptionPane.showMessageDialog(this, "Error al llenar lista de libreria\n" + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    protected DefaultComboBoxModel llenarCombo(int pos, int codigo, boolean bandera) {
+        DefaultComboBoxModel modelo = new DefaultComboBoxModel();
+        try {
+            List<Combo> datosCombo = new LLenarListaDesplegable().buscarData(codigo, bandera);
+            modelo.addElement("");
+            for (Combo combo : datosCombo) {
+                modelo.addElement(combo.getDatoCombo());
+            }
+
+        } catch (SOAPException ex) {
+            traza.trace("problemas al buscar la informacion de la lista desplegable " + codigo, Level.INFO, ex);
+        }
+        return modelo;
+    }
+
+    /**
+     * This method is called from within the constructor to initialize the form.
+     * WARNING: Do NOT modify this code. The content of this method is always
+     * regenerated by the Form Editor.
+     */
+    @SuppressWarnings("unchecked")
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    private void initComponents() {
+
+        jPanel1 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        cboLibreria = new javax.swing.JComboBox<>();
+        btnAceptar = new javax.swing.JButton();
+        btnRegresar = new javax.swing.JButton();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        panelIndices = new javax.swing.JPanel();
+
+        setBackground(new java.awt.Color(224, 239, 255));
+
+        jPanel1.setBackground(new java.awt.Color(224, 239, 255));
+
+        jLabel1.setText("Seleccione la Libreria");
+
+        cboLibreria.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cboLibreriaActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(cboLibreria, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(cboLibreria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 23, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        btnAceptar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/develcom/gui/imagenes/develcom/Knob Valid Green.png"))); // NOI18N
+        btnAceptar.setMnemonic('a');
+        btnAceptar.setText("Aceptar");
+        btnAceptar.setToolTipText("Aceptar");
+        btnAceptar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAceptarActionPerformed(evt);
+            }
+        });
+
+        btnRegresar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/develcom/gui/imagenes/develcom/Knob Cancel.png"))); // NOI18N
+        btnRegresar.setMnemonic('c');
+        btnRegresar.setText("Cancelar");
+        btnRegresar.setToolTipText("Cancelar");
+        btnRegresar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRegresarActionPerformed(evt);
+            }
+        });
+
+        jScrollPane4.setBackground(new java.awt.Color(224, 239, 255));
+        jScrollPane4.setBorder(javax.swing.BorderFactory.createTitledBorder("Indices"));
+
+        panelIndices.setBackground(new java.awt.Color(224, 239, 255));
+
+        javax.swing.GroupLayout panelIndicesLayout = new javax.swing.GroupLayout(panelIndices);
+        panelIndices.setLayout(panelIndicesLayout);
+        panelIndicesLayout.setHorizontalGroup(
+            panelIndicesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 764, Short.MAX_VALUE)
+        );
+        panelIndicesLayout.setVerticalGroup(
+            panelIndicesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 352, Short.MAX_VALUE)
+        );
+
+        jScrollPane4.setViewportView(panelIndices);
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jScrollPane4)))
+                .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addGap(260, 260, 260)
+                .addComponent(btnAceptar, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(btnRegresar)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane4)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnRegresar, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnAceptar))
+                .addContainerGap())
+        );
+
+        getAccessibleContext().setAccessibleName("Consultar Todos Los Expedientes");
+
+        pack();
+    }// </editor-fold>//GEN-END:initComponents
+
+    private void btnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarActionPerformed
+        consultar();
+    }//GEN-LAST:event_btnAceptarActionPerformed
+
+    /**
+     * Obtiene los datos necesario para realizar la consulta dinamica
+     */
+    private void consultar() {
+
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        List<ConsultaDinamica> consultaDinamicas;
+
+        HashMap<String, GregorianCalendar> fechas;// = new HashMap<String, GregorianCalendar>();
+        List<HashMap<String, GregorianCalendar>> lstFechas = new ArrayList<>();
+
+        Object[] subCateSel, tipoDocSel;
+
+        List<TipoDocumento> listaTipoDoc = new ArrayList<>();
+        List<SubCategoria> listaSubCat = new ArrayList<>();
+        List<Categoria> listaCat = new ArrayList<>();
+        com.develcom.expediente.Indice indice;
+        List<com.develcom.expediente.Indice> listaIndices = new ArrayList<>();
+
+        JDateChooser jDateChooser;
+        JComboBox jComboBox;
+        JTextField jTextField;
+        JTextArea jTextArea;
+
+        int size, contNull = 0, contDato;
+        boolean vacio;
+
+        try {
+
+            for (Indice ind : indices) {
+                indice = new com.develcom.expediente.Indice();
+                indice.setUpdateIndices(false);
+
+                if (ind.getTipo().equalsIgnoreCase("texto")) {
+
+                    jTextField = (JTextField) ind.getValor();
+
+                    indice.setIdCategoria(ind.getIdCategoria());
+                    indice.setIdIndice(ind.getIdIndice());
+                    indice.setIndice(ind.getIndice());
+                    indice.setClave(ind.getClave());
+                    indice.setTipo(ind.getTipo());
+                    indice.setValor(jTextField.getText());
+                    listaIndices.add(indice);
+
+                } else if (ind.getTipo().equalsIgnoreCase("combo")) {
+
+                    jComboBox = (JComboBox) ind.getValor();
+
+                    indice.setIdCategoria(ind.getIdCategoria());
+                    indice.setIdIndice(ind.getIdIndice());
+                    indice.setIndice(ind.getIndice());
+                    indice.setClave(ind.getClave());
+                    indice.setTipo(ind.getTipo());
+                    indice.setValor(jComboBox.getSelectedItem().toString());
+                    listaIndices.add(indice);
+
+                } else if (ind.getTipo().equalsIgnoreCase("fecha")) {
+
+                    try {
+
+                        fechas = new HashMap<>();
+
+                        jDateChooser = (JDateChooser) ind.getValor();
+                        GregorianCalendar fecha = (GregorianCalendar) jDateChooser.getCalendar();
+
+                        fechas.put(ind.getIndice(), fecha);
+                        lstFechas.add(fechas);
+
+                        indice.setIdCategoria(ind.getIdCategoria());
+                        indice.setIdIndice(ind.getIdIndice());
+                        indice.setIndice(ind.getIndice());
+                        indice.setClave(ind.getClave());
+                        indice.setTipo(ind.getTipo());
+                        indice.setValor(sdf.format(fecha.getTime()));
+                        listaIndices.add(indice);
+
+                    } catch (NullPointerException e) {
+
+                        indice.setIdCategoria(ind.getIdCategoria());
+                        indice.setIdIndice(ind.getIdIndice());
+                        indice.setIndice(ind.getIndice());
+                        indice.setClave(ind.getClave());
+                        indice.setTipo(ind.getTipo());
+                        listaIndices.add(indice);
+
+                    }
+
+                } else if (ind.getTipo().equalsIgnoreCase("numero")) {
+
+                    jTextField = (JTextField) ind.getValor();
+
+                    indice.setIdCategoria(ind.getIdCategoria());
+                    indice.setIdIndice(ind.getIdIndice());
+                    indice.setIndice(ind.getIndice());
+                    indice.setClave(ind.getClave());
+                    indice.setTipo(ind.getTipo());
+                    indice.setValor(jTextField.getText());
+                    listaIndices.add(indice);
+
+                } else if (ind.getTipo().equalsIgnoreCase("area")) {
+
+                    jTextArea = (JTextArea) ind.getValor();
+
+                    indice.setIdCategoria(ind.getIdCategoria());
+                    indice.setIdIndice(ind.getIdIndice());
+                    indice.setIndice(ind.getIndice());
+                    indice.setClave(ind.getClave());
+                    indice.setTipo(ind.getTipo());
+                    indice.setValor(jTextArea.getText());
+                    listaIndices.add(indice);
+                }
+            }
+
+            size = listaIndices.size();
+
+            for (com.develcom.expediente.Indice ind : listaIndices) {
+                if ((ind.getValor() == null) || (ind.getValor().equals(""))) {
+                    contNull++;
+                }
+            }
+
+            vacio = contNull != size;
+//            if(contNull == size){
+//                vacio=false;
+//            }else{
+//                vacio=true;
+//            }
+
+            if (vacio) {
+                if (comprobarFechas(lstFechas, listaIndices)) {
+
+                    consultaDinamicas = new BuscaExpedienteDinamico().encontrarExpedienteGenerico(listaIndices, expe.getIdLibreria(), idCategorias);
+
+//                    if (!consultaDinamicas.isEmpty()) {
+                    if (consultaDinamicas.get(0).isExiste()) {
+
+                        List<Integer> idsCategorias = new ArrayList<>();
+
+                        String[] ids = idCategorias.split(",");
+
+                        for (String id : ids) {
+                            idsCategorias.add(Integer.parseInt(id));
+                        }
+
+                        expe.setSubCategorias(convertir(listaSubCat));
+                        expe.setTipoDocumentos(listaTipoDoc);
+                        expe.setIdCategorias(idsCategorias);
+                        ManejoSesion.setExpediente(expe);
+
+                        ManejoSesion.setSizeSearch(consultaDinamicas.size());
+
+                        traza.trace("exito al en la consulta dinamica ", Level.INFO);
+
+                        this.dispose();
+
+                        ResultadoExpediente re = new ResultadoExpediente(consultaDinamicas, true);
+
+                        Principal.desktop.add(re);
+                    } else {
+                        throw new DW4JDesktopExcepcion("No se encontraron expedientes asociados a la búsqueda ingresada");
+                        //throw new DW4JDesktopExcepcion("Debe indicar algún Índice de Búsqueda");
+                    }
+//                    } else {
+//                        //throw new DW4JDesktopExcepcion("Debe indicar algún Índice de Búsqueda");
+//                        throw new DW4JDesktopExcepcion("No se encontraron expedientes asociados a la búsqueda ingresada");
+//                    }
+
+                } else {
+                    throw new DW4JDesktopExcepcion("Problemas con los rango de fechas");
+                }
+            } else {
+                throw new DW4JDesktopExcepcion("Debe indicar algún Índice de Búsqueda");
+            }
+
+        } catch (SOAPException e) {
+            traza.trace("error en la busqueda dinamica ", Level.INFO, e);
+        } catch (DW4JDesktopExcepcion e) {
+            traza.trace("error en la busqueda dinamica ", Level.INFO, e);
+            JOptionPane.showMessageDialog(this, e.getMessage(), "Advertencia", JOptionPane.WARNING_MESSAGE);
+        }
+    }
+
+    /**
+     * Verifica los rangos de las fechas
+     *
+     * @param lstFechas Lista con datos de fechas a consultar
+     * @param listaIndices Lista de indices para la busqueda y comparacion
+     * @return Siempre devuelve verdadero, solo devuelva falso cuando los rango
+     * de fechas estan errados
+     */
+    private boolean comprobarFechas(List<HashMap<String, GregorianCalendar>> lstFechas, List<com.develcom.expediente.Indice> listaIndices) {
+
+        boolean resp = true;
+
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+
+        for (int i = 0; i < lstFechas.size(); i++) {
+
+            HashMap<String, GregorianCalendar> fecha = lstFechas.get(i);
+
+            for (com.develcom.expediente.Indice ind : listaIndices) {
+
+                String etiDesde = ind.getIndice();
+                int desde = etiDesde.indexOf("DESDE");
+
+                if (desde != -1) {
+
+                    String lblDesde = etiDesde.substring(0, desde - 1);
+                    GregorianCalendar fechDesde = fecha.get(etiDesde);
+
+                    for (int j = 0; j < lstFechas.size(); j++) {
+                        HashMap<String, GregorianCalendar> fech = lstFechas.get(j);
+
+                        for (com.develcom.expediente.Indice ind1 : listaIndices) {
+
+                            String etiHasta = ind1.getIndice();
+                            int hasta = etiHasta.indexOf("HASTA");
+
+                            if (hasta != -1) {
+                                String lblHasta = etiHasta.substring(0, hasta - 1);
+                                GregorianCalendar fechHasta = fech.get(etiHasta);
+
+                                if (lblHasta.equalsIgnoreCase(lblDesde)) {
+                                    if (fechHasta != null) {
+                                        if (fechDesde != null) {
+                                            if (fechDesde.after(fechHasta)) {
+                                                resp = false;
+                                                traza.trace("problema de fechas", Level.INFO);
+                                                traza.trace(etiDesde + " - " + sdf.format(fechDesde.getTime()), Level.INFO);
+                                                traza.trace(etiHasta + " - " + sdf.format(fechHasta.getTime()), Level.INFO);
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return resp;
+    }
+
+    private List<com.develcom.administracion.SubCategoria> convertir(List<SubCategoria> listaSubCat) {
+        com.develcom.administracion.SubCategoria sc = new com.develcom.administracion.SubCategoria();
+        List<com.develcom.administracion.SubCategoria> scs = new ArrayList<>();
+
+        for (SubCategoria subCat : listaSubCat) {
+            sc.setEstatus(subCat.getEstatus());
+            sc.setIdCategoria(subCat.getIdCategoria());
+            sc.setIdSubCategoria(subCat.getIdSubCategoria());
+            sc.setSubCategoria(subCat.getSubCategoria());
+            scs.add(sc);
+        }
+
+        return scs;
+    }
+
+    private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
+
+        dispose();
+    }//GEN-LAST:event_btnRegresarActionPerformed
+
+    private void cboLibreriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboLibreriaActionPerformed
+
+        buscarDatos();
+    }//GEN-LAST:event_cboLibreriaActionPerformed
+
+    private void buscarDatos() {
+
+        final MostrarProceso proceso = new MostrarProceso("Armando el formulario de busqueda");
+        proceso.start();
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                buscarIndices();
+                proceso.detener();
+            }
+        }).start();
+
+    }
+
+    private void buscarIndices() {
+
+        String lib = cboLibreria.getSelectedItem().toString();
+        List<Categoria> categorias = new ArrayList<>();
+        int idCategoria, idLib, cont = 1;
+        List<Indice> indice = new ArrayList<>();
+
+        try {
+            for (int i = 0; i <= perfiles.size(); i++) {
+                if (perfiles.get(i).getLibreria().getDescripcion().equals(lib)) {
+
+                    idLib = perfiles.get(i).getLibreria().getIdLibreria();
+                    expe.setIdLibreria(idLib);
+                    expe.setCategorias(new AdministracionBusqueda().buscarCategoria(null, idLib, 0));
+                    categorias = convertirCategoria(expe.getCategorias());
+
+                    idCategoria = categorias.get(0).getIdCategoria();
+                    indice = new BuscaIndice().buscarIndice(idCategoria);
+                    break;
+                }
+            }
+
+            idCategorias = "";
+            for (Categoria cat : categorias) {
+                if (cont != categorias.size()) {
+                    idCategorias = idCategorias + cat.getIdCategoria() + ",";
+                } else {
+                    idCategorias = idCategorias + cat.getIdCategoria();
+                }
+                cont++;
+            }
+
+            if (!indices.isEmpty()) {
+                indices.clear();
+            }
+
+            for (Indice ind : indice) {
+                if (ind.getClave().equalsIgnoreCase("y")) {
+                    indices.add(ind);
+                } else if (ind.getClave().equalsIgnoreCase("s")) {
+                    indices.add(ind);
+                }
+            }
+
+            if (!indices.isEmpty()) {
+
+//                for (Component component : panelIndices.getComponents()) {
+//                    panelIndices.remove(component);
+//                }
+                panelIndices.removeAll();
+                panelIndices.setLayout(new FlowLayout(FlowLayout.CENTER));
+                panelIndices.add(crearFormulario());
+                panelIndices.updateUI();
+            }
+
+        } catch (SOAPException | SOAPFaultException ex) {
+            Logger.getLogger(ConsultaTodos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+    }
+
+    private JPanel crearFormulario() {
+
+        JPanel panel = new JPanel();
+        GridBagLayout gridBagLayout = new GridBagLayout();
+        GridBagConstraints constraints = new GridBagConstraints();
+        JLabel[] labels;
+        JTextField[] textos;
+        JTextArea areaTexto[];
+        JComboBox[] combos;
+        JDateChooser fecha[];
+        String cat, ind = "";
+        int banderaColumna = 0, filas = 0, columnas = 0, sizeList;
+
+//        for (int i = 0; i <= perfiles.size(); i++) {
+//
+//            cat = perfiles.get(i).getCategoria().getCategoria();
+//
+//            if ((!ind.equalsIgnoreCase(perfiles.get(i).getIndice().getIndice()))
+//                    && (cat.equalsIgnoreCase(perfiles.get(i + 1).getCategoria().getCategoria()))) {
+//
+//                ind = perfiles.get(i).getIndice().getIndice();
+//
+//                indices.add(perfiles.get(i).getIndice());
+//            } else {
+//                indices.add(perfiles.get(i).getIndice());
+//                break;
+//            }
+//        }
+        sizeList = indices.size();
+        textos = new JTextField[sizeList];
+        labels = new JLabel[sizeList + 1];
+        combos = new JComboBox[sizeList];
+        areaTexto = new JTextArea[sizeList];
+        fecha = new JDateChooser[sizeList + 1];
+
+        panel.setLayout(gridBagLayout);
+        panel.setBackground(new java.awt.Color(224, 239, 255));
+
+        for (int i = 0; i < indices.size(); i++) {
+
+            String arg = indices.get(i).getIndice().replace("_", " ");
+            String tipo = indices.get(i).getTipo();
+
+            labels[i] = new JLabel(" " + arg + " ");
+            labels[i].setHorizontalAlignment(JLabel.RIGHT);
+            textos[i] = new JTextField(30);
+            combos[i] = new JComboBox();
+            areaTexto[i] = new JTextArea();
+            fecha[i] = new JDateChooser();
+            fecha[i].setCalendar(null);
+            fecha[i].setDateFormatString("dd/MM/yyyy");
+
+            if (banderaColumna != 0) {
+                columnas = 0;
+            }
+
+            if (tipo.equalsIgnoreCase("numero")) {
+
+                banderaColumna = 0;
+                constraints.gridx = columnas;
+                constraints.gridy = filas;
+                constraints.gridwidth = 1;
+                constraints.gridheight = 1;
+                constraints.fill = GridBagConstraints.BOTH;
+                panel.add(labels[i], constraints);
+
+                constraints.gridx = ++columnas;
+                constraints.gridy = filas;
+                constraints.gridwidth = 1;
+                constraints.gridheight = 1;
+                constraints.fill = GridBagConstraints.BOTH;
+                panel.add(textos[i], constraints);
+
+                indices.get(i).setValor(textos[i]);
+
+            } else if (tipo.equalsIgnoreCase("fecha")) {
+
+                String label = labels[i].getText();
+
+                labels[i].setText(label + "desde ");
+
+                constraints.gridx = columnas;
+                constraints.gridy = filas;
+                constraints.gridwidth = 1;
+                constraints.gridheight = 1;
+                constraints.fill = GridBagConstraints.BOTH;
+                panel.add(labels[i], constraints);
+
+                constraints.gridx = ++columnas;
+                constraints.gridy = filas;
+                constraints.gridwidth = 1;
+                constraints.gridheight = 1;
+                constraints.fill = GridBagConstraints.BOTH;
+                panel.add(fecha[i], constraints);
+
+                indices.get(i).setValor(fecha[i]);
+
+                if (columnas >= 1) {
+                    constraints.gridx = 0;
+                    constraints.gridy = ++filas;
+                    constraints.gridwidth = 1;
+                    constraints.gridheight = 1;
+                    constraints.fill = GridBagConstraints.BOTH;
+                    panel.add(new JLabel(" "), constraints);
+                    columnas = 0;
+                    filas++;
+                } else {
+                    columnas++;
+                }
+
+                i++;
+                labels[i] = new JLabel(label + "hasta ");
+                labels[i].setHorizontalAlignment(JLabel.RIGHT);
+                fecha[i] = new JDateChooser();
+                fecha[i].setCalendar(null);
+
+                constraints.gridx = columnas;
+                constraints.gridy = filas;
+                constraints.gridwidth = 1;
+                constraints.gridheight = 1;
+                constraints.fill = GridBagConstraints.BOTH;
+                panel.add(labels[i], constraints);
+
+                constraints.gridx = ++columnas;
+                constraints.gridy = filas;
+                constraints.gridwidth = 1;
+                constraints.gridheight = 1;
+                constraints.fill = GridBagConstraints.BOTH;
+                panel.add(fecha[i], constraints);
+
+                indices.get(i).setValor(fecha[i]);
+
+                i--;
+
+            } else if (tipo.equalsIgnoreCase("combo")) {
+
+                constraints.gridx = columnas;
+                constraints.gridy = filas;
+                constraints.gridwidth = 1;
+                constraints.gridheight = 1;
+                constraints.fill = GridBagConstraints.BOTH;
+                panel.add(labels[i], constraints);
+
+                constraints.gridx = ++columnas;
+                constraints.gridy = filas;
+                constraints.gridwidth = 1;
+                constraints.gridheight = 1;
+                constraints.fill = GridBagConstraints.BOTH;
+                panel.add(combos[i], constraints);
+
+                indices.get(i).setValor(combos[i]);
+
+                combos[i].setModel(llenarCombo(i, indices.get(i).getCodigo(), false));
+
+            } else if (tipo.equalsIgnoreCase("texto")) {
+                constraints.gridx = columnas;
+                constraints.gridy = filas;
+                constraints.gridwidth = 1;
+                constraints.gridheight = 1;
+                constraints.fill = GridBagConstraints.BOTH;
+                panel.add(labels[i], constraints);
+
+                constraints.gridx = ++columnas;
+                constraints.gridy = filas;
+                constraints.gridwidth = 1;
+                constraints.gridheight = 1;
+                constraints.fill = GridBagConstraints.BOTH;
+                panel.add(textos[i], constraints);
+
+                indices.get(i).setValor(textos[i]);
+
+            } else if (tipo.equalsIgnoreCase("area")) {
+
+                constraints.gridx = 0;
+                constraints.gridy = ++filas;
+                constraints.gridwidth = 1;
+                constraints.gridheight = 1;
+                constraints.fill = GridBagConstraints.BOTH;
+                panel.add(new JLabel(" "), constraints);
+
+                areaTexto[i].setColumns(10);
+                areaTexto[i].setRows(3);
+                JScrollPane jsp = new JScrollPane();
+                jsp.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
+                jsp.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+                jsp.setAutoscrolls(true);
+                jsp.setViewportView(areaTexto[i]);
+
+                constraints.gridx = columnas;
+                constraints.gridy = filas;
+                constraints.gridwidth = 1;
+                constraints.gridheight = 1;
+                constraints.fill = GridBagConstraints.BOTH;
+                panel.add(labels[i], constraints);
+
+                constraints.gridx = ++columnas;
+                constraints.gridy = filas;
+                constraints.gridwidth = 6;
+                constraints.gridheight = 1;
+                constraints.fill = GridBagConstraints.BOTH;
+                panel.add(jsp, constraints);
+
+                indices.get(i).setValor(areaTexto[i]);
+
+                banderaColumna++;
+            }
+
+            banderaColumna++;
+
+            if (columnas >= 1) {
+                constraints.gridx = 0;
+                constraints.gridy = ++filas;
+                constraints.gridwidth = 1;
+                constraints.gridheight = 1;
+                constraints.fill = GridBagConstraints.BOTH;
+                panel.add(new JLabel(" "), constraints);
+                columnas = 0;
+                filas++;
+            }
+
+        }
+        return panel;
+    }
+
+    private List<Categoria> convertirCategoria(List<com.develcom.administracion.Categoria> cs) {
+
+        List<Categoria> cats = new ArrayList<>();
+        Categoria categoria;
+
+        for (com.develcom.administracion.Categoria c : cs) {
+            categoria = new Categoria();
+            categoria.setCategoria(c.getCategoria());
+            categoria.setEstatus(c.getEstatus());
+            categoria.setIdCategoria(c.getIdCategoria());
+            cats.add(categoria);
+        }
+
+        return cats;
+    }
+
+
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAceptar;
+    private javax.swing.JButton btnRegresar;
+    private javax.swing.JComboBox<String> cboLibreria;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JPanel panelIndices;
+    // End of variables declaration//GEN-END:variables
+}

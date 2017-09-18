@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-private xmlns="http://www.netbeans.org/ns/project-private/1">
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
+    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+        <group name="Develcom DW4J"/>
+        <group name="Develcom DW4J 0.4">
+            <file>file:/E:/NetBeansProjects/Develcom-0.4/DW4JDesktop/src/com/develcom/gui/reportes/plantillas/foliatura.jrxml</file>
+            <file>file:/E:/NetBeansProjects/Develcom-0.4/DW4JDesktop/src/com/develcom/gui/reportes/tools/Foliatura.java</file>
+            <file>file:/E:/NetBeansProjects/Develcom-0.4/DW4JDesktop/src/com/develcom/gui/captura/DigitalizaDocumento.java</file>
+            <file>file:/E:/NetBeansProjects/Develcom-0.4/DW4JDesktop/src/com/develcom/gui/calidad/ResultadoExpedienteCalidad.java</file>
+        </group>
+        <group name="DW4J"/>
+        <group name="Develcom 0.4">
+            <file>file:/H:/NetBeansProjects/Develcom-0.4/DW4JDesktop/src/com/develcom/gui/consulta/ResultadoExpediente.java</file>
+            <file>file:/H:/NetBeansProjects/Develcom-0.4/DW4JDesktop/src/com/develcom/gui/calidad/BuscaExpediente.java</file>
+            <file>file:/H:/NetBeansProjects/Develcom-0.4/DW4JDesktop/src/com/develcom/gui/captura/DigitalizaDocumento.java</file>
+            <file>file:/H:/NetBeansProjects/Develcom-0.4/DW4JDesktop/src/com/develcom/gui/mantenimiento/Mantenimiento.java</file>
+            <file>file:/H:/NetBeansProjects/Develcom-0.4/DW4JDesktop/src/com/develcom/gui/captura/scan/EscaneaDocumento.java</file>
+            <file>file:/H:/NetBeansProjects/Develcom-0.4/DW4JDesktop/src/com/develcom/gui/consulta/ConsultaExpediente.java</file>
+            <file>file:/H:/NetBeansProjects/Develcom-0.4/DW4JDesktop/src/com/develcom/gui/calidad/ResultadoExpedienteCalidad.java</file>
+        </group>
+        <group name="Develcom Maven">
+            <file>file:/H:/NetBeansProjects/Develcom-0.4%20-%20MinFinazas/DW4JDesktop/src/com/develcom/gui/captura/DigitalizaDocumento.java</file>
+            <file>file:/H:/NetBeansProjects/Develcom-0.4%20-%20MinFinazas/DW4JDesktop/src/com/develcom/gui/captura/CreaExpediente.java</file>
+            <file>file:/H:/NetBeansProjects/Develcom-0.4%20-%20MinFinazas/DW4JDesktop/src/com/develcom/gui/tools/CreaObjetosDinamicos.java</file>
+        </group>
+        <group name="Develcom Ministerio de Finazas">
+            <file>file:/G:/NetBeansProjects/Develcom-0.4%20-%20MinFinazas/DW4JDesktop/src/com/develcom/excepcion/DW4JDesktopExcepcion.java</file>
+            <file>file:/G:/NetBeansProjects/Develcom-0.4%20-%20MinFinazas/DW4JDesktop/src/com/develcom/gui/captura/CreaExpediente.java</file>
+        </group>
+        <group name="Develcom"/>
+        <group name="Develcm Maven">
+            <file>file:/media/Seagate%20Backup%20Plus%20Drive/NetBeansProjects/Develcom-0.4%20-%20MinFinazas/DW4JDesktop/src/com/develcom/gui/captura/GuardarDoc.java</file>
+        </group>
+        <group name="Develcom Fondo Prestaciones"/>
+        <group/>
+        <group name="DW4J Maven"/>
+    </open-files>
+</project-private>

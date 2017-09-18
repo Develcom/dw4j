@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jax-ws xmlns="http://www.netbeans.org/ns/jax-ws/1">
+  <services>
+    <service name="Foliatura">
+      <implementation-class>com.develcom.foliatura.Foliatura</implementation-class>
+    </service>
+    <service name="AdministracionAgregar">
+      <implementation-class>com.develcom.administracion.AdministracionAgregar</implementation-class>
+    </service>
+    <service name="AdministracionModifica">
+      <implementation-class>com.develcom.administracion.AdministracionModifica</implementation-class>
+    </service>
+    <service name="Autentica">
+      <implementation-class>com.develcom.autentica.Autentica</implementation-class>
+    </service>
+    <service name="IndicesExpediente">
+      <implementation-class>com.develcom.expediente.IndicesExpediente</implementation-class>
+    </service>
+    <service name="AdministracionBusquedas">
+      <implementation-class>com.develcom.administracion.AdministracionBusquedas</implementation-class>
+    </service>
+    <service name="BusquedaExpediente">
+      <implementation-class>com.develcom.expediente.BusquedaExpediente</implementation-class>
+    </service>
+    <service name="Archivo">
+      <implementation-class>com.develcom.documento.Archivo</implementation-class>
+    </service>
+    <service name="Documento">
+      <implementation-class>com.develcom.documento.Documento</implementation-class>
+    </service>
+    <service name="CalidadDocumento">
+      <implementation-class>com.develcom.calidad.CalidadDocumento</implementation-class>
+    </service>
+    <service name="Expediente">
+      <implementation-class>com.develcom.expediente.Expediente</implementation-class>
+    </service>
+    <service name="DatosExternos">
+      <implementation-class>com.develcom.externo.DatosExternos</implementation-class>
+    </service>
+    <service name="EliminaDocumento">
+      <implementation-class>com.develcom.elimina.EliminaDocumento</implementation-class>
+    </service>
+    <service name="Mantenimientos">
+      <implementation-class>com.develcom.mantenimiento.Mantenimientos</implementation-class>
+    </service>
+  </services>
+  <clients/>
+  <jsr109>false</jsr109>
+</jax-ws>

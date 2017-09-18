@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?link rel="shortcut icon" type="image/x-icon" href="/img/favicon.ico"?>
+<?init class="org.zkoss.zk.ui.util.Composition" arg0="/plantillaConsulta.zul"?>
+
+<zk xmlns="http://www.zkoss.org/2005/zul">
+    <!--window width="90%" border="normal"-->
+    <window self="@{define(content)}" border="normal" apply="ve.net.develcom.paginas.arbol.Arbol"
+                id="winResultado" title="Seleccione el tipo de documento a visualizar">
+        <grid>
+            <columns>
+                <column label=""/>
+                <column label=""/>
+            </columns>
+            <rows>
+                <row>
+                    <panel title="Arbol" id="panelArbol" border="normal">
+                        <panelchildren>
+                            <tree id="arbolDoc" rows="10"/>
+                        </panelchildren>
+                    </panel>
+                    <panel title="indices" id="panelIndice" border="normal">
+                        <panelchildren>
+                            <listbox id="indices"/>
+                        </panelchildren>
+                    </panel>
+                </row>
+                <row>
+                    <cell colspan="2" align="center">
+                        <grid>
+                            <columns>
+                                <column label=""/>
+                                <column label=""/>
+                                <column label=""/>
+                            </columns>
+                            <rows>
+                                <row>
+                                    <cell align="center">
+                                        <button id="consulta" label="Nueva Consulta" onClick=""/>
+                                    </cell>
+                                    <cell align="center">
+                                        <button id="regresa" label="Regresar" onClick=""/>
+                                    </cell>
+                                    <cell align="center">
+                                        <button id="exit" label="Salir" onClick=""/>
+                                    </cell>
+                                </row>
+                            </rows>
+                        </grid>
+                    </cell>
+                </row>
+            </rows>
+        </grid>
+    </window>
+</zk>

@@ -1,0 +1,126 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <body>
+        <ui:composition template="./plantilla.xhtml">
+            <ui:define name="contenido">
+                <p:dialog modal="true" widgetVar="statusDialog" header="Status" draggable="false" closable="false" resizable="false">  
+                    <h:graphicImage name="carga.gif" library="images" />
+                </p:dialog>
+                <h:form id="form">
+                    <table align="center">
+                        <tr>
+                            <td>
+                                <p:growl globalOnly="true" /> 
+                            </td>
+                        </tr>
+                    </table>
+                    <table align="center" width="807" class="TablaCentral">
+                        <tr>
+                            <td>
+                                <table>
+                                    <tr>
+                                        <td align="center">
+                                            <h:graphicImage library="images" name="#{imagen.logo}" />
+                                        </td>
+                                        <td>
+                                            <h:outputText value=""/>
+                                        </td>
+                                        <td>
+                                            <p:panel header="#{arbol.login}">
+                                                <h:outputText value="Libreria: " /> <h:outputText value="#{arbol.expediente.libreria}" />
+                                                <br/>
+                                                <h:outputText value="Categoria: " /> <h:outputText value="#{arbol.expediente.categoria}" /><br />
+                                            </p:panel>
+                                        </td>
+                                        <td>
+                                            <p:ajaxStatus>  
+                                                <f:facet name="start">
+                                                    <table>
+                                                        <tr>
+                                                            <td>
+                                                                <h:graphicImage name="carga.gif" library="images" />
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>
+                                                                <h:outputText value="Espere por favor...!!!" />
+                                                            </td>
+                                                        </tr>
+                                                    </table> 
+                                                </f:facet>  
+                                                <f:facet name="complete">  
+                                                    <h:outputText value="" />  
+                                                </f:facet> 
+                                            </p:ajaxStatus>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="center">
+                                <p:panel header="Seleccione el tipo de documento a visualizar">
+                                    <table align="center">
+                                        <tr>
+                                            <td>
+                                                <p:panel id="docArbol" header="Expediente #{arbol.expediente.idExpediente}">
+                                                    <table align="left">
+                                                        <tr>
+                                                            <td>
+                                                                <p:tree  id="docuArbol" value="#{arbol.raiz}" var="rama" 
+                                                                         selectionMode="single" selection="#{arbol.hojaSeleccionada}" >
+                                                                    <p:ajax event="select" listener="#{arbol.verDocumento}" />
+                                                                    <p:treeNode>
+                                                                        <h:outputText value="#{rama}"/>
+                                                                    </p:treeNode>
+                                                                </p:tree>
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+                                                </p:panel>
+                                            </td>
+                                            <td>
+                                                <p:panel id="indices" header="Indices del Expediente: #{arbol.expediente.idExpediente}">
+                                                    <h:panelGrid id="indiceDinamico" columns="1" binding="#{arbol.panelIndicesDinamico}"/>
+                                                </p:panel>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td align="center" colspan="2">
+                                                <p:outputPanel id="doc" autoUpdate="true" layout="block">
+                                                    <table>
+                                                        <tr>
+                                                            <td>
+                                                                <h:commandButton action="#{arbol.salir()}" value="Salir"/>
+                                                            </td>
+                                                            <td>
+                                                                <h:commandButton value="Regresa" action="#{arbol.regresar()}"/>
+                                                            </td>
+                                                            <td>
+                                                                <h:commandButton value="Ver Ficha" 
+                                                                                 action="#{arbol.verFicha()}"
+                                                                                 rendered="#{arbol.ficha}"/>                                                        
+                                                            </td>
+                                                            <td>
+                                                                <h:commandButton value="Nueva Consulta" action="#{arbol.nuevaConsulta()}"/>
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+                                                </p:outputPanel>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </p:panel>
+                            </td>
+                        </tr>
+                    </table>                  
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </body>
+</html>

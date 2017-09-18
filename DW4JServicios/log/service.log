@@ -1,0 +1,19 @@
+[ INFO] (20141008 02:02:34,575) - (WS) - Foliatura - datos 'pepe','caracas','parroquia el valle',35,'12/12/2014',
+[ INFO] (20141008 02:02:34,577) - (WS) - Foliatura - senetecia para crear la tabla create table reporte (nombre character varying(250), ciudad character varying(250), direccion character varying(250), edad integer, fecha nacimiento date, )
+[ INFO] (20141008 02:02:34,577) - (WS) - Foliatura - sentencia de datos insert into reporte (nombre,ciudad,direccion,edad,fecha nacimiento,) values ('pepe','caracas','parroquia el valle',35,'12/12/2014',)
+[ INFO] (20141008 02:02:34,578) - (WS) - BaseDato - se crea una tabla -1
+[ INFO] (20141008 02:02:34,578) - (WS) - BaseDato - se modifica una tabla -1
+[ INFO] (20141008 02:02:34,578) - (WS) - BaseDato - se inserta registro -1
+[ INFO] (20141008 02:02:34,581) - (WS) - BaseDato - se actualiza registro -1
+[ INFO] (20141008 02:02:34,582) - (WS) - BaseDato - se elimina registro -1
+[ INFO] (20141008 02:02:34,582) - (WS) - BaseDato - se realiza la siguiente sentencia: 
+
+[ INFO] (20141008 02:02:34,588) - (WS) - BaseDato - verificando si esta cerrada la coneccion
+[ INFO] (20141008 02:04:38,655) - (WS) - Foliatura - datos 'pepe','caracas','parroquia el valle',35,'12/12/2014'
+[ INFO] (20141008 02:04:38,656) - (WS) - Foliatura - senetecia para crear la tabla create table reporte (nombre character varying(250), ciudad character varying(250), direccion character varying(250), edad integer, fecha nacimiento date )
+[ INFO] (20141008 02:04:38,657) - (WS) - Foliatura - sentencia de datos insert into reporte (nombre,ciudad,direccion,edad,fecha nacimiento) values ('pepe','caracas','parroquia el valle',35,'12/12/2014')
+[ INFO] (20141008 02:04:38,658) - (WS) - BaseDato - verificando si esta cerrada la coneccion
+[ INFO] (20141008 02:08:56,026) - (WS) - Foliatura - datos 'pepe','caracas','parroquia el valle',35,'12/12/2014'
+[ INFO] (20141008 02:08:56,028) - (WS) - Foliatura - senetecia para crear la tabla create table reporte (nombre character varying(250), ciudad character varying(250), direccion character varying(250), edad integer, fecha_nacimiento date )
+[ INFO] (20141008 02:08:56,028) - (WS) - Foliatura - sentencia de datos insert into reporte (nombre,ciudad,direccion,edad,fecha_nacimiento) values ('pepe','caracas','parroquia el valle',35,'12/12/2014')
+[ INFO] (20141008 02:08:56,028) - (WS) - BaseDato - verificando si esta cerrada la coneccion

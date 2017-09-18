@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?link rel="shortcut icon" type="image/x-icon" href="/img/favicon.ico"?>
+<?init class="org.zkoss.zk.ui.util.Composition" arg0="/plantillaConsulta.zul"?>
+
+<zk xmlns="http://www.zkoss.org/2005/zul">
+    <window self="@{define(content)}" border="normal" apply="ve.net.develcom.paginas.Consulta"
+            id="winConsulta">
+        <panel title="Puede o no seleccionar la SubCategoria y el Tipo de Documento o solo la SubCategoria">
+            <panelchildren>
+                <grid sclass="tablaSeniat">
+                    <columns>
+                        <column label="Sub-Categorias"/>
+                        <column label="Tipos de Documentos"/>
+                    </columns>
+                    <rows>
+                        <row>
+                            <listbox id="subcategoria" multiple="true">
+                                <listhead>
+                                    <listheader label=""/>
+                                </listhead>
+                            </listbox>
+                            <listbox id="tipodocumento">
+                                <listhead>
+                                    <listheader label=""/>
+                                </listhead>
+                            </listbox>
+                        </row>
+                    </rows>
+                </grid>
+            </panelchildren>
+        </panel>
+        <panel title="Índices de Búsqueda">
+            <panelchildren>
+                <grid id="panelIndice" >
+                    <columns>
+                        <column label=""/>
+                        <column label=""/>
+                        <column label=""/>
+                        <column label=""/>
+                    </columns>
+                    <rows>                
+                    </rows>
+                </grid>
+            </panelchildren>
+        </panel>
+        <grid>
+            <columns>
+                <column label=""/>
+                <column label=""/>
+                <column label=""/>
+            </columns>
+            <rows>
+                <row>
+                    <cell align="center">
+                        <button id="consulta" label="Consultar" onClick=""/>
+                    </cell>
+                    <cell align="center">
+                        <button id="regresa" label="Regresar" onClick=""/>
+                    </cell>
+                    <cell align="center">
+                        <button id="exit" label="Salir" onClick=""/>
+                    </cell>
+                </row>
+            </rows>
+        </grid>
+    </window>
+</zk>

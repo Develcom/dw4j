@@ -1,0 +1,37 @@
+<?xml version='1.0' encoding='UTF-8'?><!-- Published by JAX-WS RI at http://jax-ws.dev.java.net. RI's version is JAX-WS RI 2.2-hudson-740-. --><xs:schema xmlns:tns="http://foliatura.develcom.com/" xmlns:xs="http://www.w3.org/2001/XMLSchema" version="1.0" targetNamespace="http://foliatura.develcom.com/">
+
+<xs:element name="crearFoliatura" type="tns:crearFoliatura" />
+
+<xs:element name="crearFoliaturaResponse" type="tns:crearFoliaturaResponse" />
+
+<xs:element name="crearReporte" type="tns:crearReporte" />
+
+<xs:element name="crearReporteResponse" type="tns:crearReporteResponse" />
+
+<xs:complexType name="crearFoliatura">
+<xs:sequence>
+<xs:element name="idExpediente" type="xs:string" minOccurs="0" />
+<xs:element name="idLibreria" type="xs:int" />
+<xs:element name="idCategoria" type="xs:int" />
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="crearFoliaturaResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:boolean" />
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="crearReporte">
+<xs:sequence>
+<xs:element name="idCategoria" type="xs:int" />
+<xs:element name="consulta" type="xs:string" minOccurs="0" />
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="crearReporteResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:boolean" />
+</xs:sequence>
+</xs:complexType>
+</xs:schema>

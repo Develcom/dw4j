@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<endpoints version="2.0" xmlns="http://java.sun.com/xml/ns/jax-ws/ri/runtime">
+  <endpoint implementation="com.develcom.foliatura.Foliatura" name="Foliatura" url-pattern="/Foliatura"/>
+  <endpoint implementation="com.develcom.administracion.AdministracionAgregar" name="AdministracionAgregar" url-pattern="/AdministracionAgregar"/>
+  <endpoint implementation="com.develcom.administracion.AdministracionModifica" name="AdministracionModifica" url-pattern="/AdministracionModifica"/>
+  <endpoint implementation="com.develcom.autentica.Autentica" name="Autentica" url-pattern="/Autentica"/>
+  <endpoint implementation="com.develcom.expediente.IndicesExpediente" name="IndicesExpediente" url-pattern="/IndicesExpediente"/>
+  <endpoint implementation="com.develcom.administracion.AdministracionBusquedas" name="AdministracionBusquedas" url-pattern="/AdministracionBusquedas"/>
+  <endpoint implementation="com.develcom.expediente.BusquedaExpediente" name="BusquedaExpediente" url-pattern="/BusquedaExpediente"/>
+  <endpoint implementation="com.develcom.documento.Archivo" name="Archivo" url-pattern="/Archivo"/>
+  <endpoint implementation="com.develcom.documento.Documento" name="Documento" url-pattern="/Documento"/>
+  <endpoint implementation="com.develcom.calidad.CalidadDocumento" name="CalidadDocumento" url-pattern="/CalidadDocumento"/>
+  <endpoint implementation="com.develcom.expediente.Expediente" name="Expediente" url-pattern="/Expediente"/>
+  <endpoint implementation="com.develcom.elimina.EliminaDocumento" name="EliminaDocumento" url-pattern="/EliminaDocumento"/>
+  <endpoint implementation="com.develcom.mantenimiento.Mantenimientos" name="Mantenimientos" url-pattern="/Mantenimientos"/>
+  <endpoint implementation="com.develcom.externo.DatosExternos" name="DatosExternos" url-pattern="/DatosExternos"/>
+  <endpoint implementation="com.develcom.foliatura.Foliatura" name="Foliatura" url-pattern="/Foliatura"/>
+  <endpoint implementation="com.develcom.administracion.AdministracionAgregar" name="AdministracionAgregar" url-pattern="/AdministracionAgregar"/>
+  <endpoint implementation="com.develcom.administracion.AdministracionModifica" name="AdministracionModifica" url-pattern="/AdministracionModifica"/>
+  <endpoint implementation="com.develcom.autentica.Autentica" name="Autentica" url-pattern="/Autentica"/>
+  <endpoint implementation="com.develcom.expediente.IndicesExpediente" name="IndicesExpediente" url-pattern="/IndicesExpediente"/>
+  <endpoint implementation="com.develcom.administracion.AdministracionBusquedas" name="AdministracionBusquedas" url-pattern="/AdministracionBusquedas"/>
+  <endpoint implementation="com.develcom.expediente.BusquedaExpediente" name="BusquedaExpediente" url-pattern="/BusquedaExpediente"/>
+  <endpoint implementation="com.develcom.documento.Archivo" name="Archivo" url-pattern="/Archivo"/>
+  <endpoint implementation="com.develcom.documento.Documento" name="Documento" url-pattern="/Documento"/>
+  <endpoint implementation="com.develcom.calidad.CalidadDocumento" name="CalidadDocumento" url-pattern="/CalidadDocumento"/>
+  <endpoint implementation="com.develcom.expediente.Expediente" name="Expediente" url-pattern="/Expediente"/>
+  <endpoint implementation="com.develcom.externo.DatosExternos" name="DatosExternos" url-pattern="/DatosExternos"/>
+  <endpoint implementation="com.develcom.elimina.EliminaDocumento" name="EliminaDocumento" url-pattern="/EliminaDocumento"/>
+  <endpoint implementation="com.develcom.mantenimiento.Mantenimientos" name="Mantenimientos" url-pattern="/Mantenimientos"/>
+</endpoints>

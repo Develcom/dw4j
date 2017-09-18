@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="612" pageHeight="792" whenNoDataType="AllSectionsNoDetail" columnWidth="572" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="ae3f7d3f-015f-4ba2-a49d-9c11868a8931">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="idExpediente" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="idLib" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="idCat" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select
+     to_char(current_date,'dd/mm/yyyy') as fecha,
+     t.tipo_documento as documento,
+     i.numero_documento as numero,
+     i.version as version,
+     f.pagina as pagina,
+     i.id_expediente as expediente,
+     c.categoria,
+     l.libreria,
+     d.fecha_digitalizacion
+from
+     infodocumento i 
+     inner join datos_infodocumento d on d.id_infodocumento=i.id_infodocumento
+     inner join foliatura f on i.id_infodocumento = f.id_infodocumento
+     inner join tipodocumento t on f.id_documento = t.id_documento
+     inner join categoria c on t.id_categoria = c.id_categoria
+     inner join libreria l on c.id_libreria = l.id_libreria
+where
+     f.id_expediente = $P{idExpediente}
+ and l.id_libreria = $P{idLib}
+ and c.id_categoria = $P{idCat}
+order by
+     f.pagina asc]]>
+	</queryString>
+	<field name="fecha" class="java.lang.String"/>
+	<field name="documento" class="java.lang.String"/>
+	<field name="numero" class="java.lang.Integer"/>
+	<field name="version" class="java.lang.Integer"/>
+	<field name="pagina" class="java.lang.Integer"/>
+	<field name="expediente" class="java.lang.String"/>
+	<field name="categoria" class="java.lang.String"/>
+	<field name="libreria" class="java.lang.String"/>
+	<field name="fecha_digitalizacion" class="java.sql.Date"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="28" splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="87" splitType="Stretch">
+			<staticText>
+				<reportElement x="146" y="24" width="262" height="62" uuid="27e46aa4-bcdb-4934-902b-a3253759dac4"/>
+				<textElement textAlignment="Center">
+					<font size="26" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Indice de Foliatura]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="472" y="0" width="100" height="20" uuid="a9d67432-87ed-4fc2-b961-e0b3038ab744"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{fecha}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="64" y="0" width="203" height="20" uuid="7f6ddcfd-f552-4f57-9371-c7185a2da66c"/>
+				<textFieldExpression><![CDATA[$F{expediente}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="0" width="64" height="20" uuid="0029938c-1da4-417c-aaf3-90f17c428b0c"/>
+				<text><![CDATA[Expediente]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="28" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="267" height="20" uuid="888316b8-ca16-4f4c-9403-93d0f8cb9091"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Documento]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="402" y="0" width="100" height="20" uuid="b40da421-0fb2-4ad4-8b4a-d7a57317a4d4"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Fecha Digitalización]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="519" y="0" width="53" height="20" uuid="73869596-6296-4d26-8dcd-729ef8ee486f"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Pagina]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="283" y="0" width="45" height="20" uuid="d7bf83e0-8c03-43ab-a714-56a06b539873"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Numero]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="340" y="0" width="55" height="20" uuid="b31b81a4-8aeb-447e-9486-4557a0b06835"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Versión]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="267" height="20" uuid="b3f93e35-3e23-45f6-9c68-c72653772a58"/>
+				<textFieldExpression><![CDATA[$F{documento}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="402" y="0" width="100" height="20" uuid="2a7791bf-d1e4-457c-a3e2-31878ce61359"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{fecha_digitalizacion}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="515" y="0" width="53" height="20" uuid="06a2b0a4-c91f-4ad7-94e8-bddbc609605a"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{pagina}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="283" y="0" width="45" height="20" uuid="63327935-ad69-4982-912b-71c53c8b2419"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{numero}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="340" y="0" width="55" height="20" uuid="2018519a-a4dc-4760-85da-70a83367add2"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{version}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="28" splitType="Stretch">
+			<textField>
+				<reportElement x="448" y="8" width="80" height="20" uuid="b2adcc8d-59ef-408f-9728-5484ebc4436e"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Pag "+$V{PAGE_NUMBER}+" de"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="528" y="8" width="40" height="20" uuid="45c6b13b-5887-4d75-8c9a-48d4a46776c2"/>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+</jasperReport>
