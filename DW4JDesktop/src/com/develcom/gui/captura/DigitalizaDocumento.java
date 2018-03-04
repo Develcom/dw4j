@@ -1233,9 +1233,17 @@ public class DigitalizaDocumento extends javax.swing.JInternalFrame {
 
     private void crearExpediente() {
 
-        ListaExpediente listaExpediente = new ListaExpediente(listaIndices, this);
-        Principal.desktop.add(listaExpediente);
-        listaExpediente.toFront();
+        if (!listaIndices.isEmpty()) {
+
+            ListaExpediente listaExpediente = new ListaExpediente(listaIndices, this);
+            Principal.desktop.add(listaExpediente);
+            listaExpediente.toFront();
+        } else {
+            CreaExpediente jdlCreaExpediente = new CreaExpediente(this);
+            Principal.desktop.add(jdlCreaExpediente);
+            jdlCreaExpediente.toFront();
+        }
+
     }
 
     private synchronized void buscarExpediente(final String expediente, final String subCategoria) {

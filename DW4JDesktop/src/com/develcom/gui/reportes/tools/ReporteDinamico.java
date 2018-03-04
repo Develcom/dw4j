@@ -197,7 +197,7 @@ public class ReporteDinamico {
             jp = DynamicJasperHelper.generateJasperPrint(dr, new ClassicLayoutManager(), new BaseDato().conectar(), params);
             //jp = DynamicJasperHelper.generateJasperPrint(dr, new ClassicLayoutManager(), createConnection(), params);
         } catch (JRException e) {
-            traza.trace("error al construir el reporte", Level.ERROR, e);
+            traza.trace("error al construir el reporte "+titulo, Level.ERROR, e);
         } catch (SQLException ex) {
             traza.trace("error de coneccion con la base de datos", Level.ERROR, ex);
         } catch (ClassNotFoundException ex) {

@@ -59,7 +59,7 @@ public class Expediente {
         com.develcom.dao.Expedientes expediente = new com.develcom.dao.Expedientes();
         List<ListaIndice> listaIndices = new ArrayList<>();
         List<Indice> indices;
-        List<Indice> indicesExt, indicesExiste, indicesNew;
+        List<Indice> indicesExt = null, indicesExiste, indicesNew;
         ResultSet rsExpediente, rsExterno;
         Statement buscar;
         ListaIndice listaIndice = null;
@@ -313,13 +313,14 @@ public class Expediente {
                 }
 
             }
-//            if (listaIndices.size() == 1) {
-//                expediente.setIndices(indicesExt);
-//            } else {
-//                expediente.setListaIndices(listaIndices);
-//                indices = new AdministracionBusquedas().buscarIndices(idCategoria);
-//                expediente.setIndices(indices);
-//            }
+            
+            if (listaIndices.size() == 1) {
+                expediente.setIndices(indicesExt);
+            } else {
+                expediente.setListaIndices(listaIndices);
+                indices = new AdministracionBusquedas().buscarIndices(idCategoria);
+                expediente.setIndices(indices);
+            }
 
         } catch (SQLException ex) {
             traza.trace("Error en la busqueda del expediente en la base de datos", Level.ERROR, ex);
