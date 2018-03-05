@@ -10,7 +10,6 @@
         </group>
         <group name="Develcom DW4J"/>
         <group name="Develcom DW4J 0.4"/>
-        <group name="DW4J"/>
         <group name="Develcom"/>
         <group name="Develcom Maven">
             <file>file:/H:/NetBeansProjects/Develcom-0.4%20-%20MinFinazas/DW4JLib/src/ve/com/develcom/externo/BuscaDatosExterno.java</file>
@@ -18,5 +17,8 @@
         </group>
         <group name="Develcom Ministerio de Finazas"/>
         <group/>
+        <group name="DW4J">
+            <file>file:/F:/Gestor%20Documental%20Maven/repositorioDW4J/dw4j/DW4JLib/src/ve/com/develcom/expediente/BuscaIndice.java</file>
+        </group>
     </open-files>
 </project-private>

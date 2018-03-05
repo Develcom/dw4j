@@ -1,0 +1,126 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <body>
+        <ui:composition template="./plantilla.xhtml">
+            <ui:define name="contenido">
+                <h:form>                    
+                    <table align="center">
+                        <tr>
+                            <td>
+                                <p:messages globalOnly="true"/>
+                            </td>
+                        </tr>
+                    </table>
+                    <table align="center" width="807" class="TablaCentral">
+                        <tr>
+                            <td>
+                                <table>
+                                    <tr>
+                                        <td align="center">
+                                            <h:graphicImage library="images" name="#{imagen.logo}" />
+                                        </td>
+                                        <td>
+                                            &nbsp;
+                                        </td>
+                                        <td>
+                                            <p:panel header="#{resultado.login}">
+                                                <h:outputText value="Libreria " /><h:outputText value="#{resultado.expediente.libreria}" />
+                                                <br/>
+                                                <h:outputText value="Categoria: " /><h:outputText value="#{resultado.expediente.categoria}" /><br />
+                                            </p:panel>
+                                        </td>
+                                        <td>
+                                            <p:ajaxStatus>  
+                                                <f:facet name="start">
+                                                    <table>
+                                                        <tr>
+                                                            <td>
+                                                                <h:graphicImage name="carga.gif" library="images" />
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>
+                                                                <h:outputText value="Espere por favor...!!!" />
+                                                            </td>
+                                                        </tr>
+                                                    </table> 
+                                                </f:facet>  
+                                                <f:facet name="complete">  
+                                                    <h:outputText value="" />  
+                                                </f:facet>
+                                                <f:facet name="error">
+                                                    <h:outputText value="Error" />
+                                                </f:facet>
+                                            </p:ajaxStatus>
+                                        </td>
+                                    </tr>
+                                </table>                                
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <p:panel header="Resultado de la consulta">
+                                    <table align="center">
+                                        <tr>
+                                            <td align="center" colspan="2">
+                                                <p:dataTable id="tabla" value="#{resultado.datosTablas}" var="data" 
+                                                             paginator="true" rows="10">
+                                                    <p:column>
+                                                        <f:facet name="header">
+                                                            <h:outputText value="#{resultado.clavePrimaria}"/>
+                                                        </f:facet>                                                        
+                                                        <h:commandLink id="idExpe" action="#{resultado.llenarArbol()}" value="#{data.datoPrimario}">
+                                                            <f:setPropertyActionListener value="#{data.datoPrimario}" target="#{resultado.idExpediente}"/>
+                                                        </h:commandLink>
+                                                    </p:column>
+                                                    <p:column>
+                                                        <f:facet name="header">
+                                                            <h:outputText value="#{resultado.claveSec1}"/>
+                                                        </f:facet>
+                                                        <h:outputText value="#{data.datoSec1}"/>
+                                                    </p:column>
+                                                    <p:column>
+                                                        <f:facet name="header">
+                                                            <h:outputText value="#{resultado.claveSec2}"/>
+                                                        </f:facet>
+                                                        <h:outputText value="#{data.datoSec2}"/>
+                                                    </p:column>
+                                                    <p:column>
+                                                        <f:facet name="header">
+                                                            <h:outputText value="#{resultado.claveSec3}"/>
+                                                        </f:facet>
+                                                        <h:outputText value="#{data.datoSec3}"/>
+                                                    </p:column>
+                                                </p:dataTable>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <table align="center">
+                                                <tr>
+                                                    <td>
+                                                        <h:commandButton value="Salir" action="#{resultado.salir()}"/>
+                                                    </td>
+                                                    <td>
+                                                        <h:commandButton action="#{resultado.regresar()}" value="Regresar">
+                                                            <f:setPropertyActionListener target="#{resultado.expediente}"
+                                                                                         value="#{consulta.expediente}"/>
+                                                        </h:commandButton>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </tr>
+                                    </table>
+                                </p:panel>
+                            </td>
+                        </tr>
+                    </table>
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </body>
+</html>
