@@ -206,9 +206,10 @@ public class ConstruyeConsultas {
                         + " WHERE i.ESTATUS_DOCUMENTO = 0"
                         + " AND d.ID_CATEGORIA=" + expediente.getIdCategoria() + ""
                         + " AND c.ID_LIBRERIA=" + expediente.getIdLibreria() + ""
-                        + " GROUP BY d.tipo_documento, i.NUMERO_DOCUMENTO, di.FECHA_DIGITALIZACION, a.id_categoria, a.expediente,"
-                        + " a." + indice1.toLowerCase().replace(" ", "_") + ", a." + indice2.toLowerCase().replace(" ", "_") + ","
-                        + " a." + indice3.toLowerCase().replace(" ", "_") + ", a." + indice4.toLowerCase().replace(" ", "_") + ", di.USUARIO_DIGITALIZO"
+                        + " GROUP BY d.tipo_documento, i.NUMERO_DOCUMENTO, di.FECHA_DIGITALIZACION, a.id_categoria, t.expediente,"
+                        //+ " a." + indice1.toLowerCase().replace(" ", "_") + ", a." + indice2.toLowerCase().replace(" ", "_") + ","
+                        //+ " a." + indice3.toLowerCase().replace(" ", "_") + ", a." + indice4.toLowerCase().replace(" ", "_") + ","
+                        + " t.valor, t.fecha_indice, a.id_indice, di.USUARIO_DIGITALIZO"
                         + " ORDER BY d.tipo_documento, i.NUMERO_DOCUMENTO, di.FECHA_DIGITALIZACION, a.id_indice ASC";
 
                 report = foliatura.generarReporteDinamico(expediente.getIdCategoria(), query);
