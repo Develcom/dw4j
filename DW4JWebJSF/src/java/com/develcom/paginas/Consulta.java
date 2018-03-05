@@ -54,13 +54,13 @@ public class Consulta {
     private Expediente expediente;
     private Traza traza = new Traza(Consulta.class);
     private HtmlPanelGrid panelIndicesDinamico = new HtmlPanelGrid();
-    private List<Indice> lstIndices = new ArrayList<Indice>();
-    private List<Object> subCategoria = new ArrayList<Object>();
-    private List<SelectItem> subCategorias = new ArrayList<SelectItem>();
-    private List<Object> tipoDocumento = new ArrayList<Object>();
-    private List<SelectItem> tiposDocumentos = new ArrayList<SelectItem>();
+    private List<Indice> lstIndices = new ArrayList<>();
+    private List<Object> subCategoria = new ArrayList<>();
+    private List<SelectItem> subCategorias = new ArrayList<>();
+    private List<Object> tipoDocumento = new ArrayList<>();
+    private List<SelectItem> tiposDocumentos = new ArrayList<>();
     private List<SubCategoria> listaSubCategorias;
-    private List<TipoDocumento> listaTipoDocumentos = new ArrayList<TipoDocumento>();
+    private List<TipoDocumento> listaTipoDocumentos = new ArrayList<>();
     private List<ConsultaDinamica> consultaDinamicas;
     private HttpSession session;
     private Herramientas herramientas = new Herramientas();
@@ -92,14 +92,14 @@ public class Consulta {
         GregorianCalendar fechaDesde;
         GregorianCalendar fechaHasta;
         HashMap<String, GregorianCalendar> fechas;
-        List<HashMap<String, GregorianCalendar>> lstFechas = new ArrayList<HashMap<String, GregorianCalendar>>();
+        List<HashMap<String, GregorianCalendar>> lstFechas = new ArrayList<>();
 
         Object[] subCateSel, tipoDocSel;
 
-        List<TipoDocumento> listaTipoDoc = new ArrayList<TipoDocumento>();
-        List<SubCategoria> listaSubCat = new ArrayList<SubCategoria>();
+        List<TipoDocumento> listaTipoDoc = new ArrayList<>();
+        List<SubCategoria> listaSubCat = new ArrayList<>();
         Indice indice;
-        List<Indice> listaIndices = new ArrayList<Indice>();
+        List<Indice> listaIndices = new ArrayList<>();
 
         List<UIComponent> hijos = panelIndicesDinamico.getChildren();
         String resp = "", labelHasta, labelDesde;
@@ -283,7 +283,7 @@ public class Consulta {
 
                 if (comprobarFechas(lstFechas, hijos)) {
 
-                    consultaDinamicas = new BuscaExpedienteDinamico().consultarExpedienteDinamico(listaIndices, convertirSubCategorias(listaSubCat), convertirTipoDocumento(listaTipoDoc), 1, expediente.getIdLibreria());
+                    consultaDinamicas = new BuscaExpedienteDinamico().consultarExpedienteDinamico(listaIndices, null, convertirSubCategorias(listaSubCat), convertirTipoDocumento(listaTipoDoc), 1, expediente.getIdLibreria());
 
                     if (!consultaDinamicas.isEmpty()) {
                         if (consultaDinamicas.get(0).isExiste()) {
