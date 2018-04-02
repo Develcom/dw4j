@@ -9,18 +9,15 @@ import com.develcom.dao.DatosTabla;
 import com.develcom.dao.Expediente;
 import com.develcom.dao.ManejoSesion;
 import com.develcom.dao.OtrosDatos;
-import com.develcom.expediente.ConsultaDinamica;
 import com.develcom.expediente.Indice;
 import com.develcom.expediente.ListaIndice;
 import com.develcom.gui.Principal;
-import com.develcom.gui.consulta.ResultadoExpediente;
 import com.develcom.gui.tools.CentraVentanas;
 import com.develcom.gui.tools.ModeloTabla;
 import com.develcom.tools.trazas.Traza;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
-import javax.swing.JOptionPane;
 import org.apache.log4j.Level;
 
 /**
@@ -28,6 +25,8 @@ import org.apache.log4j.Level;
  * @author familia
  */
 public class ListaExpediente extends javax.swing.JInternalFrame {
+
+    private static final long serialVersionUID = 6047306925999003224L;
 
     private Traza traza = new Traza(ListaExpediente.class);
     private ModeloTabla modeloTabla;

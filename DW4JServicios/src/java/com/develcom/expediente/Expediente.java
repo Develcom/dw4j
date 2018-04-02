@@ -85,34 +85,7 @@ public class Expediente {
             rsExpediente = (ResultSet) stored.getObject(1);
 
             if (rsExpediente.isBeforeFirst()) {
-//                while (rsExpediente.next()) {
-//
-//                    expediente.setExpediente(rsExpediente.getString("EXPEDIENTE").trim());
-//                    expediente.setIdLibreria(rsExpediente.getInt("ID_LIBRERIA"));
-//                    expediente.setIdCategoria(rsExpediente.getInt("ID_CATEGORIA"));
-//                    expediente.setExiste(true);
-//
-//                    traza.trace("libreria del expediente " + rsExpediente.getString("libreria"), Level.INFO);
-//                    traza.trace("categoria del expediente " + rsExpediente.getString("categoria"), Level.INFO);
-//                    indice = new Indice();
-//
-//                    indice.setClave(rsExpediente.getString("clave"));
-//                    indice.setCodigo(rsExpediente.getInt("codigo"));
-//                    indice.setIdCategoria(rsExpediente.getInt("id_categoria"));
-//                    indice.setIdIndice(rsExpediente.getInt("id_indice"));
-//                    indice.setTipo(rsExpediente.getString("tipo"));
-//
-//                    if (rsExpediente.getObject("valor") != null) {
-//                        indice.setValor(rsExpediente.getObject("valor"));
-//                    } else {
-//                        indice.setValor(rsExpediente.getDate("fecha_indice"));
-//                    }
-//
-//                    indice.setIndice(rsExpediente.getString("indice"));
-//                    indices.add(indice);
-//
-//                    traza.trace("indice " + indice.getIndice() + " valor " + indice.getValor(), Level.INFO);
-//                }
+
                 expediente.setExiste(true);
                 indices = new ArrayList<>();
                 while (rsExpediente.next()) {
@@ -155,62 +128,61 @@ public class Expediente {
 
             } else {
 
-                stored = bd.conectar().prepareCall("{ ? = call f_buscar_expediente( ?, ?, ?, ? ) } ");
-                stored.registerOutParameter(1, Types.OTHER);
-                stored.setString(2, idExpediente);
-                stored.setInt(3, 0);
-                stored.setInt(4, 0);
-                stored.setString(5, "0");
-                stored.execute();
-
-                rsExpediente = (ResultSet) stored.getObject(1);
-
-                if (rsExpediente.isBeforeFirst()) {
-                    expediente.setExiste(true);
-                    indicesExiste = new ArrayList<>();
-
-                    while (rsExpediente.next()) {
-                        indice = new Indice();
-
-                        if (idCate != rsExpediente.getInt("id_categoria")) {
-                            if (idCate == 0) {
-
-                            } else {
-                                listaIndice = new ListaIndice();
-                                listaIndice.setIndices(indicesExiste);
-                                listaIndices.add(listaIndice);
-                            }
-                        }
-
-                        indice.setClave(rsExpediente.getString("clave"));
-                        indice.setCodigo(rsExpediente.getInt("codigo"));
-                        indice.setIdCategoria(rsExpediente.getInt("id_categoria"));
-                        indice.setIdIndice(rsExpediente.getInt("id_indice"));
-                        indice.setTipo(rsExpediente.getString("tipo"));
-
-                        if (rsExpediente.getObject("valor") != null) {
-                            indice.setValor(rsExpediente.getObject("valor"));
-                        } else {
-                            indice.setValor(rsExpediente.getDate("fecha_indice"));
-                        }
-                        indice.setIndice(rsExpediente.getString("indice"));
-
-                        idCate = indice.getIdCategoria();
-
-                        indicesExiste.add(indice);
-
-                    }
-                    if (listaIndice == null) {
-                        listaIndice = new ListaIndice();
-                        listaIndice.setIndices(indicesExiste);
-                        listaIndices.add(listaIndice);
-                    }
-                }
-
+//                stored = bd.conectar().prepareCall("{ ? = call f_buscar_expediente( ?, ?, ?, ? ) } ");
+//                stored.registerOutParameter(1, Types.OTHER);
+//                stored.setString(2, idExpediente);
+//                stored.setInt(3, 0);
+//                stored.setInt(4, 0);
+//                stored.setString(5, "0");
+//                stored.execute();
+//
+//                rsExpediente = (ResultSet) stored.getObject(1);
+//
+//                if (rsExpediente.isBeforeFirst()) {
+//                    expediente.setExiste(true);
+//                    indicesExiste = new ArrayList<>();
+//
+//                    while (rsExpediente.next()) {
+//                        indice = new Indice();
+//
+//                        if (idCate != rsExpediente.getInt("id_categoria")) {
+//                            if (idCate == 0) {
+//
+//                            } else {
+//                                listaIndice = new ListaIndice();
+//                                listaIndice.setIndices(indicesExiste);
+//                                listaIndices.add(listaIndice);
+//                            }
+//                        }
+//
+//                        indice.setClave(rsExpediente.getString("clave"));
+//                        indice.setCodigo(rsExpediente.getInt("codigo"));
+//                        indice.setIdCategoria(rsExpediente.getInt("id_categoria"));
+//                        indice.setIdIndice(rsExpediente.getInt("id_indice"));
+//                        indice.setTipo(rsExpediente.getString("tipo"));
+//
+//                        if (rsExpediente.getObject("valor") != null) {
+//                            indice.setValor(rsExpediente.getObject("valor"));
+//                        } else {
+//                            indice.setValor(rsExpediente.getDate("fecha_indice"));
+//                        }
+//                        indice.setIndice(rsExpediente.getString("indice"));
+//
+//                        idCate = indice.getIdCategoria();
+//
+//                        indicesExiste.add(indice);
+//
+//                    }
+//                    if (listaIndice == null) {
+//                        listaIndice = new ListaIndice();
+//                        listaIndice.setIndices(indicesExiste);
+//                        listaIndices.add(listaIndice);
+//                    }
+//                }
                 if (bd.conectar("mfprestaciones03_10_16") != null) {
 
                     Properties prop = Propiedades.cargarPropiedadesWS();
-                    
+
                     buscar = bd.conectar("mfprestaciones03_10_16").createStatement();
 
                     rsExterno = buscar.executeQuery(prop.getProperty("queryExterno") + idExpediente);
@@ -227,18 +199,20 @@ public class Expediente {
 
                                 indice = new Indice();
 
-                                if ("NUMERO DE SOLICITUD U OFICIO".equalsIgnoreCase(ind.getIndice())) {
+                                if (ind.getIndice().toUpperCase().contains("NUMERO DE SOLICITUD U OFICIO")) {
                                     ind.setValor(rsExterno.getObject("c_numero_oficio"));
-                                } else if ("CEDULA DE IDENTIDAD DE EMPLEADO".equalsIgnoreCase(ind.getIndice())) {
+                                } else if (ind.getIndice().toUpperCase().contains("CEDULA DE IDENTIDAD")) {
                                     ind.setValor(rsExterno.getObject("c_cedula_persona"));
-                                } else if ("APELLIDOS Y NOMBRES DE EMPLEADO".equalsIgnoreCase(ind.getIndice())) {
+                                } else if (ind.getIndice().toUpperCase().contains("APELLIDOS Y NOMBRES")) {
                                     ind.setValor(rsExterno.getObject("c_nombre_completo"));
-                                } else if ("ANO DE SOLICITUD".equalsIgnoreCase(ind.getIndice())) {
+                                } else if (ind.getIndice().toUpperCase().contains("ANO DE SOLICITUD")) {
                                     String anio = sdf.format(rsExterno.getDate("c_fecha_recepcion"));
                                     anio = anio.substring(6);
                                     ind.setValor(anio);
-                                } else if ("ORGANISMO PRINCIPAL".equalsIgnoreCase(ind.getIndice())) {
+                                } else if (ind.getIndice().toUpperCase().contains("ORGANISMO PRINCIPAL")) {
                                     ind.setValor(rsExterno.getObject("c_descripcion_organismo"));
+                                } else {
+                                    ind.setValor("");
                                 }
 
                                 indice.setClave(ind.getClave());
@@ -266,18 +240,18 @@ public class Expediente {
                             for (ListaIndice listInd : listaIndices) {
                                 for (Indice indi : listInd.getIndices()) {
 
-                                    if (!indi.getValor().equals(rsExterno.getObject("c_numero_oficio"))) {
+                                    if (!indi.getValor().equals(String.valueOf(rsExterno.getObject("c_numero_oficio")))) {
 
                                         for (Indice ind : indicesNew) {
 
                                             indice = new Indice();
 
-                                            if (ind.getValor() != null) {
+                                            if ((ind.getValor() == null) || ("".equals(ind.getValor()))) {
                                                 if ("NUMERO DE SOLICITUD U OFICIO".equalsIgnoreCase(ind.getIndice())) {
                                                     ind.setValor(rsExterno.getObject("c_numero_oficio"));
-                                                } else if ("CEDULA DE IDENTIDAD DE EMPLEADO".equalsIgnoreCase(ind.getIndice())) {
+                                                } else if ("CEDULA DE IDENTIDAD DEL EMPLEADO".equalsIgnoreCase(ind.getIndice())) {
                                                     ind.setValor(rsExterno.getObject("c_cedula_persona"));
-                                                } else if ("APELLIDOS Y NOMBRES DE EMPLEADO".equalsIgnoreCase(ind.getIndice())) {
+                                                } else if ("APELLIDOS Y NOMBRES DE EMPLEADO".equalsIgnoreCase(ind.getIndice().trim())) {
                                                     ind.setValor(rsExterno.getObject("c_nombre_completo"));
                                                 } else if ("ANO DE SOLICITUD".equalsIgnoreCase(ind.getIndice())) {
                                                     String anio = sdf.format(rsExterno.getDate("c_fecha_recepcion"));
@@ -313,7 +287,7 @@ public class Expediente {
                 }
 
             }
-            
+
             if (listaIndices.size() == 1) {
                 expediente.setIndices(indicesExt);
             } else {
