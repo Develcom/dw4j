@@ -878,8 +878,9 @@ public class ResultadoExpediente extends javax.swing.JInternalFrame {
         int row = jtResultadoConsulta.getSelectedRow();
         int column = jtResultadoConsulta.getSelectedColumn();
         List<SubCategoria> listaSubCat = expe.getSubCategorias();
-        
-        traza.trace("expediente sesion "+expe.getIdExpediente(), Level.INFO);
+        List<Indice> indicesMostrar = null;
+
+        traza.trace("expediente sesion " + expe.getIdExpediente(), Level.INFO);
 
         if (evt != null) {
             if (generico) {
@@ -960,9 +961,30 @@ public class ResultadoExpediente extends javax.swing.JInternalFrame {
             }
         }
 
+        ban = true;
+
+        for (Categoria cate : expe.getCategorias()) {
+            if (cate.getCategoria().equals(categoria)) {
+                for (ConsultaDinamica cd : consultaDinamicas) {
+                    indicesMostrar = cd.getIndices();
+                    for (Indice ind : indicesMostrar) {
+                        if (ind.getIdCategoria() == cate.getIdCategoria()) {
+                            ban = false;
+                            break;
+                        }
+                    }
+                    if (!ban) {
+                        break;
+                    }
+                }
+                break;
+            }
+        }
+
         panelIndices.removeAll();
+        panelIndices.updateUI();
         panelIndices.setLayout(new FlowLayout());
-        panelIndices.add(new CreaObjetosDinamicos().mostrarIndices(listaIndice));
+        panelIndices.add(new CreaObjetosDinamicos().mostrarIndices(indicesMostrar));
         panelIndices.updateUI();
 
         mostrarArbol(idExpediente, idSubCatBuscadas, categoria);

@@ -455,7 +455,7 @@ public class BusquedaExpediente {
         CallableStatement stored;
         ResultSet rsExpeGene;
         List<ConsultaDinamica> consultaDinamicas = new ArrayList<>();
-        ConsultaDinamica consultaDinamica = new ConsultaDinamica();
+        ConsultaDinamica consultaDinamica;
         List<Indice> indices = new ArrayList<>();
         Indice indice;
         String WHERE, tmp = "";
@@ -471,8 +471,11 @@ public class BusquedaExpediente {
                         new ArrayList<SubCategoria>(), new ArrayList<TipoDocumento>(), true);
                 traza.trace("filtros consulta dinamica " + WHERE, Level.INFO);
 
-                WHERE = WHERE + "  and l.id_libreria=" + idLibreria + " and c.id_categoria in (" + idCategorias
-                        + ")\n ORDER BY e.expediente, i.id_indice";
+//                WHERE = WHERE + "  and l.id_libreria=" + idLibreria + " and c.id_categoria in (" + idCategorias
+//                        + ")\n ORDER BY e.expediente, i.id_indice";
+                WHERE = WHERE + " AND d.ESTATUS_DOCUMENTO=1"
+                        + " AND c.id_categoria=" + utilidad.getIdCategoria()
+                        + " AND l.id_libreria=" + idLibreria + "\n ORDER BY e.expediente, i.id_indice";
 
                 traza.trace("filtro antes de llamar al procedimiento \"f_buscar_expediente_generico\" " + WHERE, Level.INFO);
 
@@ -494,6 +497,8 @@ public class BusquedaExpediente {
                         expedientes.add(rsExpeGene.getString("expediente"));
                     }
                 }
+
+                tmp = "";
 
                 if (!expedientes.isEmpty()) {
                     rsExpeGene.close();
@@ -532,6 +537,24 @@ public class BusquedaExpediente {
                                 indice.setValor(sdf.format(rsExpeGene.getDate("fecha_indice")));
                             }
 
+                            if (clave.equalsIgnoreCase("y")) {
+
+                                if (!tmp.equalsIgnoreCase(rsExpeGene.getObject("valor").toString())) {
+
+                                    if (rsExpeGene.getObject("valor") != null) {
+                                        tmp = rsExpeGene.getObject("valor").toString();
+                                    } else {
+                                        tmp = sdf.format(rsExpeGene.getDate("fecha_indice"));
+                                    }
+                                } else {
+                                    consultaDinamica = new ConsultaDinamica();
+                                    consultaDinamica.setExiste(true);
+                                    consultaDinamica.setIndices(indices);
+                                    consultaDinamicas.add(consultaDinamica);
+                                    indices = new ArrayList<>();
+                                }
+                            }
+
                             indices.add(indice);
                         }
                         rsExpeGene.close();
@@ -539,6 +562,7 @@ public class BusquedaExpediente {
                         traza.trace("tamaño total lista de indices " + indices.size() + " del expediente " + expe, Level.INFO);
 
                         if (!indices.isEmpty()) {
+                            consultaDinamica = new ConsultaDinamica();
                             consultaDinamica.setExiste(true);
                             consultaDinamica.setIndices(indices);
                             consultaDinamicas.add(consultaDinamica);

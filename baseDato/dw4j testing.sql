@@ -268,6 +268,7 @@ CREATE FUNCTION f_buscar_expediente_generico(p_filtro character varying, p_idexp
 	query:='select distinct e.expediente, e.valor, e.fecha_indice, i.* 
 		from libreria l inner join categoria c on l.id_libreria=c.id_libreria
 		inner join expedientes e on (e.id_libreria=l.id_libreria and e.id_categoria=c.id_categoria)
+		inner join infodocumento d on e.expediente=d.id_expediente 
 		inner join indices i on i.id_indice=e.id_indice '
 		 ||p_filtro;
                  
