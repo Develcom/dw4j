@@ -211,9 +211,10 @@ public class Expediente {
                                     ind.setValor(anio);
                                 } else if (ind.getIndice().toUpperCase().contains("ORGANISMO PRINCIPAL")) {
                                     ind.setValor(rsExterno.getObject("c_descripcion_organismo"));
-                                } else {
-                                    ind.setValor("");
-                                }
+                                } 
+//                                else {
+//                                    ind.setValor("");
+//                                }
 
                                 indice.setClave(ind.getClave());
                                 indice.setCodigo(ind.getCodigo());

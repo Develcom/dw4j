@@ -33,7 +33,12 @@
             <file>file:/media/Seagate%20Backup%20Plus%20Drive/NetBeansProjects/Develcom-0.4%20-%20MinFinazas/DW4JDesktop/src/com/develcom/gui/captura/GuardarDoc.java</file>
         </group>
         <group name="Develcom Fondo Prestaciones"/>
-        <group/>
         <group name="DW4J Maven"/>
+        <group>
+            <file>file:/C:/repositorioDW4J/dw4j/DW4JDesktop/src/com/develcom/gui/tools/CreaObjetosDinamicos.java</file>
+            <file>file:/C:/repositorioDW4J/dw4j/DW4JDesktop/src/com/develcom/gui/captura/DigitalizaDocumento.java</file>
+            <file>file:/C:/repositorioDW4J/dw4j/DW4JDesktop/src/com/develcom/gui/captura/ListaExpediente.java</file>
+            <file>file:/C:/repositorioDW4J/dw4j/DW4JDesktop/lib/lib.properties</file>
+        </group>
     </open-files>
 </project-private>
