@@ -7,6 +7,7 @@ package com.develcom.expediente;
 
 import com.develcom.dao.Categoria;
 import com.develcom.dao.ConsultaDinamica;
+import com.develcom.dao.Expedientes;
 import com.develcom.dao.Indice;
 import com.develcom.dao.InfoDocumento;
 import com.develcom.dao.SubCategoria;
@@ -22,7 +23,6 @@ import java.sql.Types;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Logger;
 import javax.jws.WebService;
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
@@ -460,7 +460,7 @@ public class BusquedaExpediente {
         Indice indice;
         String WHERE, tmp = "";
         int registro = 1;
-        List<String> expedientes = new ArrayList<>();
+        List<Expedientes> expedientes = new ArrayList<>();
 
         try {
 
@@ -474,16 +474,17 @@ public class BusquedaExpediente {
 //                WHERE = WHERE + "  and l.id_libreria=" + idLibreria + " and c.id_categoria in (" + idCategorias
 //                        + ")\n ORDER BY e.expediente, i.id_indice";
                 WHERE = WHERE + " AND d.ESTATUS_DOCUMENTO=1"
-                        + " AND c.id_categoria=" + utilidad.getIdCategoria()
+                        //                        + " AND c.id_categoria=" + utilidad.getIdCategoria()
                         + " AND l.id_libreria=" + idLibreria + "\n ORDER BY e.expediente, i.id_indice";
 
                 traza.trace("filtro antes de llamar al procedimiento \"f_buscar_expediente_generico\" " + WHERE, Level.INFO);
 
-                stored = bd.conectar().prepareCall("{ ? = call f_buscar_expediente_generico( ?, ?, ? ) }");
+                stored = bd.conectar().prepareCall("{ ? = call f_buscar_expediente_generico( ?, ?, ?, ? ) }");
                 stored.registerOutParameter(1, Types.OTHER);
                 stored.setString(2, WHERE);
                 stored.setString(3, null);
                 stored.setString(4, "1");
+                stored.setInt(5, 0);
                 SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 
                 stored.execute();
@@ -492,9 +493,12 @@ public class BusquedaExpediente {
 
                 while (rsExpeGene.next()) {
                     if (!tmp.equalsIgnoreCase(rsExpeGene.getString("expediente"))) {
+                        Expedientes expe = new Expedientes();
                         tmp = rsExpeGene.getString("expediente");
                         traza.trace("expediente " + tmp, Level.INFO);
-                        expedientes.add(rsExpeGene.getString("expediente"));
+                        expe.setExpediente(rsExpeGene.getString("expediente"));
+                        expe.setIdCategoria(rsExpeGene.getInt("id_categoria"));
+                        expedientes.add(expe);
                     }
                 }
 
@@ -505,13 +509,14 @@ public class BusquedaExpediente {
 
                     traza.trace("tamaño lista de resultado de la consulta para obtener los expedientes " + expedientes.size(), Level.INFO);
 
-                    for (String expe : expedientes) {
+                    for (Expedientes expe : expedientes) {
 
-                        stored = bd.conectar().prepareCall("{ ? = call f_buscar_expediente_generico( ?, ?, ? ) }");
+                        stored = bd.conectar().prepareCall("{ ? = call f_buscar_expediente_generico( ?, ?, ?, ? ) }");
                         stored.registerOutParameter(1, Types.OTHER);
                         stored.setString(2, null);
-                        stored.setString(3, expe);
+                        stored.setString(3, expe.getExpediente());
                         stored.setString(4, " ");
+                        stored.setInt(5, expe.getIdCategoria());
 
                         stored.execute();
 
@@ -566,6 +571,7 @@ public class BusquedaExpediente {
                             consultaDinamica.setExiste(true);
                             consultaDinamica.setIndices(indices);
                             consultaDinamicas.add(consultaDinamica);
+                            indices = new ArrayList<>();
                         }
                     }
 

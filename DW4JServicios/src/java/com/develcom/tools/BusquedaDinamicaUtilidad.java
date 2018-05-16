@@ -312,7 +312,7 @@ public class BusquedaDinamicaUtilidad {
 
     private String filtrosExpediente(List<Indice> listaIndice) {
 
-        String data = "WHERE ";
+        String data = "WHERE (";
         String dataDesde = "", dataHasta = "";
         int bandera = 0, banderaFechDesde = 0, banderaFechHasta = 0;
 
@@ -405,12 +405,13 @@ public class BusquedaDinamicaUtilidad {
 
             traza.trace("filtros fechas despues " + data, Level.INFO);
         }
+        data = data.trim() + ") ";
         return data;
     }
 
     private String filtrosExpedienteGenerico(List<Indice> listaIndice) {
 
-        String data = "WHERE ";
+        String data = "WHERE (";
         String dataDesde = "", dataHasta = "";
         int bandera = 0, banderaFechDesde = 0, banderaFechHasta = 0;
 
@@ -503,6 +504,7 @@ public class BusquedaDinamicaUtilidad {
 
             traza.trace("filtros fechas despues " + data, Level.INFO);
         }
+        data = data.trim() + ") ";
         return data;
     }
 

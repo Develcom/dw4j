@@ -879,6 +879,7 @@ public class ResultadoExpediente extends javax.swing.JInternalFrame {
         int column = jtResultadoConsulta.getSelectedColumn();
         List<SubCategoria> listaSubCat = expe.getSubCategorias();
         List<Indice> indicesMostrar = null;
+        List<Integer> idCategoriasGenerico = new ArrayList<>();
 
         traza.trace("expediente sesion " + expe.getIdExpediente(), Level.INFO);
 
@@ -886,6 +887,14 @@ public class ResultadoExpediente extends javax.swing.JInternalFrame {
             if (generico) {
                 categoria = ((String) jtResultadoConsulta.getValueAt(jtResultadoConsulta.getSelectedRow(), 0));
                 idExpediente = ((String) jtResultadoConsulta.getValueAt(jtResultadoConsulta.getSelectedRow(), 1));
+                
+                for (Categoria cat : expe.getCategorias()) {
+                    if(categoria.equalsIgnoreCase(cat.getCategoria())){
+                        idCategoriasGenerico.add(cat.getIdCategoria());
+                        break;
+                    }
+                }
+                
             } else {
                 idExpediente = ((String) jtResultadoConsulta.getValueAt(jtResultadoConsulta.getSelectedRow(), 0));
                 //String id_exp = ((String) jtResultadoConsulta.getValueAt(jtResultadoConsulta.getSelectedRow(), jtResultadoConsulta.getSelectedColumn()));
@@ -925,7 +934,7 @@ public class ResultadoExpediente extends javax.swing.JInternalFrame {
                                 traza.trace("idExpediente seleccionado " + idExpediente, Level.INFO);
 
                                 if (generico) {
-                                    List<com.develcom.expediente.SubCategoria> listSubCat = new BuscaExpedienteDinamico().encontrarSubCategorias(expe.getIdCategorias());
+                                    List<com.develcom.expediente.SubCategoria> listSubCat = new BuscaExpedienteDinamico().encontrarSubCategorias(idCategoriasGenerico);
                                     for (com.develcom.expediente.SubCategoria sc : listSubCat) {
 
                                         idSubCatBuscadas.add(String.valueOf(sc.getIdSubCategoria()));

@@ -253,9 +253,10 @@ CREATE FUNCTION f_buscar_expediente_dinamico(p_filtro character varying, p_idexp
   end;$$;
 
 
-CREATE FUNCTION f_buscar_expediente_generico(p_filtro character varying, p_idexpediente character varying, p_flag character) RETURNS refcursor
+CREATE FUNCTION public.f_buscar_expediente_generico(p_filtro character varying, p_idexpediente character varying, p_flag character, p_idcategoria integer) RETURNS refcursor
     LANGUAGE plpgsql
     AS $$
+
   DECLARE
     cursor_expe refcursor;
     query character varying;
@@ -265,10 +266,12 @@ CREATE FUNCTION f_buscar_expediente_generico(p_filtro character varying, p_idexp
    
   if p_flag = '1' then
 
-	query:='select distinct e.expediente, e.valor, e.fecha_indice, i.* 
+	query:='select distinct e.expediente, e.valor, e.fecha_indice, i.*, c.id_categoria  
 		from libreria l inner join categoria c on l.id_libreria=c.id_libreria
+		inner join subcategoria s on s.id_categoria=c.id_categoria
+		inner join tipodocumento t on t.id_subcategoria=s.id_subcategoria
 		inner join expedientes e on (e.id_libreria=l.id_libreria and e.id_categoria=c.id_categoria)
-		inner join infodocumento d on e.expediente=d.id_expediente 
+		inner join infodocumento d on (e.expediente=d.id_expediente and t.id_documento=d.id_documento)
 		inner join indices i on i.id_indice=e.id_indice '
 		 ||p_filtro;
                  
@@ -280,7 +283,7 @@ CREATE FUNCTION f_buscar_expediente_generico(p_filtro character varying, p_idexp
            select distinct i.indice, e.valor, e.fecha_indice, i.id_indice, i.id_categoria, i.tipo, i.codigo, i.clave
 		    from expedientes e 
 		    inner join indices i on e.id_indice=i.id_indice 
-		    where e.expediente=p_idexpediente
+		    where e.expediente=p_idexpediente and i.id_categoria=p_idcategoria
 		    order by i.id_indice;
 		    
         return cursor_expe;
@@ -823,9 +826,10 @@ CREATE FUNCTION f_buscar_libreriascategorias() RETURNS refcursor
   end;$$;
 
 
-CREATE FUNCTION f_buscar_no_fabrica(p_fechadesde date, p_fechahasta date, p_estatusdocumento integer, p_idcategoria integer, p_expedeinte character varying) RETURNS refcursor
+CREATE FUNCTION public.f_buscar_no_fabrica(p_fechadesde date, p_fechahasta date, p_estatusdocumento integer, p_idcategoria integer, p_expedeinte character varying) RETURNS refcursor
     LANGUAGE plpgsql
     AS $$
+
 
   DECLARE
     cursor_user refcursor;
@@ -844,7 +848,7 @@ CREATE FUNCTION f_buscar_no_fabrica(p_fechadesde date, p_fechahasta date, p_esta
            and CAST (p_fechahasta AS DATE)
            and d.estatus_documento=p_estatusdocumento
            and i.id_categoria=p_idcategoria
-           order by i.id_indice;
+           order by e.expediente, i.id_indice;
 
     elsif p_fechadesde is not null then
 
@@ -857,7 +861,7 @@ CREATE FUNCTION f_buscar_no_fabrica(p_fechadesde date, p_fechahasta date, p_esta
          where di.fecha_digitalizacion >= CAST (p_fechadesde AS DATE)
            and d.estatus_documento=p_estatusdocumento
            and i.id_categoria=p_idcategoria
-           order by i.id_indice;
+           order by e.expediente, i.id_indice;
 
     elsif p_fechahasta is not null then
 
@@ -870,7 +874,7 @@ CREATE FUNCTION f_buscar_no_fabrica(p_fechadesde date, p_fechahasta date, p_esta
          where di.fecha_digitalizacion <= CAST (p_fechahasta AS DATE)
            and d.estatus_documento=p_estatusdocumento
            and i.id_categoria=p_idcategoria
-           order by i.id_indice;
+           order by e.expediente, i.id_indice;
 
     elsif p_expedeinte is not null then
 
@@ -883,7 +887,7 @@ CREATE FUNCTION f_buscar_no_fabrica(p_fechadesde date, p_fechahasta date, p_esta
              where d.id_expediente = p_expedeinte
                and d.estatus_documento=p_estatusdocumento
                and i.id_categoria=p_idcategoria
-               order by i.id_indice;
+               order by e.expediente, i.id_indice;
     else
 
       open cursor_user for
@@ -894,7 +898,7 @@ CREATE FUNCTION f_buscar_no_fabrica(p_fechadesde date, p_fechahasta date, p_esta
            inner join datos_infodocumento di on di.id_infodocumento=d.id_infodocumento
          where d.estatus_documento=p_estatusdocumento
            and i.id_categoria=p_idcategoria
-           order by i.id_indice;
+           order by e.expediente, i.id_indice;
     end if;
 
     return cursor_user;
